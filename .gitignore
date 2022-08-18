@@ -58,4 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Utility for repo size analysis
 git-sizer.exe
+
+# Large files 
+demo scene.unity
