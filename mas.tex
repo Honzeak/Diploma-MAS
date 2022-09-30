@@ -5,8 +5,8 @@
 
 \section{Multi-agent systems} \label{mas}
 
-Multi-agent systems is a broad paradigm and/or research topic. It is a subfield of Distributed
-problem solving. A multi-agent systems can be, in a short way, described as a group
+Multi-agent systems (MAS) is a broad paradigm and/or research topic. It is a subfield of Distributed
+problem solving. A multi-agent system can be, in a short way, described as a group
 of autonomous agents that act towards their objectives in an environment to achieve a common goal
 \cite{ParasumannaGokulan2010}. The agents can be defined as independent units in
 an environment, forming a system. They are able to act independently, possess
@@ -16,7 +16,7 @@ either by cooperating or competing.  The agents usually have a perception
 through which they can gain knowledge from their environment.
 
 The basic definition of MAS suggests that they should be used to model/represent
-a system that is not-centralized and rather distributed, where autonomous, intelligent units perform
+a system that is not centralized but rather distributed, where autonomous, intelligent units perform
 actions independently. Multi-agent systems have gained popularity in the recent years, as they
 offer high flexibility of modelling highly non-linear systems and offering abstraction levels that
 make it more natural to deal with scale and complexity in these systems
@@ -29,14 +29,14 @@ resemble this MAS definition, for example sport teams, where each player has his
 a defender and attacker. Although all players have the same intention (i.e. win the game), their
 specific action differ depending on the state of their environment, each of them acting upon their
 own beliefs, which makes the team resemble a distributed system. From more practical perspective,
-MAS paradigm can be used when building air traffic management, for example.
+MAS paradigm can be used when building complex computer networks, for example.
 
 \subsection{Agent}
 
-Agents are the fundamental building blocks of a multi-agent system. While they
-can have many features and characteristics specific for their use case and are not
-possible to generalize, there are several elementary characteristics
-\cite{ParasumannaGokulan2010} that define them in scope of MAS.
+Agents are the fundamental building blocks of a multi-agent system. While they can have many
+features and characteristics specific for their use case and are not possible to generalize,
+there are several elementary characteristics that define them in scope of MAS
+\cite{ParasumannaGokulan2010}.
 
 \term{Situatedness}
 Agents are designed so that they interact with the environment through sensors,
@@ -57,14 +57,12 @@ Agent is able to respond to a perceived condition of environment in a timely fas
 Agent must be able to interact with external sources when the need arises, e.g. cooperating
 and sharing knowledge.
 
-
-
 \subsection{Agent type and architecture}
 
 As has been already stated, in order to model complex applications, the agent characteristics as
 well as their internal control architecture will differ between use cases. In an effort to standardize
 MAS development, several architectures that describe how agents work have been proposed. Generally,
-there are three classses of agent modelling architectures that are defined based on interaction
+there are three classes of agent modelling architectures that are defined based on interaction
 complexity with external sources:
 
 \begin{itemize}
@@ -141,8 +139,8 @@ which drives the agent's (deliberative) behaviour.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width = .6\textwidth]{bdi-infographic.png}
-    \caption{BDI architecture schematic}
+    \includegraphics[width = .8\textwidth]{bdi-infographic.png}
+    \caption{The BDI architecture schematic}
     \label{bdi-schematic}
 \end{figure}
 
@@ -169,10 +167,10 @@ library for every possible scenario that can happen in environment with vast amo
 is simply not feasible and even impossible, due to uncertainties of following effects when agents 
 affect the environment. 
 
-The underlying concept of hybrid architectures is structuring agent functionalities into layers 
+The underlying concept of hybrid architectures is to structure agent functionalities into layers 
 that interact with each other, which provides several advantages, namely \emph{modularization},
 which decomposes the agent's functionalities into distinct modules that have determined 
-interfaces, which facilitates design complexity. Furthermore, having distinct layers enables 
+interfaces, which facilitates dealing with design complexity. Furthermore, having distinct layers enables 
 them to run in parallel, thus increasing an agent's computational ability and also reactivity
 \cite{Mueller1999}.
 
@@ -192,7 +190,7 @@ abstract model can be seen on the figure (\ref{3-arch}) below.
 \end{figure}
 
 \textbf{\textsubscript{3}T architecture}\newline
-This architecture builds upon a predecessor architecture called RAPs (Reactive Action Packages)
+This architecture builds upon a predecessor architecture called Reactive Action Packages (RAPs)
 \cite{Firby1987}. A RAP is essentially a process or a description of how to complete a task using
 discrete steps. Note that it has got no planning abilities, i.e. it's action is only based on
 current perceived environment state and not on an anticipated state. When a RAP is executed, it
@@ -217,26 +215,41 @@ The different architecture types that were presented can each have a different a
 they excel. It is also important to note that a line between reactive and deliberative agents 
 is not necessarily strict, hence the existence of hybrid architecture types. 
 
-In my opinion, choosing the optimal agent architecture will depend on the scope of agent goals, 
+Choosing the optimal agent architecture will depend on the scope of agent goals, 
 environment and action space definition. With respect to the topic of this thesis, which is to 
-implement ITS systems, such as cooperative vehicles or traffic lights and such, it is quite clear 
-that fast response time and predictable behaviour in a dynamic environment would be suited more 
-for \emph{reactive}, possibly \emph{hybrid} architectures, as deliberative agents tend to perform 
-worse in highly dynamic environments where frequent re-planning is required.
+create a framework for implementing various ITS, there isn't a clear-cut choice regarding 
+architecture selection. Although the vast majority of ITS share the same goals (see section \ref{its}), 
+the operating environment, underlying concepts and also used technology vary substantially.
 
-It safe to say that an agent-based ITS system will require some form of agent interaction and 
-thus communication between individual agents, because it is more than likely that all agents 
-won't be competing with each other, but rather trying to cooperate to achieve a common goal. 
+To put things into a perspective, let's consider ITS introduced in section \ref{its}. 
+Systems such as autonomous driving algorithms require high resilience, determinism, 
+and high performance, all in extremely dynamic conditions. This would suggest to use a
+\emph{reactive} architecture. On the other hand, there are systems such as traffic network management, 
+where highly complex problems with lots of variables are considered. Such non-linear behaviour 
+requires complex logic and frequent re-planning, therefore more suited for \emph{deliberative}
+architectures. Furthermore, when considering the aforementioned cooperative ITS, where the emphasis 
+on information sharing and environment awareness is given, it becomes clear that \emph{hybrid} 
+architectures which offer both planning and reactive behaviour would be the optimal choice.
+
+As such, when creating the framework for ITS implementation later in this thesis, the
+\textsubscript{3}T architecture with RAP utilization will be used.  
 
 \subsection{Interaction between agents}
 
-Interacting agents are able to interact with other agents within the
-environment. This concept extends an agent with an interface dedicated to communication, 
-which makes them able to directly communicate and thus cooperate in a decentralized fashion. 
-The concept of cooperation between agents is important in the ITS modelling context, as 
-these systems facilitate sharing information in-between drivers and also from the road traffic 
-environment to drivers. Therefore, interaction is a strong component when considering modelling 
-ITS and road traffic in general. However, this interface also adds to the system's complexity.
+It safe to say that an agent-based ITS system will require some form of agent interaction and
+thus communication between individual agents. Interacting agents are able to interact with
+other agents within the environment. This concept extends an agent with an interface dedicated
+to communication, which makes them able to directly communicate and thus cooperate in a
+decentralized fashion.  The concept of cooperation between agents is important in the ITS
+modelling context, as these systems facilitate sharing information in-between drivers and also
+from the road traffic environment to drivers. Therefore, interaction is a strong component when
+considering modelling ITS and road traffic in general. However, this interface also adds to the
+system's complexity.
+
+It is expected that most agents would achieve their common goal through cooperation, where some
+form of forced altruism is given to the agents. With that being said there could also be
+situations where conflicts of interest between agents occur with no clear positive outcome,
+i.e. zero-sum games.
 
 One should adhere to some communication principles to facilitate cooperation between agents. As
 such, agents should communicate according to Gricean maxims (see the table below)
@@ -246,15 +259,18 @@ is more stable.
 
 \begin{table}[htbp]
     \renewcommand{\arraystretch}{1.7}
+    \setlength{\tabcolsep}{1em}
     \caption{Gricean maxims}
-    \centering\begin{tabular}{l|l}
+    \centering\begin{tabular}{>{\itshape}rl}
+       \toprule
        Quantity & Say not more nor less than it is required \\ 
-       \hline
+       \midrule
        Relevance &  Stay relevant to the topic of discussion \\
-       \hline
+       \midrule
        Manner & Avoid obscurity and ambiguity \\ 
-       \hline
-       Quality & Do not give false or unsupported information 
+       \midrule
+       Quality & Do not give false or unsupported information \\
+       \bottomrule
     \end{tabular}
     \label{maxims}
 \end{table}
@@ -265,7 +281,7 @@ when designing cooperative intersections system, the reward function for the ind
 (i.e. agents) should take into account not only the throughput on their own intersection but also 
 throughput of the whole system. However, that doesn't eliminate the need to negotiate. Consider a 
 situation where there are multiple traffic light intersections, each deciding on which phases to 
-enable, based on the incoming traffic intensity. An optimal option that minimizes cost (e.g. 
+enable based on the incoming traffic intensity. An optimal option that minimizes cost (e.g. 
 travel time) for one agent could have a significant negative effect on other intersections. 
 Therefore it is important to achieve an equilibrium that minimizes the overall cost. 
 
@@ -275,7 +291,7 @@ Before defining the communication protocol, which is arguably the most important
 interaction, it is important to think about the the overall system topology and inter-agent 
 relationships. There are two possibilities when designing agent structure.
 
-\textbf{Hieararchical organization}\newline
+\textbf{Hierarchical organization}\newline
 In hierarchical organization \cite{Damba2007}, agents are organized in a tree structure,
 where each its level has got a different level of autonomy. The flow of control is 
 from top to bottom, i.e. agents in lower level of hierarchy conform to decisions 
@@ -307,16 +323,16 @@ with the possibility to have one agent as the leader role for interactions outsi
 The use of coalitions allows to make a highly dynamic system, which also increases the system 
 complexity, though. 
 
-There are more concepts on structuring a multi-agent system from organizational point of view, 
-sych as teams and holons. However, the two mentioned approaches are the most well-suited for 
+There are more concepts for structuring a multi-agent system from organizational point of view, 
+such as \emph{teams} and \emph{holons}. However, the two mentioned approaches are the most well-suited for 
 an ITS system development, as they have been used in more works for this purpose already 
 (e.g. \cite{Balaji2007} and \cite{Vijsel2004}). 
 
-In conclusion, the usage of the aforementioned architecture should ensure that the system complexity 
+In conclusion, the usage of the aforementioned organization should ensure that the system complexity 
 is kept as low as possible and the topology is transparent and uncluttered. The hierarchical 
-architecture can be beneficial when applied to ITS systems such as urban traffic management, where 
+organization can be beneficial when applied to ITS systems such as urban traffic management, where 
 conflicts of interests need to be resolved by a capable authority. Whereas, the coalition-based 
-organization could be applied to create virtual clusters of so-called "connected" vehicles to apply 
+organization could be applied to create virtual clusters of connected vehicles (platooning) to apply 
 C-ITS features, e.g. dynamic navigation or GLOSA.
 
 \subsubsection{Communication between agents}
@@ -331,12 +347,12 @@ distributed problem solving in general.
 \subsubsection{Agent Communication Language}
 
 Any language, including the one used by agents in an arbitrary system, should have defined its syntax and 
-semantics to be an effective medium. Effectively, this means that a suitable communication
+semantics to be an effective medium. Effectively, this means that a dedicated communication
 interface for each agent should be defined, with a standardized way of expressing information. 
-To satisfy these requirements a language developed specifically for MAS has been created, 
-called \emph{ACL - Agent Communication Language} \cite{IntelligentPhysicalAgents2001}. 
+To satisfy these requirements, a language developed specifically for MAS has been created, 
+called \emph{Agent Communication Language} (ACL) \cite{IntelligentPhysicalAgents2001}. 
 This specification proposes a standard for agent communication. Most importantly, it defines 
-so-called \emph{communicative act (CA)} - a special class of actions that correspond to the basic
+so-called \emph{communicative act} (CA) - a special class of actions that correspond to the basic
 building blocks of dialogue between agents. A communicative act has a well-defined, declarative
 meaning independent of the content of any given act. CAs are modelled on speech act theory.
 Pragmatically, CA's are performed by an agent sending a message to another agent, using a
@@ -364,11 +380,15 @@ distributed system interoperability, such as W3C, CORBA, UML and many others, so
 of the ACL needs to be argued. A lot of these applications are based on the so called CRUD set of 
 communication primitives - Create, Read, Update and Delete. In contrast to this, ACL defines a lot 
 of different communication primitives (i.e. communicative acts). This leads to more complex control 
-\cite{Poslad2007}. However, The MAS developed in this thesis will be in a closed, virtual space, which 
+\cite{Poslad2007}. 
+
+On a side note, communication between individual units is composed of several layers of communication 
+(e.g. the OSI model). 
+However, The MAS developed in this thesis will be in a closed, virtual space, which 
 will most likely not require integration with other services. This can be further leveraged to our 
 advantage by stripping the language of some redundant message parameters like the \texttt{:transport 
 protocol}, \texttt{:reply-by}, \texttt{:envelope} and other message types, which are not needed
-because communication will be abstraced away and virtualized within the simulation software. 
+because communication will be abstracted away and virtualized within the simulation software. 
 Also, \cite{Poslad2007} states that The ACL model naturally allows more semantic context
 to be included in messages. This can give applications more understandable information about
 unexpected events. In addition, the richer set of primitives can lead to more flexible
@@ -382,15 +402,17 @@ facts are that agent agent organization needs to be considered - despite the fac
 designed to be highly distributed, giving the agents hierarchical roles can often facilitate
 interaction between agents and can decrease system complexity while preserving functionality,
 especially during negotiation between agents. Agent grouping should, while also contributing to
-decreased system distribution, decrease computation and communication overhead.  Next, the way how
-agents should communicated was described. The cornerstone of inter-agent communication was
-discussed, and a potentially suitable framework (for the thesis' use-case) of setting up
-communication between agents was investigated. Overall, it was found that designing how
-agents communicate is a crucial part of MAS development that can get complex, so it is
-important to keep the ways of sharing information as organized as possible, which can be done
-by defining the language, primarily its semantics and associated syntax. On the other hand, it
-was also considered that because the system will be designed and run in a virtual space, some
-intricacies can be abstracted away by the simulation engine. 
+decreased system distribution, decrease computation and communication overhead. 
+
+Next, it was found that designing how agents communicate is a crucial part of MAS development
+that can get complex, so it is important to keep the ways of sharing information as organized
+as possible, which can be done by defining the language, primarily its semantics and associated
+syntax.  The cornerstones of inter-agent communication were discussed, and a suitable framework
+for the thesis' use-case of setting up communication between agents was investigated and
+chosen. The framework of choice was the Agent Communication Language, because its set of
+communication primitives already assume the MAS-based use-cases, with predefined requirements,
+message parameters and message types while also being open for extension.
+
 
 \begin{table}[htbp]
     \renewcommand{\arraystretch}{1.7}
@@ -398,7 +420,7 @@ intricacies can be abstracted away by the simulation engine.
     \caption{Categories of communicative acts \cite{IntelligentPhysicalAgents2001}}
     % \setlength\tabcolsep{0pt}
     \centering
-    \begin{tabular}{|>{\ttfamily}l| *{4}{>{\centering}c|} >{\centering\arraybackslash}c|}
+    \begin{tabular}{|>{\ttfamily}r| *{4}{>{\centering}c|} >{\centering\arraybackslash}c|}
         \hline
         \hfill \rmfamily\textbf{Communicative act} \hspace*{\fill} & \rot{\textbf{Information passing}} & \rot{\textbf{Requesting information}} & \rot{\textbf{Negotiation}} & \rot{\textbf{Action} performing} & \rot{\textbf{Error} handling} \\
         \hline
@@ -463,40 +485,35 @@ sequence that is well-formed in the transport syntax to the corresponding messag
     \footnotesize
     \renewcommand{\arraystretch}{1.8}
     \caption{Pre-defined message parameters \cite{IntelligentPhysicalAgents2001}}
-    \centering\begin{tabularx}{.8\textwidth}{|>{\ttfamily}c|X|}
-        \hline
-        {\bf Message Parameter}& \bf \centering Meaning \arraybackslash\\\hline
-:sender& Denotes the identity of the sender of the message,
-i.e. the name of the agent of the communicative act. \\\hline
-:receiver & Denotes the identity of the intended recipient of the
-message.  \\\hline
-:content & Denotes the content of the message; equivalently
-denotes the object of the action. \\\hline
-
-:reply-with & Introduces an expression which will be used by the
-agent responding to this message to identify the
-original message. Can be used to follow a
-conversation thread in a situation where multiple
-dialogues occur simultaneously. \\\hline
-
-:in-reply-to & Denotes an expression that references an earlier
-action to which this message is a reply. \\\hline
-
-:envelope & Denotes an expression that provides useful
-information about the message as seen by the
-message transport service.  \\\hline
-:language & Denotes the encoding scheme of the content of the
-action. \\\hline
-:ontology & Denotes the ontology which is used to give a
-meaning to the symbols in the content expression. \\\hline
-:reply-by & Denotes a time and/or date expression which
-indicates a guideline on the latest time by which the
-sending agent would like a reply. \\\hline
-:protocol & Introduces an identifier which denotes the protocol
-which the sending agent is employing.  \\\hline
-:conversation-id & Introduces an expression which is used to identify an
-ongoing sequence of communicative acts which
-together form a conversation. \\\hline
+    \centering\begin{tabularx}{.8\textwidth}{>{\ttfamily}rX}
+        \toprule
+        \multicolumn{1}{p{8em}}{\bf \centering Message \newline Parameter} & \bf \centering Meaning \arraybackslash                \\\midrule
+        :sender                                                            & Denotes the identity of the sender of the message,
+        i.e. the name of the agent of the communicative act.                                                                       \\\midrule
+        :receiver                                                          & Denotes the identity of the intended recipient of the
+        message.                                                                                                                   \\\midrule
+        :content                                                           & Denotes the content of the message; equivalently
+        denotes the object of the action.                                                                                          \\\midrule
+        :reply-with                                                        & Introduces an expression which will be used by the
+        agent responding to this message to identify the
+        original message. Can be used to follow a
+        conversation thread in a situation where multiple
+        dialogues occur simultaneously.                                                                                            \\\midrule
+        action to which this message is a reply.                                                                                   \\\midrule
+        information about the message as seen by the
+        message transport service.                                                                                                 \\\midrule
+        :language                                                          & Denotes the encoding scheme of the content of the
+        action.                                                                                                                    \\\midrule
+        :ontology                                                          & Denotes the ontology which is used to give a
+        meaning to the symbols in the content expression.                                                                          \\\midrule
+        :reply-by                                                          & Denotes a time and/or date expression which
+        indicates a guideline on the latest time by which the
+        sending agent would like a reply.                                                                                          \\\midrule
+        :protocol                                                          & Introduces an identifier which denotes the protocol
+        which the sending agent is employing.                                                                                      \\\midrule
+        :conversation-id                                                   & Introduces an expression which is used to identify an
+        ongoing sequence of communicative acts which
+        together form a conversation.                                                                                              \\\bottomrule
     \end{tabularx}
     \label{message-parameters}
 \end{table}
