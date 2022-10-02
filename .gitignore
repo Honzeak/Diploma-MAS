@@ -1,0 +1,16 @@
+**/.vscode
+*.gz
+*.aux
+*.log
+*.fls
+*.fdb*
+*.bcf
+*.xml
+*.blg
+*.toc
+*.out
+*.tmp
+*.bbl
+*.tmp
+*.bak
+main.pdf
