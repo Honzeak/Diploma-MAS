@@ -459,27 +459,27 @@ the preceding sections (\ref{its},\ref{mas}).
 \textbf{Requirement 1}:
 Agents should send not-understood if they receive a message that they do not recognise or they are unable to
 process the content of the message. Agents must be prepared to receive and properly handle a not-understood
-\\\midrule
+\\ \midrule
 \textbf{Requirement 2}:
 An ACL compliant agent may choose to implement any subset (including all, though this is
 unlikely) of the predefined message types and protocols. The implementation of these messages
 must be correct with respect to the referenced act's semantic definition.
- \\\midrule
+ \\ \midrule
 \textbf{Requirement 3}:
 An ACL compliant agent which uses the communicative acts whose names are defined in the specification must
 implement them correctly with respect to their definition.
-\\\midrule
+\\ \midrule
 \textbf{Requirement 4}:
 Agents may use communicative acts with other names, not defined in the specification document,
 and are responsible for ensuring that the receiving agent will understand the meaning of the
 act. However, agents should not define new acts with a meaning that matches a pre-defined
 standard act.
- \\\midrule
+ \\ \midrule
 \textbf{Requirement 5}:
 An ACL compliant agent must be able to correctly generate a syntactically well formed message in the transport
 form that corresponds to the message it wishes to send. Symmetrically, it must be able to translate a character
 sequence that is well-formed in the transport syntax to the corresponding message.
-\\\bottomrule
+\\ \bottomrule
     \end{tabular}
     \label{requirements}
 \end{table}
@@ -520,4 +520,6 @@ sequence that is well-formed in the transport syntax to the corresponding messag
     \end{tabularx}
     \label{message-parameters}
 \end{table}
+\clearpage
+
 \end{document}
