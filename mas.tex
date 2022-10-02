@@ -381,14 +381,13 @@ of the ACL needs to be argued. A lot of these applications are based on the so c
 communication primitives - Create, Read, Update and Delete. In contrast to this, ACL defines a lot 
 of different communication primitives (i.e. communicative acts). This leads to more complex control 
 \cite{Poslad2007}. 
-
-On a side note, communication between individual units is composed of several layers of communication 
-(e.g. the OSI model). 
-However, The MAS developed in this thesis will be in a closed, virtual space, which 
-will most likely not require integration with other services. This can be further leveraged to our 
-advantage by stripping the language of some redundant message parameters like the \texttt{:transport 
-protocol}, \texttt{:reply-by}, \texttt{:envelope} and other message types, which are not needed
-because communication will be abstracted away and virtualized within the simulation software. 
+% On a side note, communication between individual units is composed of several layers of communication 
+% (e.g. the OSI model). 
+% However, The MAS developed in this thesis will be in a closed, virtual space, which 
+% will most likely not require integration with other services. This can be further leveraged to our 
+% advantage by stripping the language of some redundant message parameters like the \texttt{:transport 
+% protocol}, \texttt{:reply-by}, \texttt{:envelope} and other message types, which are not needed
+% because communication will be abstracted away and virtualized within the simulation software. 
 Also, \cite{Poslad2007} states that The ACL model naturally allows more semantic context
 to be included in messages. This can give applications more understandable information about
 unexpected events. In addition, the richer set of primitives can lead to more flexible
@@ -397,7 +396,7 @@ interaction processes.
 \subsubsection{Conclusion}
 
 In this section, the ways how agents interact with each other were described, with respect to the
-application scope of this thesis, i.e. applying MAS on an ITS system simulation. The most important
+application scope of this thesis, i.e. applying MAS principles to implement an ITS simulation. The most important
 facts are that agent agent organization needs to be considered - despite the fact that MAS are
 designed to be highly distributed, giving the agents hierarchical roles can often facilitate
 interaction between agents and can decrease system complexity while preserving functionality,
@@ -413,6 +412,10 @@ chosen. The framework of choice was the Agent Communication Language, because it
 communication primitives already assume the MAS-based use-cases, with predefined requirements,
 message parameters and message types while also being open for extension.
 
+Moving forward, the following section will be dedicated to proposing the actual system that will 
+be implemented, subject to the topic of the thesis. A framework dedicated for generic MAS-based 
+ITS system implementation will be designed, utilizing the principles and paradigms gathered in 
+the preceding sections (\ref{its},\ref{mas}).
 
 \begin{table}[htbp]
     \renewcommand{\arraystretch}{1.7}
