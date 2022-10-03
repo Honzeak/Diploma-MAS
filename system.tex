@@ -1,0 +1,36 @@
+\documentclass[main.tex]{subfiles}
+\graphicspath{{./img}}
+
+\begin{document}
+    
+\section{Proposed system}
+
+This section is dedicated to designing the system that will be used to implement ITS in the
+vehicle simulator software. A framework dedicated for generic MAS-based ITS system
+implementation will be designed, utilizing the principles and paradigms gathered in the
+preceding sections (\ref{its}, \ref{mas}). Firstly, the actors (agents) within the systems will
+be defined, i.e. their features, characteristics, state variables and their goals, as well as
+interfaces to the environment. This will form the elementary foundation that will be used to
+build an actual system.  As a follow up, the organizational structure will be discussed and
+proposed. The objective will be to define an organizational structure so that it will
+facilitate the aspect of control and configuration of the system. The last important step will
+be to define interactions between agents.  This will for example include knowledge sharing,
+conflict resolution and overall communication interface proposal, including shared vocabulary
+and communication layers definition. These steps should, in the end, lead to a full system 
+specification that will serve as a framework to implement agent-based ITSs in an interactive 
+vehicle simulator.
+
+\subsection{Agent architecture}
+
+As per the previous section(s), where the individual MAS architectures have been reviewed
+(section \ref{mas}), it was decided to utilize \emph{hybrid architecture} (section
+\ref{hybrid-arch}), which will offer sufficient flexibility. Such modeling flexibility is 
+needed primarily because there won't be a single, concrete system to model, but rather a 
+generic system that will facilitate arbitrary agent-based ITS implementation. As such, it 
+makes sense to choose a hybrid architecture, which will ensure there will be optimal balance 
+between robust, reactive behaviour without giving up capabilities to model complex behaviour.
+
+
+\clearpage
+
+\end{document}

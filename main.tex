@@ -1,4 +1,4 @@
-\documentclass[titlepage, 12pt]{article}
+\documentclass[titlepage, 12pt, draft]{article}
 
 \title{
 \includegraphics[width=.3\textwidth]{cvut-logo.jpg}\par
@@ -43,6 +43,7 @@ AGENT-BASED MODELING OF ITS SYSTEMS IN VEHICLE SIMULATOR
 \usepackage{microtype}
 \usepackage{subfiles}
 \usepackage{multirow}
+\usepackage{pdfpages}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -78,7 +79,7 @@ AGENT-BASED MODELING OF ITS SYSTEMS IN VEHICLE SIMULATOR
 \setlength{\baselineskip}{1.5em}
 \maketitle
 
-% \includepdf[pages=-]{zadani.pdf}
+\includepdf[pages=-]{zadani.pdf}
 
 \begin{abstract}
     TODO
@@ -135,10 +136,10 @@ deciding if the implementation was successful, if the systems adequately represe
 behaviour observed in real world and possibly performance of the system.
 
 \subfile{its}
-\clearpage
 
 \subfile{mas}
-\clearpage
+
+\subfile{system}
 
 \printbibliography
 \end{document}
