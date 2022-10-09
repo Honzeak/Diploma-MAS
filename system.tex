@@ -8,16 +8,20 @@
 This section is dedicated to designing the system that will be used to implement ITS in the
 vehicle simulator software. A framework dedicated for generic MAS-based ITS system
 implementation will be designed, utilizing the principles and paradigms gathered in the
-preceding sections (\ref{its}, \ref{mas}). Firstly, the actors (agents) within the systems will
-be defined, i.e. their features, characteristics, state variables and their goals, as well as
-interfaces to the environment. This will form the elementary foundation that will be used to
-build an actual system.  As a follow up, the organizational structure will be discussed and
-proposed. The objective will be to define an organizational structure so that it will
-facilitate the aspect of control and configuration of the system. The last important step will
-be to define interactions between agents.  This will for example include knowledge sharing,
-conflict resolution and overall communication interface proposal, including shared vocabulary
-and communication layers definition. These steps should, in the end, lead to a full system 
-specification that will serve as a framework to implement agent-based ITSs in an interactive 
+preceding sections (\ref{its}, \ref{mas}). Firstly, the \emph{micro-architecture} will be
+defined, i.e. the specification of the system's actors (agents) - their features,
+characteristics, state variables and their goals, as well as interfaces to the environment.
+This will form the elementary foundation that will be used to build an actual system. As a
+follow up, agent interaction interface will be defined. This will for example include
+knowledge sharing, conflict resolution and overall communication interface proposal, including
+shared vocabulary and communication layers definition. The interaction interface will,
+subsequently, lead to the \emph{macro-architecture} proposal. The structure of the system and
+its behaviour will be defined. This will, among other topics, include discussing the
+organizational and functional structure. The motivation behind functional structure definition
+will be to define the behaviorist capabilities of the system and its configuration. The main
+underlying motivation behind the organizational structure definition will be to facilitate the
+aspect of control of the system. These steps should, in the end, lead to a full system
+specification that will serve as a framework to implement agent-based ITSs in an interactive
 vehicle simulator.
 
 \subsection{Agent architecture}
@@ -29,6 +33,17 @@ needed primarily because there won't be a single, concrete system to model, but 
 generic system that will facilitate arbitrary agent-based ITS implementation. As such, it 
 makes sense to choose a hybrid architecture, which will ensure there will be optimal balance 
 between robust, reactive behaviour without giving up capabilities to model complex behaviour.
+
+The elementary characteristics that were defined according to \cite{ParasumannaGokulan2010}
+must shall also be taken into account: 
+
+\begin{itemize}
+    \item Situatedness
+    \item Autonomy 
+    \item Inferential capability 
+    \item Social behaviour 
+\end{itemize}
+
 
 
 \clearpage
