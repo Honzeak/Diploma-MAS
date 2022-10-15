@@ -24,7 +24,7 @@ aspect of control of the system. These steps should, in the end, lead to a full 
 specification that will serve as a framework to implement agent-based ITSs in an interactive
 vehicle simulator.
 
-\subsection{Agent architecture}
+\subsection{Agent architecture overview}
 
 As per the previous section(s), where the individual MAS architectures have been reviewed
 (section \ref{mas}), it was decided to utilize  the \emph{hybrid \textsubscript{3}T
@@ -41,9 +41,6 @@ in an Object-Oriented Programming (OOP) paradigm. There are multiple reasons for
 The nature of agent based systems, having their internal logic and interacting with the surroundings 
 through pre-defined interface, corresponds to a large degree to the concepts of OOP, especially
 the encapsulation mechanism.
-
-%Nejak oduvodnit - the architecture will be proposed in such a way to be implemented by an 
-% object-oriented programming approach
 
 The individual layers/components will be outlined in the following section, in a bottom-up
 fashion.
@@ -97,7 +94,7 @@ Therefore, the assigned modules will determine which skills the agent will be ab
 
 \textbf{Sequencing layer}
 
-The sequencing layer is responsible for queuing and execution of the individual skills. It is the 
+The sequencing layer is responsible for \emph{queue management} and \emph{execution} of the individual skills. It is the 
 intermediate layer between the reactive skill layer and deliberative planning layer. 
 
 Apart from the trivial FIFO skills queuing, the sequencer will manage concurrent queues with different 
@@ -110,8 +107,102 @@ broadcaster-subscriber principle, such as CACC systems and C-ITS systems in gene
 
 \textbf{Deliberation layer}
 
+The deliberation layer (planner) synthesizes high-level goals into a partially ordered \emph{plan}, listing tasks that 
+the agent has to perform, in order to achieve the specified goal. For example, A vehicle's goal is to get from 
+its initial position to its destination. The deliberation initializes a plant which sequences skills that 
+should ensure the vehicle gets to the destination point. The deliberation layer is aware of the traffic network 
+(i.e. the environment), but hasn't got \emph{complete knowledge} about it. In other words, the agent knows which turns
+to take on the network to get to the destination, but isn't aware of every vehicle, pedestrian or other "obstacle" that 
+could get in its way. That's why, when there is, for example, a slow vehicle that can be overtaken, the deliberation layer 
+\emph{replans} the tasks in order to resolve the situation. 
 
+In practice, the deliberation component in this proposed framework will contain the most amount
+of pre-defined logic.  The deliberation layer will contain solutions to actual problems,
+creating \emph{workflows} created from individual steps (skills).
+
+The most trivial option will be to create \emph{static} workflows, which will work under the
+assumption that workflow will not get interrupted or reach a fail state at any point, i.e. is
+expected to finish. The second option will be to create \emph{dynamic} workflows, which will enable
+re-planning according to changing environment conditions.  Re-planning will occur when it's
+triggered by one of the \emph{exit state} of agent's skills. The triggers will happen under the
+following conditions: skill returning a \emph{failure state}, callback triggered by a broadcast
+subscription or result of inter-agent negotiation (discussed later). This will cause the
+planner to re-plan by adding appropriate steps to the executing workflow to optimally adapt to
+the situation. Therefore, the framework will offer to define conditions under which additional
+steps will get added to ideally achieve a \emph{fail-safe behaviour}. For better logical
+organization, the added steps (which are identified to most often execute in a certain
+sequence) could be grouped into \emph{subtasks}.
+
+To further improve the resilience of the
+system, the executing workflow can be configured to reach a \emph{workflow failure state},
+which will trigger a pre-determined fail-safe workflow, that is composed of entirely different
+steps, essentially throwing away the previous, failed workflow.  This will be useful when the
+planner will run out of options to adapt to the situation, settling for a goal that would
+destabilize the system as least as possible. For example, autonomous vehicles performing a
+\emph{minimum risk maneuvre} to come to a standstill on the road side when the expected driver
+input is not received \cite{WorkingAutonomous2022}.
+
+A more detailed view on the individual components of the architecture is on the image (\ref{3t-arch-detailed}) below.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{3T-arch-edited.png}
+    \caption{An overview of the proposed 3T architecture \cite{Binder2022} (\emph{edited})}
+    \label{3t-arch-detailed}
+\end{figure}
+\pagebreak
+%%%%%% I'd move this further down to the full implementation phase
+% Firstly, the matter of how much logic has to be pre-defined in the framework and how much will be left to the implementation 
+% itself needs to be discussed thoroughly in this case, as there is a non-trivial task. The
+
+\textbf{Example}
+
+To illustrate the concept, the problem is described using the image (\ref{agentReplanning})
+below. In this example scenario, the agents (\texttt{A}, \texttt{B}) have three skills defined:
+\texttt{drive}, \texttt{avoid:object} and \texttt{wait} and \texttt{negotiate}. Both vehicle agents have a goal not
+to crash and keep a certain speed. To ensure a fail-safe behaviour, a dynamic workflow is used, 
+defined as a mapping (\texttt{failed\_skill}$\rightarrow$\texttt{safe\_skill}): 
+
+\begin{itemize}
+    \itemspacing{.5}
+    \item \texttt{drive} $\rightarrow$ \texttt{avoid:object}
+    \item \texttt{avoid:object} $\rightarrow$ \texttt{wait}
+    \item \texttt{wait} $\rightarrow$ \texttt{fail\_goal} (after a timeout for example)
+\end{itemize}
+
+The mapping of the \texttt{negotiate} skill is \texttt{drive} or \texttt{wait} based on 
+a negotiation result for each involved agent.
+
+\begin{enumerate}
+    \item Both agents do not detect any obstacles in their surroundings, so the planner
+    initializes a plan with only the \texttt{drive} skill sequenced, which gets executed. 
+
+    \item Agent (\texttt{A}) spots an obstacle in his way (an oil spill). This makes the
+    \texttt{drive} skill fail and (\texttt{A})'s planner has to re-plan to reach its goal (not
+    crash). The failed skill's fail-safe skills are retrieved (\texttt{avoid:object})
+    and added to the new plan. The new plan is initialized with the two
+    following skills sequenced: \texttt{avoid:oil\_spill} $\rightarrow$ \texttt{drive}.
+    
+    \item However, this plan also fail, as the agent encounters another obstacle - agent
+    (\texttt{B}). They now have to negotiate to reach an agreement and resolve the conflict, in
+    this case using auction-like bidding. The agent (\texttt{B}) wins the bid, and so agent
+    (\texttt{A}) is forced to give way. The planner creates a new plan: \texttt{wait}
+    $\rightarrow$ \texttt{avoid:oil\_spill} $\rightarrow$ \texttt{drive}.
+
+    \item The individual skills finish successfully and the agents' goal is fulfilled.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{AgentPlanning.png}
+    \caption{An example behaviour of vehicle-based agents using the proposed architecture}
+    \label{agentReplanning}
+\end{figure}
 
 \clearpage
+
+\subsection{Negotiation \& Agreement}
+
+
 
 \end{document}
