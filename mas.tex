@@ -490,31 +490,33 @@ sequence that is well-formed in the transport syntax to the corresponding messag
         \toprule
         \multicolumn{1}{p{8em}}{\bf \centering Message \newline Parameter} & \bf \centering Meaning \arraybackslash                \\\midrule
         :sender                                                            & Denotes the identity of the sender of the message,
-        i.e. the name of the agent of the communicative act.                                                                       \\\midrule
+                                                                            i.e. the name of the agent of the communicative act. \\\midrule
         :receiver                                                          & Denotes the identity of the intended recipient of the
-        message.                                                                                                                   \\\midrule
+                                                                            message. \\\midrule
         :content                                                           & Denotes the content of the message; equivalently
-        denotes the object of the action.                                                                                          \\\midrule
+                                                                            denotes the object of the action. \\\midrule
         :reply-with                                                        & Introduces an expression which will be used by the
-        agent responding to this message to identify the
-        original message. Can be used to follow a
-        conversation thread in a situation where multiple
-        dialogues occur simultaneously.                                                                                            \\\midrule
-        action to which this message is a reply.                                                                                   \\\midrule
-        information about the message as seen by the
-        message transport service.                                                                                                 \\\midrule
+                                                                            agent responding to this message to identify the
+                                                                            original message. Can be used to follow a
+                                                                            conversation thread in a situation where multiple
+                                                                            dialogues occur simultaneously. \\\midrule
+        :in-reply-to                                                       & Denotes an expression that references an earlier
+                                                                            action to which this message is a reply. \\\midrule
+        :envelope                                                          & Denotes an expression that provides useful
+                                                                            information about the message as seen by the
+                                                                            message transport service. \\\midrule
         :language                                                          & Denotes the encoding scheme of the content of the
-        action.                                                                                                                    \\\midrule
+                                                                            action. \\\midrule
         :ontology                                                          & Denotes the ontology which is used to give a
-        meaning to the symbols in the content expression.                                                                          \\\midrule
+                                                                            meaning to the symbols in the content expression. \\\midrule
         :reply-by                                                          & Denotes a time and/or date expression which
-        indicates a guideline on the latest time by which the
-        sending agent would like a reply.                                                                                          \\\midrule
+                                                                            indicates a guideline on the latest time by which the
+                                                                            sending agent would like a reply. \\\midrule
         :protocol                                                          & Introduces an identifier which denotes the protocol
-        which the sending agent is employing.                                                                                      \\\midrule
+                                                                            which the sending agent is employing. \\\midrule
         :conversation-id                                                   & Introduces an expression which is used to identify an
-        ongoing sequence of communicative acts which
-        together form a conversation.                                                                                              \\\bottomrule
+                                                                            ongoing sequence of communicative acts which
+                                                                            together form a conversation. \\\bottomrule
     \end{tabularx}
     \label{message-parameters}
 \end{table}
