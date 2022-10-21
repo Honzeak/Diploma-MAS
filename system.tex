@@ -16,13 +16,8 @@ follow up, agent interaction interface will be defined. This will for example in
 knowledge sharing, conflict resolution and overall communication interface proposal, including
 shared vocabulary and communication layers definition. The interaction interface will,
 subsequently, lead to the \emph{macro-architecture} proposal. The structure of the system and
-its behaviour will be defined. This will, among other topics, include discussing the
-organizational and functional structure. The motivation behind functional structure definition
-will be to define the behaviorist capabilities of the system and its configuration. The main
-underlying motivation behind the organizational structure definition will be to facilitate the
-aspect of control of the system. These steps should, in the end, lead to a full system
-specification that will serve as a framework to implement agent-based ITSs in an interactive
-vehicle simulator.
+will be defined. These steps should lead to a full system specification that will serve as a
+framework to implement agent-based ITSs in an interactive vehicle simulator.
 
 \subsection{Agent architecture overview}
 
@@ -201,8 +196,93 @@ a negotiation result for each involved agent.
 
 \clearpage
 
+\subsection{Communication protocol}
+
+As has been discussed in the previous sections, communication plays an important part in 
+MAS, mainly because it vastly extends capabilities of interaction between agents and thus 
+the ability to model more complex behaviour. In section (\ref{sec-acl}), the ACL communication 
+standard for MAS has been introduced and requirements for the protocol implementation have 
+been presented. To be able to 
+utilize the communication, requirements for messaging utility and high-level implementation 
+details will be presented. 
+
+\subsection{Broadcasting}
+
+The first type of communicating that will be implemented is message broadcasting. This is 
+argued by the fact that ITS uses information broadcasting in a lot of cases.
+Generally, ITS services have common communication requirements \cite{Santa2013}:
+
+\begin{itemize}
+    \item \textbf{Periodic status exchange} - ITS services often need to know about 
+    status of other actors, such as terminals or vehicles. These periodic updates 
+    often include basic status messages such as location, ID, speed, etc.
+    \item \textbf{Asynchronous notifications} - Messages that are used to inform 
+    about specific event, usually related to a specific service and functionality.
+\end{itemize}
+
+%  Especially the C-ITS platform, which uses two types of (middleware) messages,
+% specified by the European Telecommunication Standards Institute (ETSI):
+
+% \begin{itemize}
+%     \item \textbf{Cooperative Awareness Message (CAM)} which are "heartbeat" periodically 
+%     broadcasted messages
+%     \item \textbf{Decentralized Environmental Notification Message (DENM)} which are event-
+%     triggered messages broadcasted to alert road users.
+% \end{itemize}
+
+The framework should therefore support message broadcasting for both synchronous and 
+asynchronous events, which should ensure that all potential use-cases are covered. 
+
+As has been mentioned above, the ability to broadcast and subscribe to said broadcast should be
+handled by a separate "physical module" that will be active throughout execution of individual
+skills, i.e.  its lifetime should not depend on other skills lifetime. An exception to this
+would be the skills whose purpose is to \emph{register} and \emph{un-register} those
+communication modules.  The broadcast and subscription will work like most such communication
+systems, where each agent chooses a stream to connect to and publish/consume messages from
+queue (with pre-defined semantics i.e. CAM, DENM). The ability to act upon a received message
+will be also implemented, by making a callback that makes the skill end and return. 
+
 \subsection{Negotiation \& Agreement}
+% still quite too theoretical, not related to actual implementation. not sure if it should be here
+Negotiation between agents is important especially when wo agents run into each other, 
+followed by the currently executing skills of the agents getting interrupted. In other words, 
+The best course of action of one agent is not necessarily best to the other. This is more than
+likely to happen in environments where multiple agents share the same resource and their state
+is defined on the same domain, which is often the case. As such, the theory of games is formally 
+used to model these interactions \cite{Binder2022}. 
 
+This is quite different from the principles of agent cooperation. In cooperation negotiations, 
+the worst-case scenario improvement as opposed to working individually is net-zero. \cite{Binder2022}
+defines four speech acts in agent negotiation, as seen on fig. (\ref{fig-speech-acts}). This is 
+inherently contrary to the statement made in chapter (\ref{mas-interaction}), where it was suggested 
+that agent cooperation should be emphasized. However, as agents are formally modelled as self-interested, 
+it cannot be guaranteed that they won't encounter conflicts between each other. Therefore, modelling 
+cooperation before figuring conflict resolution would inherently result in a more fragile system 
+more prone to malfunction. 
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{speech-acts.png}
+    \caption{Types of agent negotiation \cite{Binder2022}}
+    \label{fig-speech-acts}
+\end{figure}
+
+\subsection{Conflict resolution}
+
+As has been argued above, conflict resolution as a system functionality should precede cooperation. 
+TBD. 
+
+\subsection{System requirements}
+
+To sum up the topic discussed in previous chapters, requirements for framework implementation will be 
+concluded. This will ensure that when integrating this ITS framework into existing system (i.e. IVS 
+software), the requirements will be organized and kept as a reference, helping achieve the desired 
+functionality. Especially when later choosing a library/framework to help build the framework. 
+
+\paragraph{Requirement 1} The framework should support the \textsubscript{3}T architecture. 
+This primarily means implementation of the three layers of logic that offer complex behaviour 
+modelling.
+
+\paragraph{Requirement 2} 
 
 \end{document}
