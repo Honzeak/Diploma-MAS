@@ -5,13 +5,13 @@
 \section{Intelligent Transport Systems}\label{its}
 
 Intelligent transport systems describe an initiative to utilize modern technology 
-to optimize and increase efficiency of processes common to the domain of transportation. 
+in order to optimize and increase efficiency of processes common to the domain of transportation. 
 This usually involves enabling different actors in the transportation system to communicate 
 with each other and share available information (much like multi-agent systems). With the 
 availability of shared information, complex, data-driven systems can be built utilizing 
-state-of-the-art tech concepts like machine learning, computer vision and IoT while
+state-of-the-art tech concepts like machine learning, computer vision and IoT, while
 integrating humans, roads and automobiles, improved street protection, efficiency and stability.
-İt also address environmental issues via controlling traffic to prevent congestions or lessen
+İt also address environmental issues via controlling traffic to prevent congestion or lessen
 their adverse effects. 
 
 When looked at these solution from a systemic point of view, they can 
@@ -33,26 +33,26 @@ using a chosen ITS. This will be discussed more in the following practical part 
 
 ITS can provide itself most useful in the following aspects of transportation: 
 \emph{Mobility}, \emph{Safety}, \emph{Environment}. To provide an example, regarding mobility, 
-one of the most common system is routing and navigation for road vehicles. Such systems can 
+one of the most common systems is routing and navigation for road vehicles. Such systems can 
 factor in time, distance and even emissions when providing route guidance. This leads to 
 increased performance of road networks. Regarding safety, one can mention emergency management
 systems like E-Call, which provides automated post-crash assistance by contacting emergency
 services as soon as an incident happens. In terms of the environment, 
-ITS allows for demand management through \emph{electronic fee collection}, which allows for 
-flexible charges for road usage, based on vehicle type and emissions category. \cite{Commision2022}
+ITS allows for demand management through \emph{electronic fee collection}, which makes flexible 
+charging for road usage possible, based on vehicle type and emissions category \cite{Commision2022}.
 Another, more general example of emissions reduction of ITS is through reducing congestions, as road vehicle 
 emissions have proven to be a significant environmental factor not only in emission production
 per se, but also one that humans are most exposed to. In a study conducted by the Harvard
 School of Public Health, air pollution from traffic congestion in 83 of the USA's largest urban
-areas contributes to more than 2,200 premature deaths annually, costing the health system at
+areas contributes to more than 2,200 premature deaths annually, costing the health care system at
 least \$18 billion \cite{Levy2011}.
 
 \subsection{Implementation}
 
 In relation to the topic of this thesis, it is important to define ITS features that will create a
 qualitative analysis/benchmark for identifying suitable system(s) for the ITS implementation. The following 
-sections will discuss and features that will be used for reasoning which ITS to implement in the 
-practical part of this thesis.
+sections will discuss selected features that will be used for deciding which system to implement as a demonstration
+of the proposed agent-based framework.
 
 \subsubsection{Driver engagement}
 
@@ -87,13 +87,13 @@ so that the information gathered in the first section of this thesis could be su
 
 Intelligent transport systems are, by nature, systems combining several actors together to achieve a common goal. 
 Would this mean that every ITS can be, in fact, modelled as multi-agent system? The answer is
-that it does \emph{not} apply for every one of them. 
+that it does \emph{not} apply to all of them. 
 
-Historically speaking, ITS that were
+Historically speaking, ITSs that were
 developed and proved helpful for optimizing traffic were \emph{centralized}, meaning there is a
 single core in charge of logic and decision-making, organizing other units/actors within the
 system, while interacting with the drivers in the traffic as external actors. The main
-advantage of these systems is that they are less complex, therefore easier to develop a resilient,
+advantage of these systems is that they are less complex, therefore it is easier to develop a resilient and
 safe product. The main drawback of this method is that they are heavily affected by the size
 of instances, increasing the complexity and often result in exceedingly large computation time,
 making the solution sub-optimal \cite{Corman2010}. 
@@ -101,7 +101,7 @@ making the solution sub-optimal \cite{Corman2010}.
 As with the \emph{distributed} systems, the main challenge making individual agents 
 solving sub-problem, cooperating well to achieve good and predictable results, as has been 
 illustrated in section (\ref{mas}). Distributed systems can be used to solve traffic optimization
-problems on a larger scale problems. These systems have seen larger usage especially in the
+problems on a larger scale. These systems have seen larger usage especially in the
 recent times, as newly produced vehicles are equipped with powerful computers that can be used
 to transfer the computational burden from the core computer in centralized systems. Also
 state-of-art communication protocols like DSRC and ITS 5G, which enable low-latency direct
@@ -111,13 +111,13 @@ The one example of an ITS where implementations have been carried out in both ce
 decentralized principles numerous times is a \emph{Network traffic control}. The goal of this 
 system is to use knowledge about the traffic on the network to control traffic lights and other 
 active traffic control elements to optimize traffic flow and decrease travel time. In \cite{Chow2019}, 
-a centralized and distributed network traffic control systems were compared. The conclusion was that 
+centralized and distributed network traffic control systems were compared. The conclusion was that 
 although the centralized system was able to achieve better performance higher global efficiency, 
 the decentralized solution required significantly less computation time (40 \% in their experiment case).
 
 Other decentralized, MAS-based systems that are more exposed to the user (driver) include the 
 \emph{Adaptive Cruise Control} (ACC), for example. ACC extends the usual cruise control systems 
-that maintain vehicle speed by adapting to speed of the vehicle upfront, if there is any. In fact, 
+that maintain vehicle speed by adapting to speed of the vehicle in front, if there is any. In fact, 
 recent development has lead to a further improvement, making ACC a cooperative system (CACC) that 
 enables vehicles to adopt a \emph{driving strategy} by communicating with the infrastructure (V2I 
 communication).
@@ -139,8 +139,8 @@ ITS technologies to be deployed.
 
 \paragraph{ERTICO}
 
-One such European organization is \emph{ERTICO} (European Road Transport Telematics
-Implementation Coordination - a public-private partnership organization
+One such European organization is the \emph{European Road Transport Telematics
+Implementation Coordination (ERTICO)} - a public-private partnership organization
 with close to 120~members, connecting 8 different sectors in the ITS Community, including
 service providers, suppliers, traffic and transport industry, research institutions and
 universities, public authorities, user organizations, connectivity industry as well as
@@ -154,13 +154,13 @@ new generation, as well as the number of sensor data, ERTICO states their focus 
 the large amounts of real-life data to deepen the machine learning models, as well as building 
 an infrastructure that will allow handling this data. C-ITS (Cooperative Intelligent Transport
 Systems) is also mentioned, whose principles are being put into practice by several projects, 
-namely European Truck Platooning (ETPC), ADASIS (Advanced map-enhanced driver assistance systems) and 
+namely European Truck Platooning (ETPC), Advanced map-enhanced driver assistance systems (ADASIS) and 
 more. ERTICO's main contribution is to facilitate creation of ITS ecosystem by following a
 multidisciplinary approach involving all relevant transport stakeholder sectors.
 
 \term{Clean \& Eco- Mobility}
 As has been already mentioned, smart mobility innovations make a major contribution towards 
-reducing the impact of transport on emissions, which has got a non-negligible contribution to 
+reducing the impact of transport-induced pollution, which has got a non-negligible contribution to 
 global greenhouse gas emissions production \cite{Ritchie2020}. Below are the four main
 objectives in the are of Clean \& Eco-Mobility. 
 
@@ -191,11 +191,11 @@ deployed for consumer use.
 
 \paragraph{Cooperative ITS}
 
-Cooperative Intelligent Transport Systems (C-ITS) refers to transport systems, where the
-cooperation between two or more ITS sub-systems (personal, vehicle, roadside and central)
+Cooperative Intelligent Transport Systems (C-ITS) refers to transport systems, where ITS 
+subsystems (personal, vehicle, roadside and central) cooperate. This
 enables and provides an ITS service that offers better quality and an enhanced service level,
-compared to the same ITS service provided by only one of the ITS sub-systems.\cite{2022} 
-An example of the concept of the technology can be seen on the figure (\ref{c-its}) below. 
+compared to the same ITS service provided by only one of the ITS sub-systems \cite{2022}.
+An example of the concept of the technology can be seen in the figure (\ref{c-its}) below. 
 
 \begin{figure}[htbp]
     \centering
@@ -215,10 +215,10 @@ its communication 'A European strategy on Cooperative Intelligent Transport Syst
 it also states that the full-scale deployment of C-ITS services and C-ITS enabled vehicles is
 expected to start in 2019.
 
-The main feature of C-ITS is an intelligence that is distributed between vehicles and the infrastructure, 
+The main feature of C-ITS is its distributed intelligence across vehicles and the infrastructure, 
 which is a novel concept in the ITS world. Consequently, it is easy to see similarities to how 
 MAS are described. Regarding the topic of this thesis, this could pose as an argument to
-implement one of C-ITS systems in the practical part of this thesis, considering that  
+implement one of C-ITS systems in the practical part of this thesis.
 
 Vehicles and infrastructure equipped with C-ITS can, for example, communicate a warning to each
 other, after which the drivers are informed about the upcoming traffic situation in time for
@@ -228,7 +228,7 @@ share data directly between each other (V2V) and with the infrastructure (V2I) u
 short range telecommunication. The two types of communications are sometimes together referred 
 to as Vehicle-to-everything (V2X) communication.
 
-This technology aims to benefit to both manually-driven vehicles 
+This technology aims to benefit both manually-driven vehicles 
 as well as autonomous self-driving vehicles. The main use-cases, which were developed as
 standalone services using C-ITS technology can be seen in the figure (\ref{c-its-use-case})
 below.
@@ -270,7 +270,7 @@ deployment of C-ITS \cite{Commision2021}.
 \end{itemize}
 
 Regarding the scope of this thesis, \emph{WG3} is the most informative segment. The focus of this group 
-was in the first place regarding the infrastructure support for automated vehicles (SAE L4). One of 
+was, in the first place, regarding the infrastructure support for automated vehicles (SAE L4). One of 
 the objectives was linking relevant physical and digital infrastructure, assessing relevance between 
 them and automated vehicles, and mapping infrastructure elements to use-cases as \emph{generic driving 
 tasks} (GDT):
@@ -294,7 +294,7 @@ tasks} (GDT):
     \begin{itemize}
         \itemspacing{.7}
         \item Motion Control
-        \item Minimum Risk Menoeuvre
+        \item Minimum Risk Manoeuvre
     \end{itemize}
 \end{itemize}
 
@@ -326,7 +326,7 @@ decision for ITS implementation clear.
                                 & Safe navigation plans       & Navigation & Dynamic Vehicle Routing            \\
                                 & Cooperative planning        & AD         & Platooning                         \\ \midrule
         Actuation               & Motion Control              & AD         & Self-driving algorithms            \\
-                                & Minimum Risk Menoeuvre      & AD         & Self-driving algorithms            \\ \midrule[1.0pt]
+                                & Minimum Risk Manoeuvre      & AD         & Self-driving algorithms            \\ \midrule[1.0pt]
 &&&\\
         \textbf{Legend}         &                             &            &                                    \\ \midrule
         Abbreviation            & Meaning                     &            &                                    \\ \midrule% \cmidrule(r){1-2}
@@ -374,7 +374,7 @@ will be to evaluate it based on the \emph{three} features discussed in the prece
     \item Research relevance
 \end{itemize}
 
-A set of integer values will determine significance of each of the features. The significance
+A set of integer values will determine significance of each feature. The significance
 will be given in four levels:
 
 \begin{itemize}
@@ -444,9 +444,9 @@ information on the infotainment screen.
 
 \subsection{Cooperative Adaptive Cruise Control}
 
-The Cooperative Adapive Cruise Control (CACC) is an extension to an already well proven ITS - Adaptive Cruise Control.
-As has been described above, this system extends the base cruise control by utilizing the V2V information broadcasted 
-by other road users. The system has proved to reduce the number of shockwaves by reducing
+The Cooperative Adaptive Cruise Control (CACC) is an extension to an already well proven ITS - Adaptive Cruise Control.
+As has been described above, this system extends the base (adaptive) cruise control system by utilizing the V2V information broadcasted 
+by other road users. The system has proved to reduce the number of shock-waves by reducing
 oscillations that would otherwise happen without speed information sharing and increasing
 capacity of the traffic network, albeit only with higher penetration rates ($\ge 40\%$)
 \cite{van_Arem_2006}. Though, regarding the introduced thesis topic requirements, 
@@ -478,12 +478,13 @@ would be displayed on the infotainment screen.
 
 In this section, the Intelligent Transport Systems have been introduced. This field is an
 important part of traffic engineering, utilizing traffic data and mathematical modelling to
-reduce congestions, improve traffic safety and reduce emissions. The main point of this section
-was to find a suitable ITS to implement in an IVS later on in this thesis. Three indicators for
-quantitative analysis have been determined (Driver engagement, MAS-compatibilit, research
+reduce congestion, improve traffic safety and reduce emissions. The main point of this section
+was to find a suitable ITS to implement as a means for the MAS architecture validation 
+proposed in this thesis. Three indicators for
+quantitative analysis have been determined (Driver engagement, MAS-compatibility, research
 relevance) and various ITS projects have been investigated, including the R\&I efforts on the
 EU level. The results suggested that C-ITS systems are a current trend in research and numerous
-projects (e.g. C-Roads) have been established, paving the way to the future of interconnected
+projects (e.g. C-Roads) have been established, paving the way for the future of interconnected
 vehicle mobility. Afterwards, a methodology for qualitative analysis was introduced and used to
 determine the best ITS candidates for implementation into an IVS. The resulting best fitted
 systems were both from the C-ITS field, as its features are much alike those of multi-agent

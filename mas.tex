@@ -23,10 +23,10 @@ make it more natural to deal with scale and complexity in these systems
 \cite{Burmeister1997ApplicationOM}. It is apparent that MAS excel in modeling social environments
 involving humans. MAS share a lot of features with human societies, as these societies also revolve
 around atomic units - persons, that act independently - each person makes decisions and acts upon
-their own beliefs. Persons also interact with each other, be it communication, cooperation or
+their own beliefs. People also interact with each other, be it communication, cooperation or
 competition, while working towards some goal. There are numerous real-life examples that strongly
 resemble this MAS definition, for example sport teams, where each player has his own role, like
-a defender and attacker. Although all players have the same intention (i.e. win the game), their
+a defender and striker. Although all players have the same intention (i.e. win the game), their
 specific action differ depending on the state of their environment, each of them acting upon their
 own beliefs, which makes the team resemble a distributed system. From more practical perspective,
 MAS paradigm can be used when building complex computer networks, for example.
@@ -76,7 +76,7 @@ the respective classes will be given.
 
 \subsubsection{Reactive agent architectures}
 
-Having first emerged in behaviorist psychology, the concept of reactive agents id founded by agents
+Having first emerged in behaviorist psychology, the concept of reactive agents is founded by agents
 that make their decisions based on limited information, with simple situation-action rules. The agents
 usually make decisions directly based on the input from their sensors. This type of agents is mostly
 suited for application where agent resilience and robustness is the most important factor, instead
@@ -104,12 +104,12 @@ general goal on the top layer \texttt{Explore World}.
 
 \subsubsection{Deliberative agent architectures}
 
-Compared to a reactive agent, deliberative agents have a more complex structure and is closer to a
+Compared to a reactive agent, deliberative agents have a more complex structure and are closer to a
 human-like, rational behaviour. A deliberative agent is defined as one that
-possesses an explicitly represented, symbolic model fo the world, and in which
+possesses an explicitly represented, symbolic model of the world, and in which
 decisions are made via symbolic reasoning \cite{Wooldridge1996}. In other words,
 the agent maintains its internal representation of the external environment and
-thus capable to plan its actions, while being in an explicit mental state which
+thus is capable to plan its actions, while being in an explicit mental state which
 can dynamically change. The Beliefs, Desires and Intentions (BDI) architecture
 is the most widely known modelling approach of deliberative agents.
 
@@ -164,14 +164,14 @@ Hybrid architectures try to utilize the best of both worlds of agent modelling. 
 agents might lack the ability to solve complex tasks, whereas deliberative architectures are 
 challenging to successfully implement on a concrete problem \cite{Anthony2014}. Pre-compiling a plan
 library for every possible scenario that can happen in environment with vast amount of complexities
-is simply not feasible and even impossible, due to uncertainties of following effects when agents 
+is simply not feasible, due to uncertainties of following effects when agents 
 affect the environment. 
 
 The underlying concept of hybrid architectures is to structure agent functionalities into layers 
-that interact with each other, which provides several advantages, namely \emph{modularization},
+that interact with each other. This provides several advantages, namely \emph{modularization},
 which decomposes the agent's functionalities into distinct modules that have determined 
-interfaces, which facilitates dealing with design complexity. Furthermore, having distinct layers enables 
-them to run in parallel, thus increasing an agent's computational ability and also reactivity
+interfaces. This helps to deal with design complexity. Furthermore, having distinct layers enables 
+them to run in parallel, thus increasing an agent's computational ability as well as reactivity
 \cite{Mueller1999}.
 
 Generally, amongst the most widely used hybrid architectures, a \emph{controller} layer can be
@@ -192,7 +192,7 @@ abstract model can be seen on the figure (\ref{3-arch}) below.
 \textbf{\textsubscript{3}T architecture}\newline
 This architecture builds upon a predecessor architecture called Reactive Action Packages (RAPs)
 \cite{Firby1987}. A RAP is essentially a process or a description of how to complete a task using
-discrete steps. Note that it has got no planning abilities, i.e. it's action is only based on
+discrete steps. Note that it has got no planning abilities, i.e. its actions are only based on
 current perceived environment state and not on an anticipated state. When a RAP is executed, it
 should finish only when it satisfied its outcome or else it will produce a failure state. This
 ensures that the agent can self-diagnose a failure and implement some fail-safe mechanisms.
@@ -236,7 +236,7 @@ As such, when creating the framework for ITS implementation later in this thesis
 
 \subsection{Interaction between agents}\label{mas-interaction}
 
-It safe to say that an agent-based ITS system will require some form of agent interaction and
+It is safe to say that an agent-based ITS system will require some form of agent interaction and
 thus communication between individual agents. Interacting agents are able to interact with
 other agents within the environment. This concept extends an agent with an interface dedicated
 to communication, which makes them able to directly communicate and thus cooperate in a
@@ -285,7 +285,7 @@ enable based on the incoming traffic intensity. An optimal option that minimizes
 travel time) for one agent could have a significant negative effect on other intersections. 
 Therefore it is important to achieve an equilibrium that minimizes the overall cost. 
 
-\subsubsection{Organizational decomposition}
+\subsubsection{Organizational decomposition}\label{sec-conflicts}
 
 Before defining the communication protocol, which is arguably the most important aspect of agent 
 interaction, it is important to think about the the overall system topology and inter-agent 
@@ -293,7 +293,7 @@ relationships. There are two possibilities when designing agent structure.
 
 \textbf{Hierarchical organization}\newline
 In hierarchical organization \cite{Damba2007}, agents are organized in a tree structure,
-where each its level has got a different level of autonomy. The flow of control is 
+where each level has got a different level of autonomy. The flow of control is 
 from top to bottom, i.e. agents in lower level of hierarchy conform to decisions 
 from higher levels. 
 
@@ -315,13 +315,13 @@ given to conflict resolution, which is not always as straightforward, as mention
 \end{figure}
 
 \textbf{Coalitions}\newline
-Another useful agent organization is to organize into coalitions. In coalitions, a group of
+Another useful agent organization is to organize agents into coalitions. In coalitions, a group of
 agents come together for a short time to increase the utility or performance of the individual
 agents in a group \cite{ParasumannaGokulan2010}. After the goal is reached or the coalition no 
 longer becomes feasible, the coalition ceases to exist. The coalition can have a flat hierarchy, 
 with the possibility to have one agent as the leader role for interactions outside the coalition. 
-The use of coalitions allows to make a highly dynamic system, which also increases the system 
-complexity, though. 
+The use of coalitions allows for a highly dynamic system, which on the other hand increases the
+system's complexity. 
 
 There are more concepts for structuring a multi-agent system from organizational point of view, 
 such as \emph{teams} and \emph{holons}. However, the two mentioned approaches are the most well-suited for 
@@ -364,7 +364,7 @@ However, the standard introduces ACL-compliant agent requirements that need to b
 agent requirements are in the table (\ref{requirements}). 
 
 Apart from the mentioned communicative acts, the ACL standard also defines message parameters, which
-make the structure of a message (table (\ref{message-parameters})). A sample composed message structure can be found 
+form the structure of a message (table (\ref{message-parameters})). A sample composed message structure can be found 
 in figure (\ref{message-structure}).
 
 
@@ -375,7 +375,7 @@ in figure (\ref{message-structure}).
     \label{message-structure}
 \end{figure}
 
-It needs to be considered that there is plenty of other standard definitions that are suited for
+It needs to be considered that there are plenty of other standard definitions that are suited for
 distributed system interoperability, such as W3C, CORBA, UML and many others, so the choice 
 of the ACL needs to be argued. A lot of these applications are based on the so called CRUD set of 
 communication primitives - Create, Read, Update and Delete. In contrast to this, ACL defines a lot 
