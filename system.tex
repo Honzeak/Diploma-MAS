@@ -64,87 +64,148 @@ adhere to the characteristics of the \textsubscript{3}T architecture. For each l
 relation to other layers will be described, together with technical implementation guidelines, such as 
 configuration etc.
 
-\textbf{Reactive skills layer \\\& Physical modules}
+\textbf{Reactive skills layer}
 
 This layer encapsulates all the \emph{skills} the agent is able to do. These are the 
 most primitive types of its behaviour\footnote{The original author of the architecture refers to them 
 as Reactive Action Packages (RAPs) \cite{Firby1987}.}. For example, a skill might be to slow
-down or to follow a vehicle in case of vehicle-based agent. Skills are usually activated one at a time, 
-activated by the superior layers. This creates a level of abstraction, comparable to the principle found 
-in Object Oriented Programming, where the superior unit (sequencer in this case) does not care how the 
-given instruction will be executed. The sequencer only cares about the use-case and output of available
-skills. 
+down or to follow a vehicle in case of vehicle-based agent. Skills can be activated and deactivated based 
+on the cognitive capabilities of higher layer (sequencing) and more than one skill can be active at 
+any moment, and they should be independent of each other. However, one skill might use output of another 
+skill as its input, effectively making a network of skills. By providing skills for elementary operation,
+a level of abstraction is created, which emphasizes focus on impacts of task sequencing without being 
+overly concerned by how the individual skills interact with the environment. The original article 
+proposing the architecture stresses a following canonical approach for skill specification
+\cite{Bonasso1995}:
 
-In practice, each skill will be an individual script that will be synchronously, sequentially run. Inside 
-the script, it will be possible to interact with the agent's interface, mainly its sensors or communication 
-modules. The sensor and communication modules may provide an additional level of abstraction,
-with exposed interface which will be defined by the architecture but configurable by the user.
-This will mostly involve defining parameters of physical characteristics of the module, such 
-as signal range, or error rate. Speaking of error rate, a skill will be also able to return a 
-failure state to enable fail-safe behaviour. 
+\begin{enumerate}
+    \item The skill's input and output specification. Each skill must provide a
+description of the inputs it expects and a listing of the outputs that it
+generates 
+    \item A computational transform This is where the skill does its work. Once a
+skill is enabled, it uses this transform to continually recompute its outputs
+based on its current inputs.
+    \item An initialization routine. Each skill is given the opportunity to initialize itself when the system is started 
+    \item An enable function. The sequencer can enable and disable skills Depending on the
+    context, a skill is given the opportunity to perform any special start up procedures each
+    time it is enabled.
+    \item A disable function When a skill is no longer needed, the sequencer will disable it
+    and the disable function performs any necessary cleanup actions.
+\end{enumerate}
 
-This essentially means that the skills will interact with another layer, which we could call the
-\emph{Physical module layer}. This will be an elementary unit, which must be bound to a specific agent type. 
-Therefore, the assigned modules will determine which skills the agent will be able to perform.  
+In practice, each skill will be an individual script that will be \emph{asynchronously} run.
+Each script will have to implement a \emph{start-up} and \emph{clean-up} function.
+Inside the script, it will be possible to interact with the skills inputs and transform them to 
+outputs. For instance, mainly will be possible to route output from sensor or communication skills
+to other skills that use the outputs. Skills will provide interface to the higher abstraction layer 
+through pre-defined events specific to each skill.
+
+In relation to the lower-level skills (i.e. communication and sensory), such skills should be 
+able to have configurable physical layer parameters such as signal range or relative service
+reliability (error rate). Speaking of error behaviour, a skill should also be able to return a
+failure state event to enable fail-safe behaviour. 
 
 \textbf{Sequencing layer}
 
-The sequencing layer is responsible for \emph{queue management} and \emph{execution} of the individual skills. It is the 
+The sequencing layer is responsible for \emph{execution} of the individual skills, essentially 
+controlling which skills to enable/disable to achieve a certain behaviour. It is the 
 intermediate layer between the reactive skill layer and deliberative planning layer. 
 
-Apart from the trivial FIFO skills queuing, the sequencer will manage concurrent queues with different 
-priorities, as the agent has to conform to a dynamic environment. Because indirect communication (i.e. 
-broadcasting) will be featured in the proposed system, asynchronous skill sequencing will also be 
-implemented using \emph{callbacks}. Usage of this feature can be simply argued by the fact that in traffic, 
-the state of environment is changing rapidly, thus relying on sensory feedback would often not be enough 
-to avoid faulty behaviour. Furthermore, there is a vast number of ITS solutions that utilize the 
-broadcaster-subscriber principle, such as CACC systems and C-ITS systems in general.
+This layer will feature logic that will be used to accomplish a task in varying circumstances, 
+based on the state of the environment or the agent itself. For instance, regarding a driving 
+vehicle, a routine task to avoid an obstacle (which is defined by enabling certain skills by
+the sequencer) will be handled differently on a road with more than two lanes.
+
+The sequencing layer should not be responsible for more complicated reasoning, but rather 
+to define how to handle routine situations. The responsibility for high level planning to achieve 
+a global goal for an agent is reserved for the upper (deliberation) layer. The sequencing layer's 
+role in relation to the upper layer is to provide an additional layer of abstraction.
+
+To formalize the purpose of this layer in the proposed system, it should contain definitions 
+of which skills to enable to complete a rudimentary task, managing sequences of common skills
+along with logic that will account for completing them in different scenarios. The layer
+interact with both the lower (skill) layer - interacting through events triggered by individual
+skills to alter skill execution, and the upper (deliberation) layer. 
+
+% There will be \emph{two} separate queues, one for basic skill queuing and the second priority queue that 
+% will be used when agent behaviour needs to be temporarily altered. each inducing slightly different effect on currently executing 
+% skill. The second queue type will :
+
+% \begin{itemize}
+%     \item \textbf{Basic queue} - The default queue with no special effect on current executing skill. After the current 
+%     skill finishes, the next skill in the queue gets initiated and executed.
+%     \item \textbf{Priority queue} - When skills are added to this queue, the currently executing skill gets immediately 
+%     suspended and the newly added skills get executed instead. When this higher-priority queue is cleared, the 
+%     previously suspended task will continue to execute.
+% \end{itemize}
+
+% Because indirect communication (i.e. 
+% broadcasting) will be featured in the proposed system, asynchronous skill sequencing will also be 
+% implemented using \emph{callbacks}. Usage of this feature can be simply argued by the fact that in traffic, 
+% the state of environment is changing rapidly, thus relying on sensory feedback would often not be enough 
+% to avoid faulty behaviour. Furthermore, there is a vast number of ITS solutions that utilize the 
+% broadcaster-subscriber principle, such as CACC systems and C-ITS systems in general.
 
 \textbf{Deliberation layer}
 
-The deliberation layer (planner) synthesizes high-level goals into a partially ordered \emph{plan}, listing tasks that 
-the agent has to perform, in order to achieve the specified goal. For example, A vehicle's goal is to get from 
-its initial position to its destination. The deliberation initializes a plant which sequences skills that 
-should ensure the vehicle gets to the destination point. The deliberation layer is aware of the traffic network 
-(i.e. the environment), but hasn't got \emph{complete knowledge} about it. In other words, the agent knows which turns
-to take on the network to get to the destination, but isn't aware of every vehicle, pedestrian or other "obstacle" that 
-could get in its way. That's why, when there is, for example, a slow vehicle that can be overtaken, the deliberation layer 
-\emph{replans} the tasks in order to resolve the situation. 
+The deliberation layer (also referred to as the planner) synthesizes high-level goals into a
+partially ordered \emph{plan}, listing tasks that the agent has to perform, in order to achieve
+the specified goal. Ultimately, the main purpose of the layer is to manage tasks execution to
+achieve a specified goal. For example,  More generally, a goal could be something that the user
+wants the agent to accomplish, for example, a vehicle's goal is to arrive to its final
+destination.
 
-In practice, the deliberation component in this proposed framework will contain the most amount
-of pre-defined logic.  The deliberation layer will contain solutions to actual problems,
-creating \emph{workflows} created from individual steps (skills).
+Thanks to the abstractions provided by the two lower layers, the planner can be represented as
+a conditional state-based model, vastly simplifying its definition \cite{Bonasso1995}. In
+addition to this, it will be possible to add parameters to goal definition. The final version of the plan 
+will then be generated based on parameter values and internal logic that will process them.
 
-The most trivial option will be to create \emph{static} workflows, which will work under the
-assumption that workflow will not get interrupted or reach a fail state at any point, i.e. is
-expected to finish. The second option will be to create \emph{dynamic} workflows, which will enable
-re-planning according to changing environment conditions.  Re-planning will occur when it's
-triggered by one of the \emph{exit state} of agent's skills. The triggers will happen under the
-following conditions: skill returning a \emph{failure state}, callback triggered by a broadcast
-subscription or result of inter-agent negotiation (discussed later). This will cause the
-planner to re-plan by adding appropriate steps to the executing workflow to optimally adapt to
-the situation. Therefore, the framework will offer to define conditions under which additional
-steps will get added to ideally achieve a \emph{fail-safe behaviour}. For better logical
-organization, the added steps (which are identified to most often execute in a certain
-sequence) could be grouped into \emph{subtasks}.
+In practice, the most trivial specification of the deliberation layer will consist of:
 
-To further improve the resilience of the
-system, the executing workflow can be configured to reach a \emph{workflow failure state},
-which will trigger a pre-determined fail-safe workflow, that is composed of entirely different
-steps, essentially throwing away the previous, failed workflow.  This will be useful when the
-planner will run out of options to adapt to the situation, settling for a goal that would
-destabilize the system as least as possible. For example, autonomous vehicles performing a
-\emph{minimum risk maneuvre} to come to a standstill on the road side when the expected driver
-input is not received \cite{WorkingAutonomous2022}.
+\begin{enumerate}[label=\alph*)]
+    \item \textbf{Primary goal} - The main objective that the agent was designed to perform.
+    \item \textbf{Fail-safe goal} - The desired outcome of agent's behaviour in case an unexpected 
+    failure occurs in any its components or when the agent fails to achieve the primary goal. 
+    For example performing a Minimum Risk Maneuvre in vehicle based agents
+    \cite{WorkingAutonomous2022}. %should I cite this???
+ \end{enumerate}
 
-A more detailed view on the individual components of the architecture is on the image (\ref{3t-arch-detailed}) below.
+For more complex behaviour, additional goals can be specified. In that case, the choice which 
+plan to prioritize will be determined by sets of pre-conditions and constraints represented by
+the agent state.
+
+To sum it up, a detailed view on the individual components of the architecture and their
+interface is on the figure (\ref{arch-proposal}) below.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{3T-arch-edited.png}
-    \caption{An overview of the proposed 3T architecture \cite{Binder2022} (\emph{edited})}
-    \label{3t-arch-detailed}
+    \includegraphics[width=.8\textwidth]{architecture-proposal.png}
+    \caption{An overview of the proposed 3T architecture}
+    \label{arch-proposal}
 \end{figure}
+
+% The most trivial option will be to create \emph{static} workflows, which will work under the
+% assumption that workflow will not get interrupted or reach a fail state at any point, i.e. is
+% expected to finish. The second option will be to create \emph{dynamic} workflows, which will enable
+% re-planning according to changing environment conditions.  Re-planning will occur when it's
+% triggered by one of the \emph{exit state} of agent's skills. The triggers will happen under the
+% following conditions: skill returning a \emph{failure state}, callback triggered by one of the 
+% \emph{physical modules} (e.g. messages from other agents or sensory input).
+% This will cause the planner to re-plan by adding appropriate steps to the executing workflow to
+% optimally adapt to the situation. Therefore, the framework will offer to define conditions
+% under which additional steps will get added to ideally achieve a \emph{fail-safe behaviour}.
+% For better logical organization, the added steps (which are identified to most often execute in
+% a certain sequence) could be grouped into \emph{subtasks}.
+
+% To further improve the resilience of the
+% system, the executing workflow can be configured to reach a \emph{workflow failure state},
+% which will trigger a pre-determined fail-safe workflow, that is composed of entirely different
+% steps, essentially throwing away the previous, failed workflow.  This will be useful when the
+% planner will run out of options to adapt to the situation, settling for a goal that would
+% destabilize the system as least as possible. For example, autonomous vehicles performing a
+% \emph{minimum risk maneuvre} to come to a standstill on the road side when the expected driver
+% input is not received \cite{WorkingAutonomous2022}.
+
 \pagebreak
 %%%%%% I'd move this further down to the full implementation phase
 % Firstly, the matter of how much logic has to be pre-defined in the framework and how much will be left to the implementation 
@@ -201,6 +262,10 @@ queue (with pre-defined semantics i.e. CAM, DENM). The ability to act upon a rec
 will be also implemented, by making a callback that makes the skill end and return. 
 
 \subsubsection{Negotiation \& Agreement}
+\fbox{\begin{minipage}{\dimexpr\textwidth-1em}\textbf{\large I am still not sure if I should
+include the following sections related to conflict resolution as I don't know if pursuing this
+complex topic would bring substantial value to the proposed system}\end{minipage}}
+
 % still quite too theoretical, not related to actual implementation. not sure if it should be here
 Negotiation between agents is important especially when wo agents run into each other, 
 followed by the currently executing skills of the agents getting interrupted. In other words, 
@@ -253,138 +318,151 @@ other agents about the conflict as a consequence and all agents will be aware of
 \subsubsection{Conflict resolution}
 
 Now that the conflict detection process was defined, in that case, it will be possible to build
-on it to define how conflicts will be resolved. Considering the findings in chapter \ref{sec-conflicts},
-the best tool to resolve conflicts is to define hierarchy in the agent. That is, assigning each agent a 
-hierarchical level that determines his bidding power. As the figure (\ref{fig-speech-acts}) depicts, 
-when . In relation to the figure (\ref{fig-speech-acts}), conflict is essentially a a competition about a 
-resource. The said resource can have many forms apart from the more obvious free space (fig. (\ref{agentReplanning})),
-more generally, it can also be defined as a right to decide first what action to take, on the expense of the other agent(s) in 
-the conflict. In order to avoid more complex mathematical reasoning models \cite{Binder2022}, we can determine the bidding 
-power by one or more agent-bound resource types that each have a value assigned. This value can be either predefined 
-(e.g. hierarchical level) or change dynamically based on agent state and the surrounding environment (e.g. relative 
-position of the agent). 
+on it to define how conflicts will be resolved. Considering the findings in chapter
+\ref{sec-conflicts}, the best tool to resolve conflicts is to define hierarchy in the agent.
+In relation to the figure
+(\ref{fig-speech-acts}), conflict is essentially a a competition about a resource. The said
+resource can have many forms apart from the more obvious free space (fig.
+(\ref{agentReplanning})), more generally, it can also be defined as a right to decide first
+what action to take, on the expense of the other agent(s) in the conflict. In order to avoid
+more complex mathematical reasoning models \cite{Binder2022}, we can determine the bidding
+power by one or more agent-bound resource types that each have a value assigned. This value can
+be either predefined (e.g. hierarchical level) or change dynamically based on agent state and
+the surrounding environment (e.g. relative position of the agent). 
 
-\textbf{Example}
+To facilitate the communication related to conflict resolution \& bidding, the FIPA message
+standard will be used.  The FIPA standard offers pre-defined messages for such situations -
+most importantly the \texttt{Call For Proposal (CFP)} and \texttt{Propose} messages. Although
+it was mentioned that agents are self-interested, in order to make things simpler, agents will
+assume that the counterparty in conflict is thruthful and only bids resources that are
+available to them. Also, deciding which bid proposal has won will be handled by the agent that
+had called for the proposal, so the counterparty will assume that the deciding agent is
+truthful and decided correctly according to the bids. 
 
-To illustrate how the system would work in practice a sample scenario is presented below on
-figure (\ref{agentReplanning}), where the agents are drivers/vehicles. The scenario demonstrates 
-how agents achieve their goals using the three layers, as well as conflict detection and resolution.
+% \textbf{Example}
 
-There are two vehicle agents (\texttt{A}, \texttt{B}) in the scenario, which both have three skills defined:
-\texttt{drive}, \texttt{avoid:object} and \texttt{wait} and \texttt{negotiate}. Both vehicle
-agents have a goal not to crash and keep a certain speed. To ensure a fail-safe behaviour, a
-dynamic workflow is used, defined as a mapping
-(\texttt{failed\_skill}$\rightarrow$\texttt{safe\_skill}): 
+% To illustrate how the system would work in practice a sample scenario is presented below on
+% figure (\ref{agentReplanning}), where the agents are drivers/vehicles. The scenario demonstrates 
+% how agents achieve their goals using the three layers, as well as conflict detection and resolution.
 
-\begin{itemize}
-    \itemspacing{.5}
-    \item \texttt{drive} $\rightarrow$ \texttt{avoid:object}
-    \item \texttt{avoid:object} $\rightarrow$ \texttt{wait}
-    \item \texttt{wait} $\rightarrow$ \texttt{fail\_goal} (after a timeout for example)
-\end{itemize}
+% There are two vehicle agents (\texttt{A}, \texttt{B}) in the scenario, which both have three skills defined:
+% \texttt{drive}, \texttt{avoid:object} and \texttt{wait} and \texttt{negotiate}. Both vehicle
+% agents have a goal not to crash and keep a certain speed. To ensure a fail-safe behaviour, a
+% dynamic workflow is used, defined as a mapping
+% (\texttt{failed\_skill}$\rightarrow$\texttt{safe\_skill}): 
 
-The mapping of the \texttt{negotiate} skill is \texttt{drive} or \texttt{wait} based on 
-a negotiation result for each involved agent.
+% \begin{itemize}
+%     \itemspacing{.5}
+%     \item \texttt{drive} $\rightarrow$ \texttt{avoid:object}
+%     \item \texttt{avoid:object} $\rightarrow$ \texttt{wait}
+%     \item \texttt{wait} $\rightarrow$ \texttt{fail\_goal} (after a timeout for example)
+% \end{itemize}
 
-\begin{enumerate}
-    \item Both agents do not detect any obstacles in their surroundings, so the planner
-    initializes a plan with only the \texttt{drive} skill sequenced, which gets executed. 
+% The mapping of the \texttt{negotiate} skill is \texttt{drive} or \texttt{wait} based on 
+% a negotiation result for each involved agent.
 
-    \item Agent (\texttt{A}) spots an obstacle in his way (an oil spill). This makes the
-    \texttt{drive} skill fail and (\texttt{A})'s planner has to re-plan to reach its goal (not
-    crash). The failed skill's fail-safe skills are retrieved (\texttt{avoid:object})
-    and added to the new plan. The new plan is initialized with the two
-    following skills sequenced: \texttt{avoid:oil\_spill} $\rightarrow$ \texttt{drive}.
+% \begin{enumerate}
+%     \item Both agents do not detect any obstacles in their surroundings, so the planner
+%     initializes a plan with only the \texttt{drive} skill sequenced, which gets executed. 
+
+%     \item Agent (\texttt{A}) spots an obstacle in his way (an oil spill). This makes the
+%     \texttt{drive} skill fail and (\texttt{A})'s planner has to re-plan to reach its goal (not
+%     crash). The failed skill's fail-safe skills are retrieved (\texttt{avoid:object})
+%     and added to the new plan. The new plan is initialized with the two
+%     following skills sequenced: \texttt{avoid:oil\_spill} $\rightarrow$ \texttt{drive}.
     
-    \item However, this plan also fail, as agent (\texttt{B}) detects a path conflict, consequentially 
-    informing agent (\texttt{A}) about it. They now have to negotiate to reach an agreement and
-    resolve the conflict using auction-like bidding. The agent (\texttt{B}) wins the bid, due
-    to being in a right lane and so agent (\texttt{A}) is forced to give way. The planner
-    creates a new plan: \texttt{wait} $\rightarrow$ \texttt{avoid:oil\_spill} $\rightarrow$
-    \texttt{drive}.
+%     \item However, this plan also fail, as agent (\texttt{B}) detects a path conflict, consequentially 
+%     informing agent (\texttt{A}) about it. They now have to negotiate to reach an agreement and
+%     resolve the conflict using auction-like bidding. The agent (\texttt{B}) wins the bid, due
+%     to being in a right lane and so agent (\texttt{A}) is forced to give way. The planner
+%     creates a new plan: \texttt{wait} $\rightarrow$ \texttt{avoid:oil\_spill} $\rightarrow$
+%     \texttt{drive}.
     
-    \item The individual skills finish successfully and the agents' goal is fulfilled.
-\end{enumerate}
+%     \item The individual skills finish successfully and the agents' goal is fulfilled.
+% \end{enumerate}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{AgentPlanning.png}
-    \caption{An example behaviour of vehicle-based agents using the proposed architecture}
-    \label{agentReplanning}
-\end{figure}
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=.8\textwidth]{AgentPlanning.png}
+%     \caption{An example behaviour of vehicle-based agents using the proposed architecture}
+%     \label{agentReplanning}
+% \end{figure}
 
 \subsection{System requirements}
 
-To sum up the topic discussed in previous chapters, requirements for framework implementation will be 
-concluded. This will ensure that when integrating this ITS framework into existing system (i.e. IVS 
-software), the requirements will be organized and kept as a reference, helping achieve the desired 
-functionality. Especially when later choosing a library/framework to help build the framework. 
+To sum up the topic discussed in previous chapters, requirements for framework implementation
+are presented in the table (\ref{sys-requirements}) below. This will ensure that when
+integrating this ITS framework into existing system (i.e. IVS software), the requirements will
+be organized and kept as a reference, helping achieve the desired functionality. Especially
+when later choosing a library/framework to help build the framework. 
 
 \begin{table}[htbp]
     \caption{Proposed system requirements}
     \centering\begin{tabular}{>{\footnotesize}p{.9\textwidth}}
-        \toprule
+        \toprule 
+\emph{\textbf{A}\quad MICRO-ARCHITECTURE REQUIREMENTS}\\ \midrule
 \textbf{Requirement 1}: The framework should be a multi-agent based system, supporting more actors 
 that are able to act independently, having their own logic and able to make decisions based on their 
 own perception of the environment.
 \\ \midrule
-\textbf{Requirement 2}: The framework should support the \textsubscript{3}T architecture. 
+\textbf{Requirement 2}: The framework will be based on the \textsubscript{3}T architecture. 
 This primarily means implementation of the three layers of logic that offer complex behaviour 
 modelling.
 \\ \midrule
 \textbf{Requirement 3}: The framework's architecture should be modular enough to support broad 
 spectrum of ITS implementation.
 \\ \midrule
-\textbf{Requirement 4}: The actual implementation of a particular actor's abilities should be done using 
-elementary skill modules.
+\textbf{Requirement 4}: The implementation of a particular ITS-agent's elementary
+capability should be done using elementary skill modules. The skill modules must provide a
+pre-defined input and output interface.
+ \\ \midrule
+\textbf{Requirement 5}: Interaction between the three layers will be done using events. The 
+receiving layer must be able to act upon the received event appropriately based on event type.
+ \\ \midrule
+\textbf{Requirement 6}: Sensory and communication capability of an agent will be incorporated 
+as a separate skill module.
 \\ \midrule
-\textbf{Requirement 5}: An agent should be able to interact with the environment using physical modules 
-that are bound to individual skills. The physical sensor modules should have a given interface to provide 
-expected output and/or input. 
+\textbf{Requirement 7}: The sequencing layer should ensure that tasks should complete successfully 
+in most expected conditions. Failure to execute a task must be reported to the upper layer using an 
+appropriate event.
 \\ \midrule
-\textbf{Requirement 6}: Agent should be able to communicate with others through a dedicated communication 
-interface, with pre-defined semantics. The communication should also adhere to the ACL-compliance requirements 
-mentioned in section \ref{sec-acl}. 
-\\ \midrule
-\textbf{Requirement 7}: The supported communication modes will be both direct (messaging specific agents) and indirect  
-(broadcast \& subscription). 
-\\ \midrule
-\textbf{Requirement 8}: Agent should be able to act upon received information from physical
-modules, i.e. sensors and communication interface. That means, being able to process received
-information on skill-level, and signaling to the deliberation layer appropriately. 
-\\ \midrule
-\textbf{Requirement 8}: Execution of the elementary skills should be managed by the sequencing layer. 
-The sequencing layer should provide interface to facilitate such management. 
-\\ \midrule
-\textbf{Requirement 9}: Each agent should have its role determined by defining its workflows. The workflows 
-are series of steps that should finish as soon as the agent reaches its main goal. 
-\\ \midrule
+\textbf{Requirement 8}: At minimum, an agent should have \emph{two} goals defined - the main goal
+and a backup, fail-safe goal that will act as a safeguard when agent is not able to achieve the main 
+goal. \\ \midrule
+\textbf{Requirement 9}: It should be possible to parametrize the desired goals in order to provide 
+more details about the desired behaviour of the agent.
+\\ \midrule 
 \textbf{Requirement 10}: It should be possible for an agent to adapt to the environment by dynamic re-planning.
 this will be achieved by offering conditional sub-tasks that will be managed by the conditional logical reasoning 
 system in the deliberation layer.
 \\ \midrule
-\textbf{Requirement 11}: Execution of these conditional sub-tasks should be based on exit states of individual skills.
+\emph{\textbf{B}\quad MACRO-ARCHITECTURE REQUIREMENTS} \\ \midrule
+\textbf{Requirement 1}: Agent should be able to communicate with others through a dedicated communication 
+interface, with pre-defined semantics. The communication should also adhere to the ACL-compliance requirements 
+mentioned in section \ref{sec-acl}.
 \\ \midrule
-\textbf{Requirement 12}: The deliberation layer should be able to process all skills' exit codes that were defined. 
+\textbf{Requirement 2}: The supported communication modes will be both direct (messaging specific agents) and indirect  
+(broadcast \& subscription). 
 \\ \midrule
-\textbf{Requirement 13}: It should be possible to implement a fail-safe behaviour, which gets activated in case 
-the specified goal cannot be reached by the agent. In such case, a specific fail-safe workflow is defined. 
+\textbf{Requirement 3}: Agents equipped with communication skill module should be able to act upon received information
+by triggering an appropriate event to the sequencer. 
 \\ \midrule
-\textbf{Requirement 14}: Where applicable, agents should be able to detect conflicting intentions with other agents
+\textbf{Requirement 4}: Where applicable, agents should be able to detect conflicting intentions with other agents
 while executing their tasks. The conflict detection will be implemented as a module on the reactive layer.
 \\ \midrule
-\textbf{Requirement 15}: On conflict-detecting agents, they must come with a communication module, to be able to 
+\textbf{Requirement 5}: On conflict-detecting agents, they must come with a communication module, to be able to 
 notify other about the conflict or receive such notification. 
 \\ \midrule
-\textbf{Requirement 16}: Conflict-detecting agents should be either able to resolve the conflict or trigger fail-safe 
+\textbf{Requirement 6}: Conflict-detecting agents should be either able to resolve the conflict or trigger fail-safe 
 state. 
 \\ \midrule
-\textbf{Requirement 17}: Conflict resolution should be done by bidding a pre-defined resource(s). Hierarchy level can 
+\textbf{Requirement 7}: Conflict resolution should be done by bidding a pre-defined resource(s). Hierarchy level can 
 also count as a resource.
 \\ \bottomrule
     \end{tabular}
     \label{sys-requirements}
 \end{table}
+\clearpage
 
 \subsection{Conclusion}
 
@@ -433,7 +511,7 @@ Potentially, the Unity's Asset store could offer MAS packages, directly utilizin
 
 \begin{figure}[htbp]
     \centering
-    
+    \includegraphics[width=.9\textwidth]{unityUI.png}
     \caption{The Unity development platform UI}
     \label{unity}
 \end{figure}
