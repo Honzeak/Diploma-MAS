@@ -9,15 +9,13 @@ This section is dedicated to designing the system that will be used to implement
 vehicle simulator software. A framework dedicated for generic MAS-based ITS system
 implementation will be designed, utilizing the principles and paradigms gathered in the
 preceding sections (\ref{its}, \ref{mas}). Firstly, the \emph{micro-architecture} will be
-defined, i.e. the specification of the system's actors (agents) - their features,
-characteristics, state variables and their goals, as well as interfaces to the environment.
-This will form the elementary foundation that will be used to build an actual system. As a
-follow up, agent interaction interface will be defined. This will for example include
-knowledge sharing, conflict resolution and overall communication interface proposal, including
-shared vocabulary and communication layers definition. The interaction interface will,
-subsequently, lead to the \emph{macro-architecture} proposal. The structure of the system and
-will be defined. These steps should lead to a full system specification that will serve as a
-framework to implement agent-based ITSs in an interactive vehicle simulator.
+defined, i.e. the specification of the system's actors (agents) - their inner structure 
+will be defined, as well as interfaces to the environment, and high-level technical specification 
+will be proposed - responsibilities of inner components and their inter-relationships.
+This will form the elementary foundation that will be used to build an actual system.
+The subsequent \emph{macro-architecture} proposal will mainly encompass modes of inter-
+agent communication. This outline will form a system specification that will be used 
+to build the agent-based ITS framework for IVS software.
 
 \subsection{Agent/micro architecture overview}
 
@@ -179,7 +177,7 @@ interface is on the figure (\ref{arch-proposal}) below.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{architecture-proposal.png}
+    \includegraphics[width=\textwidth]{architecture-proposal.png}
     \caption{An overview of the proposed 3T architecture}
     \label{arch-proposal}
 \end{figure}
@@ -229,7 +227,7 @@ details will be presented.
 
 The first type of communicating that will be implemented is message broadcasting. This is 
 argued by the fact that ITS uses information broadcasting in a lot of cases.
-Generally, ITS services have common communication requirements \cite{Santa2013}:
+Generally, there are mostly two types of service messaging in ITS \cite{Santa2013}:
 
 \begin{itemize}
     \item \textbf{Periodic status exchange} - ITS services often need to know about 
@@ -252,14 +250,63 @@ Generally, ITS services have common communication requirements \cite{Santa2013}:
 The framework should therefore support message broadcasting for both synchronous and 
 asynchronous events, which should ensure that all potential use-cases are covered. 
 
+\subsubsection{Implementation}
+
 As has been mentioned above, the ability to broadcast and subscribe to said broadcast should be
-handled by a separate "physical module" that will be active throughout execution of individual
-skills, i.e.  its lifetime should not depend on other skills lifetime. An exception to this
-would be the skills whose purpose is to \emph{register} and \emph{un-register} those
-communication modules.  The broadcast and subscription will work like most such communication
-systems, where each agent chooses a stream to connect to and publish/consume messages from
-queue (with pre-defined semantics i.e. CAM, DENM). The ability to act upon a received message
-will be also implemented, by making a callback that makes the skill end and return. 
+handled by a separate skill component. Upon skill initialization, the communication skill will
+connect to a communication channel and listen or send messages. Each communication stream will have 
+to specify what kind (group) of messages it will be sent through it, so that agents can be set up to 
+only use channels with messages relevant to them. The agents will be able to react to received
+messages by sending an internal event message to the sequencer. 
+
+Given the great utility of C-ITS system and identified similar characteristics and use-cases 
+with agent-based systems (discussed in section \ref{sec-research}), the framework will feature 
+V2V communication support with standardized message structure and semantics out-of-the-box; 
+Namely the Cooperative Awareness Message (CAM) and Decentralized Environmental Notification Message (DENM).
+
+\subsubsection{ETSI message services}
+
+Due to wide range of beneficial use-cases for the aforementioned types information sharing
+types (periodic status exchange \& asynchronous notifications), ETSI has defined two basic
+messaging services; The CAM message (synchronous status update) and the DENM message
+(asynchronous notifications). Both message types will be described along with the implementation 
+details.
+
+\textbf{Cooperative Awareness Message}\smallskip\newline
+
+The CAM message is specified by the Cooperative Awareness Basic Service. By definition, CAM
+provides by means of periodic sending of status data a cooperative awareness to neighbouring
+nodes. From the message propagation point of view, the CAM differs from the DENM message by 
+only allowing \emph{single-hop transmission}. This way, only vehicle sin the relative vicinity 
+of the broadcasting vehicle will receive the message. CAM messages should be then processed by 
+the CAM Management component to apply additional logic \cite{ETSI2014}. For example the CAM Management can 
+detect a Slow Vehicle Warning from analyzing received CAM mesages from a particular vehicle. 
+In other words, the receiver is expected to evaluate relevance of the contained information.
+The CAM service has its message format specification, which is found on figure (\ref{cam-spec}) below. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{cam-spec.png} 
+    \caption{The CAM message specification \cite{Santa2013}}
+    \label{cam-spec}
+\end{figure}
+
+\textbf{Decentralized Environmental Notification Message}\smallskip\newline
+Instead of vehicle/station status update, DENM messages directly carry traffic safety-related 
+information, characterized by \emph{event type} identifier. Another difference from the previous 
+message type is that DENM messages are \emph{multi-hop}, and their range is expressed by geo-validity 
+specification. Among other attributes, the DENM message contains attributes for message generation 
+frequency or temporal validity threshold (expiration time). Despite specifying such 
+attributes, it is still up to the receiving station/vehicle to determine information relevance
+\cite{ETSI2019} and whether to take further actions like displaying the message to the driver.
+The DENM service message specification is on the figure (\ref{denm-spec}) below.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{denm-spec.png}
+    \caption{The DENM message specification \cite{Santa2013}}
+    \label{denm-spec}
+\end{figure}
 
 \subsubsection{Negotiation \& Agreement}
 \fbox{\begin{minipage}{\dimexpr\textwidth-1em}\textbf{\large I am still not sure if I should
@@ -278,7 +325,7 @@ This is quite different from the principles of agent cooperation. In cooperation
 the worst-case scenario improvement as opposed to working individually is net-zero. \cite{Binder2022}
 defines four speech acts in agent negotiation, as seen on fig. (\ref{fig-speech-acts}). This is 
 inherently contrary to the statement made in chapter (\ref{mas-interaction}), where it was suggested 
-that agent cooperation should be emphasized. However, as agents are formally modelled as self-interested, 
+that agent cooperation should be emphasized. As agents are formally modelled as self-interested, 
 it cannot be guaranteed that they won't encounter conflicts between each other. Therefore, modelling 
 cooperation before figuring conflict resolution would inherently result in a more fragile system 
 more prone to malfunction. 
@@ -301,17 +348,16 @@ behaviour possibilities.
 The first step is to have a way for agent to determine a conflict has happened. Agents wouldn't be 
 able to resolve conflicts if they didn't know it has occurred. To comply with the \textsubscript{3}T
 architecture topology defined above, this should be handled on the reactive skills layer. 
-Consequentially, detected conflict will be handled through a aforementioned module that will be bound 
-to an executing skill. If an agent is expected to run into a conflict with another agent (of the same 
-type), if will have to be "equipped" with a dedicated module that will behave as a sensor detecting conflict 
+Consequentially, detected conflict will be handled through a dedicated skill module. If an
+agent is expected to run into a conflict with another agent (of the same 
+ type), if will have
+to be equipped with a dedicated skill that will behave as a sensor detecting conflict 
 with the implementation left to specific use-case. In other words, the logic for conflict detection will be 
 left to define together will specific agent and its properties, and other modules.
 
-This will make the conflict detection process very flexible, as agent will have the "luxury" to combine
-his sensory feedback with communication modules to detect conflict with another agent. This will also 
-solve the potential issue with only one agent acknowledging there is a conflict between it and 
-other agent(s). Namely when one agent detects a conflict through one of its modules, it can inform 
-other agents about the conflict as a consequence and all agents will be aware of the situation. 
+It needs to be said that when one agent detects a conflict through one of its modules, it will 
+be required to inform other agents about the conflict so that all involved agents will be
+aware of the situation. 
 
 %add an image? 
 
@@ -319,22 +365,17 @@ other agents about the conflict as a consequence and all agents will be aware of
 
 Now that the conflict detection process was defined, in that case, it will be possible to build
 on it to define how conflicts will be resolved. Considering the findings in chapter
-\ref{sec-conflicts}, the best tool to resolve conflicts is to define hierarchy in the agent.
-In relation to the figure
-(\ref{fig-speech-acts}), conflict is essentially a a competition about a resource. The said
-resource can have many forms apart from the more obvious free space (fig.
-(\ref{agentReplanning})), more generally, it can also be defined as a right to decide first
-what action to take, on the expense of the other agent(s) in the conflict. In order to avoid
-more complex mathematical reasoning models \cite{Binder2022}, we can determine the bidding
-power by one or more agent-bound resource types that each have a value assigned. This value can
-be either predefined (e.g. hierarchical level) or change dynamically based on agent state and
-the surrounding environment (e.g. relative position of the agent). 
+\ref{sec-conflicts}, the simplest tool to resolve conflicts is to define hierarchy in the
+agent. In order to avoid more complex mathematical reasoning models \cite{Binder2022},
+hierarchy, along with agent-bound state variables can be used as a bidding resource. Whichever
+agents is able to bid the highest value will get priority in conflict resolution (e.g. by being
+able to act in its own interests).
 
 To facilitate the communication related to conflict resolution \& bidding, the FIPA message
 standard will be used.  The FIPA standard offers pre-defined messages for such situations -
 most importantly the \texttt{Call For Proposal (CFP)} and \texttt{Propose} messages. Although
 it was mentioned that agents are self-interested, in order to make things simpler, agents will
-assume that the counterparty in conflict is thruthful and only bids resources that are
+assume that the counterparty in conflict is truthful and only bids resources that are
 available to them. Also, deciding which bid proposal has won will be handled by the agent that
 had called for the proposal, so the counterparty will assume that the deciding agent is
 truthful and decided correctly according to the bids. 
@@ -397,6 +438,7 @@ be organized and kept as a reference, helping achieve the desired functionality.
 when later choosing a library/framework to help build the framework. 
 
 \begin{table}[htbp]
+    \small
     \caption{Proposed system requirements}
     \centering\begin{tabular}{>{\footnotesize}p{.9\textwidth}}
         \toprule 
@@ -415,26 +457,28 @@ spectrum of ITS implementation.
 \textbf{Requirement 4}: The implementation of a particular ITS-agent's elementary
 capability should be done using elementary skill modules. The skill modules must provide a
 pre-defined input and output interface.
+\\ \midrule
+\textbf{Requirement 5}: The executing skills should be able to run asynchronously/concurrently to improve 
+performance. The Sequencing layer must be able to manage the asynchronous workflow to avoid errors.
  \\ \midrule
-\textbf{Requirement 5}: Interaction between the three layers will be done using events. The 
+\textbf{Requirement 6}: Interaction between the three layers will be done using events. The 
 receiving layer must be able to act upon the received event appropriately based on event type.
  \\ \midrule
-\textbf{Requirement 6}: Sensory and communication capability of an agent will be incorporated 
+\textbf{Requirement 7}: Sensory and communication capability of an agent will be incorporated 
 as a separate skill module.
 \\ \midrule
-\textbf{Requirement 7}: The sequencing layer should ensure that tasks should complete successfully 
+\textbf{Requirement 8}: The sequencing layer should ensure that tasks should complete successfully 
 in most expected conditions. Failure to execute a task must be reported to the upper layer using an 
 appropriate event.
 \\ \midrule
-\textbf{Requirement 8}: At minimum, an agent should have \emph{two} goals defined - the main goal
+\textbf{Requirement 9}: At minimum, an agent should have \emph{two} goals defined - the main goal
 and a backup, fail-safe goal that will act as a safeguard when agent is not able to achieve the main 
 goal. \\ \midrule
-\textbf{Requirement 9}: It should be possible to parametrize the desired goals in order to provide 
+\textbf{Requirement 10}: It should be possible to parametrize the desired goals in order to provide 
 more details about the desired behaviour of the agent.
 \\ \midrule 
-\textbf{Requirement 10}: It should be possible for an agent to adapt to the environment by dynamic re-planning.
-this will be achieved by offering conditional sub-tasks that will be managed by the conditional logical reasoning 
-system in the deliberation layer.
+\textbf{Requirement 11}: It should be possible for an agent to adapt to the environment by dynamic re-planning.
+Re-planning will initialize a new plan with adapted specification of tasks.
 \\ \midrule
 \emph{\textbf{B}\quad MACRO-ARCHITECTURE REQUIREMENTS} \\ \midrule
 \textbf{Requirement 1}: Agent should be able to communicate with others through a dedicated communication 
@@ -444,19 +488,18 @@ mentioned in section \ref{sec-acl}.
 \textbf{Requirement 2}: The supported communication modes will be both direct (messaging specific agents) and indirect  
 (broadcast \& subscription). 
 \\ \midrule
-\textbf{Requirement 3}: Agents equipped with communication skill module should be able to act upon received information
+\textbf{Requirement 3}: The framework will support the CAM and DENM message standards out-of-the-box.
+\\ \midrule
+\textbf{Requirement 4}: Agents equipped with communication skill module should be able to act upon received information
 by triggering an appropriate event to the sequencer. 
 \\ \midrule
-\textbf{Requirement 4}: Where applicable, agents should be able to detect conflicting intentions with other agents
+\textbf{Requirement 5}: Where applicable, agents should be able to detect conflicting intentions with other agents
 while executing their tasks. The conflict detection will be implemented as a module on the reactive layer.
 \\ \midrule
-\textbf{Requirement 5}: On conflict-detecting agents, they must come with a communication module, to be able to 
+\textbf{Requirement 6}: On conflict-detecting agents, they must come with a communication module, to be able to 
 notify other about the conflict or receive such notification. 
 \\ \midrule
-\textbf{Requirement 6}: Conflict-detecting agents should be either able to resolve the conflict or trigger fail-safe 
-state. 
-\\ \midrule
-\textbf{Requirement 7}: Conflict resolution should be done by bidding a pre-defined resource(s). Hierarchy level can 
+\textbf{Requirement 8}: Conflict resolution should be done by bidding a pre-defined resource(s). Hierarchy level can 
 also count as a resource.
 \\ \bottomrule
     \end{tabular}
