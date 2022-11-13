@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ActressMas Framework", "ActressMas Framework", "{3878A67C-5481-490A-9DF3-1F5D37287F71}"
 EndProject
@@ -106,6 +106,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "E14 Voting", "E14 Voting", "{4452AE91-399A-41A5-85EB-4E3ADD829413}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voting", "Examples\E14 Voting\Voting.csproj", "{8AE04CBA-6976-40EB-97B4-DDCB111B7B5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ITSAgent", "ITSAgent", "{04E9254C-A1D4-446B-A09A-A46C8326B21E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItsAgentFramework", "ItsAgentFramework\ItsAgentFramework.csproj", "{DE0FDD15-6281-4115-9FEA-F2DF4E3D52EA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{512082B9-9B3A-43C8-9939-EFDFB1CAFF2E} = {512082B9-9B3A-43C8-9939-EFDFB1CAFF2E}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItsAgentFramework.UnitTests", "ItsAgentFramework.UnitTests\ItsAgentFramework.UnitTests.csproj", "{E32241CB-1B33-45DD-B3E8-CB91A774FE21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -245,6 +254,14 @@ Global
 		{8AE04CBA-6976-40EB-97B4-DDCB111B7B5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AE04CBA-6976-40EB-97B4-DDCB111B7B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AE04CBA-6976-40EB-97B4-DDCB111B7B5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE0FDD15-6281-4115-9FEA-F2DF4E3D52EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE0FDD15-6281-4115-9FEA-F2DF4E3D52EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE0FDD15-6281-4115-9FEA-F2DF4E3D52EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE0FDD15-6281-4115-9FEA-F2DF4E3D52EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E32241CB-1B33-45DD-B3E8-CB91A774FE21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E32241CB-1B33-45DD-B3E8-CB91A774FE21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E32241CB-1B33-45DD-B3E8-CB91A774FE21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E32241CB-1B33-45DD-B3E8-CB91A774FE21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -300,6 +317,9 @@ Global
 		{0E66E1E0-D4CC-4CD0-B0AB-6CAF96124F88} = {351CE165-5290-4321-B0C0-0B042DEA864C}
 		{4452AE91-399A-41A5-85EB-4E3ADD829413} = {5D6F2011-990B-4B92-98BC-60FAE2492CD6}
 		{8AE04CBA-6976-40EB-97B4-DDCB111B7B5B} = {4452AE91-399A-41A5-85EB-4E3ADD829413}
+		{04E9254C-A1D4-446B-A09A-A46C8326B21E} = {3878A67C-5481-490A-9DF3-1F5D37287F71}
+		{DE0FDD15-6281-4115-9FEA-F2DF4E3D52EA} = {04E9254C-A1D4-446B-A09A-A46C8326B21E}
+		{E32241CB-1B33-45DD-B3E8-CB91A774FE21} = {04E9254C-A1D4-446B-A09A-A46C8326B21E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6FFA0D6-CD02-443F-9ED1-80D516CAC4DB}
