@@ -1,0 +1,150 @@
+\documentclass[main.tex]{subfiles}
+
+\graphicspath{{./img}}
+\begin{document}
+
+\section{Requirements definition}
+
+This section will be mainly devoted to defining what should the proposed system be capable of in terms 
+of functionality. In the previous section, general guidelines on which ITS solution the proposed 
+framework should aim to be able to simulate were discussed. This section will expand on it, 
+going into more details and processes how to achieve a system that is both modular enough to support 
+a wide range of ITS solution simulation and, at the same time, offering enough facilitation value 
+for streamlining development of ITS simulations. 
+
+Another outcome of this section will be to determine which toolset to use to facilitate building of 
+the architecture. Ideally, an existing library for agent-based modelling could be used, which has got 
+the elementary structure defined according to our proposed specifications.
+
+Furthermore, regarding the topic of this thesis, the inductive approach of analyzing actors and
+processes of Various ITS solutions will then be used to validate the proposed framework. The
+framework will be designed using knowledge (e.g. optimal agent architecture) researched in the
+past section (\ref{mas}).  Consequentially, an optimal ITS solution will be chosen to implement
+using the proposed framework, which will serve both as a proof-of-concept and as a benchmark
+for evaluation of the framework.  
+
+\subsection{System requirements}
+
+As has been stated in the introduction, this section will be dedicated to propose logical
+requirements for the system architecture and model. Defining such requirements will ensure that
+functionality identified in both the inductive system decomposition in section (\ref{its}),
+i.e. the ITS solutions review, and the deductive approach in section (\ref{mas}), which 
+outlines the basis how multi-agent systems are modeled, will be met. This should result 
+in a ITS virtual-deployment framework that is highly modular and capable of simulating large 
+number of ITS. The requirements are summarized in the table (\ref{sys-requirements}) below.
+
+\begin{table}[htbp]
+    \small
+    \caption{Proposed system requirements}
+    \centering\begin{tabular}{>{\footnotesize}p{.9\textwidth}}
+        \toprule 
+\textbf{Requirement 1}: The framework should be a multi-agent based system, supporting more actors 
+that are able to act independently, having their own logic and able to make decisions based on their 
+own perception of the environment.
+\\ \midrule
+\textbf{Requirement 2}: The framework will be based on the \textsubscript{3}T architecture. 
+This primarily means implementation of the three layers of logic that interact between each other and thus 
+offer complex behaviour modelling - Deliberation, sequencing and skill layers.
+\\ \midrule
+\textbf{Requirement 4}: The implementation of a particular ITS-agent's elementary
+capability should be done using skill modules, each of them serving one purpose. The skill modules must provide a
+pre-defined input and output interface.
+\\ \midrule
+\\textbf{Requirement 1}: An agent should be able to communicate with others through a dedicated communication module/skill 
+that will manage the communication.
+\\ \midrule
+\textbf{Requirement 4}: Agents should be able to act upon received information from their sensory and communication interfaces
+and dynamically adjust their plans using the deliberation and sequencing layer.
+\\ \midrule
+\textbf{Requirement 7}: Sensory and communication capability of an agent will be incorporated 
+as a separate skill module.
+\\ \midrule
+\textbf{Requirement 5}: Where applicable, agents should be able to detect conflicting intentions with other agents
+while executing their tasks. The conflict detection will be implemented as a module on the reactive layer.
+\\ \midrule
+\textbf{Requirement 4}: Agents should resolve conflicts using the ACL communication
+specification, and comply with its requirements, mentioned in section \ref{sec-acl}. An
+interface to support basic negotiations utilizing abstraction ACL messages should be provided.
+\\ \midrule
+\textbf{Requirement 3}: The framework's architecture should be modular enough to support broad 
+spectrum of ITS implementation, including but not exclusive to C-ITS solutions.
+\\ \midrule
+\textbf{Requirement 3}: The framework should support C-ITS messaging services (Decentralized
+Environmental Notification Basic Service (DENM) \& Cooperative Awareness Basic Service (CAM))
+out-of-the-box and according to their specifications.
+\\ \midrule
+\textbf{Requirement 2}: The supported communication modes will be both direct (messaging specific agents) and indirect  
+(broadcast \& subscription). 
+\\ \bottomrule
+    \end{tabular}
+    \label{sys-requirements}
+\end{table}
+
+
+
+% \subsection{Implementation}
+
+% In relation to the topic of this thesis, it is important to define ITS features that will create a
+% qualitative analysis/benchmark for identifying suitable system(s) for the ITS implementation. The following 
+% sections will discuss selected features that will be used for deciding which system to implement as a demonstration
+% of the proposed agent-based framework.
+
+% deployment.  choosing which ITS to develop 
+%  regarding the thesis, Because all of the GDT seem
+% to be more or less distinct
+% activities, the table below (\ref{gdt-mapping}) was created to map each GDT to particular C-ITS system, which
+% will be used to narrow down the potential ITS implementation candidates and hopefully make the final
+% decision for ITS implementation clear. 
+
+\subsection{Qualitative analysis}
+
+Looking at the table (\ref{gdt-mapping}), it is evident that all the tasks fall under \emph{four} 
+mapping types. Those will be used as entries in the qualitative analysis. Nevertheless,
+all types of ITS considered in the preceding sections will be examined and subsequently
+evaluated to decide which type of ITS would be the most optimal to implement. 
+
+The method to determine how well-suited the candidate system type is for the implementation to an IVS 
+will be to evaluate it based on the \emph{three} features discussed in the preceding sections: 
+
+\begin{itemize}
+    \itemspacing{.5}
+    \item MAS-compatibility
+    \item Driver engagement
+    \item Research relevance
+\end{itemize}
+
+A set of integer values will determine significance of each feature. The significance
+will be given in four levels:
+
+\begin{itemize}
+    \itemspacing{.5}
+    \item \talign{None}{5}{$\rightarrow$\quad 0}
+    \item \talign{Low}{5}{$\rightarrow$\quad 2}
+    \item \talign{Moderate}{5}{$\rightarrow$\quad 5}
+    \item \talign{High}{5}{$\rightarrow$\quad 8}
+\end{itemize}
+
+\begin{table}[htbp]
+    \caption{Quantitative analysis results}
+    \renewcommand{\arraystretch}{1.4}
+    \centering\begin{tabular}{l*{3}{r}r} \toprule
+         & \multicolumn{3}{c}{Features} & \\ \cmidrule(rl){2-4}
+        ITS & \multicolumn{1}{p{6em}}{MAS-compatibility} & \multicolumn{1}{p{6em}}{Driver \newline engagement} & \multicolumn{1}{p{6em}}{Research \newline relevance} & Score \\ \midrule
+        E-Call & 2 & 2 & 5 & 9 \\ 
+        Electronic fee collection & 2 & 0 & 2 & 4 \\
+        Parking guidance & 2 & 8 & 5 & 15 \\
+        Network traffic control & 8 & 0 & 8 & 16 \\
+        \textbf{Cooperative ACC} & 8 & 8 & 8 & \textbf{24} \\
+        European Truck Platooning & 5 & 2 & 8 & 15 \\
+        ADASIS & 2 & 8 & 8 & 18 \\
+        Mobility as a Service & 8 & 2 & 8 & 18 \\
+        Map services (Geo-fencing) & 2 & 5 & 8 & 15 \\
+        \multicolumn{1}{p{5em}}{Self-driving algorithms} \& Platooning & 8 & 2 & 8 & 18 \\
+        \textbf{IVIS} & 8 & 8 & 8 & \textbf{24} \\ \bottomrule
+    \end{tabular}
+    \label{qa-table}
+\end{table}
+\clearpage 
+
+
+\end{document}

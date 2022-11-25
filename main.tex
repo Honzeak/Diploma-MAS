@@ -1,4 +1,4 @@
-\documentclass[titlepage, 12pt, draft]{article}
+\documentclass[titlepage, 12pt]{article}
 
 \title{
 \includegraphics[width=.3\textwidth]{cvut-logo.jpg}\par
@@ -80,7 +80,7 @@ AGENT-BASED MODELING OF ITS SYSTEMS IN VEHICLE SIMULATOR
 \setlength{\baselineskip}{1.5em}
 \maketitle
 
-\includepdf[pages=-]{zadani.pdf}
+\includepdf[pages=-]{zadani-dp-jan-macek.pdf}
 
 \begin{abstract}
     TODO
@@ -121,7 +121,7 @@ each other and act upon other drivers' actions. Because agent-based simulations
 have proven to model complex behaviour well, this modelling technique seems like
 a suitable solution for achieving a realistic traffic environment for IVS.
 
-The goal of this thesis is to investigate multi-agent systems, their 
+The goal of this thesis is to investigate multi-agent systems (MAS), their 
 principles and evaluate usages of these systems related to ITS research, where 
 their shared characteristics of distributed interoperability could prove to make 
 agent-based modelling strong tool for simulating ITS.
@@ -133,11 +133,19 @@ building a distributed ITS simulation of choice. Afterwards, a validation of the
 framework is conducted by implementing a distributed ITS using said framework into an IVS,
 evaluating its performance and usability for future research.
 
-\subfile{its}
+\subfile{1its}
 
-\subfile{mas}
+\subfile{2mas}
 
-\subfile{system}
+\subfile{3requirements}
+
+\subfile{4system}
+
+\subfile{5toolset}
+
+\subfile{6implementation}
+
+\subfile{7validation}
 
 \printbibliography
 \end{document}

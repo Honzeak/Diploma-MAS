@@ -14,6 +14,10 @@
 *.tmp
 *.bak
 # main.pdf
-mas.pdf
-its.pdf
-system.pdf
+2mas.pdf
+1its.pdf
+3requirements.pdf
+4system.pdf
+5toolset.pdf
+6implementation.pdf
+7validation.pdf

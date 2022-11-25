@@ -45,16 +45,6 @@ fashion.
     \label{3-arch2}
 \end{figure}
 
-% The elementary characteristics that were defined according to \cite{ParasumannaGokulan2010}
-% must shall also be taken into account: 
-
-% \begin{itemize}
-%     \item Situatedness
-%     \item Autonomy 
-%     \item Inferential capability 
-%     \item Social behaviour 
-% \end{itemize}
-
 \subsubsection{The architecture layers}
 
 In this section, the individual layers of the architecture will be defined. The layers' definition will 
@@ -429,82 +419,7 @@ truthful and decided correctly according to the bids.
 %     \label{agentReplanning}
 % \end{figure}
 
-\subsection{System requirements}
 
-To sum up the topic discussed in previous chapters, requirements for framework implementation
-are presented in the table (\ref{sys-requirements}) below. This will ensure that when
-integrating this ITS framework into existing system (i.e. IVS software), the requirements will
-be organized and kept as a reference, helping achieve the desired functionality. Especially
-when later choosing a library/framework to help build the framework. 
-
-\begin{table}[htbp]
-    \small
-    \caption{Proposed system requirements}
-    \centering\begin{tabular}{>{\footnotesize}p{.9\textwidth}}
-        \toprule 
-\emph{\textbf{A}\quad MICRO-ARCHITECTURE REQUIREMENTS}\\ \midrule
-\textbf{Requirement 1}: The framework should be a multi-agent based system, supporting more actors 
-that are able to act independently, having their own logic and able to make decisions based on their 
-own perception of the environment.
-\\ \midrule
-\textbf{Requirement 2}: The framework will be based on the \textsubscript{3}T architecture. 
-This primarily means implementation of the three layers of logic that offer complex behaviour 
-modelling.
-\\ \midrule
-\textbf{Requirement 3}: The framework's architecture should be modular enough to support broad 
-spectrum of ITS implementation.
-\\ \midrule
-\textbf{Requirement 4}: The implementation of a particular ITS-agent's elementary
-capability should be done using elementary skill modules. The skill modules must provide a
-pre-defined input and output interface.
-\\ \midrule
-\textbf{Requirement 5}: The executing skills should be able to run asynchronously/concurrently to improve 
-performance. The Sequencing layer must be able to manage the asynchronous workflow to avoid errors.
- \\ \midrule
-\textbf{Requirement 6}: Interaction between the three layers will be done using events. The 
-receiving layer must be able to act upon the received event appropriately based on event type.
- \\ \midrule
-\textbf{Requirement 7}: Sensory and communication capability of an agent will be incorporated 
-as a separate skill module.
-\\ \midrule
-\textbf{Requirement 8}: The sequencing layer should ensure that tasks should complete successfully 
-in most expected conditions. Failure to execute a task must be reported to the upper layer using an 
-appropriate event.
-\\ \midrule
-\textbf{Requirement 9}: At minimum, an agent should have \emph{two} goals defined - the main goal
-and a backup, fail-safe goal that will act as a safeguard when agent is not able to achieve the main 
-goal. \\ \midrule
-\textbf{Requirement 10}: It should be possible to parametrize the desired goals in order to provide 
-more details about the desired behaviour of the agent.
-\\ \midrule 
-\textbf{Requirement 11}: It should be possible for an agent to adapt to the environment by dynamic re-planning.
-Re-planning will initialize a new plan with adapted specification of tasks.
-\\ \midrule
-\emph{\textbf{B}\quad MACRO-ARCHITECTURE REQUIREMENTS} \\ \midrule
-\textbf{Requirement 1}: Agent should be able to communicate with others through a dedicated communication 
-interface, with pre-defined semantics. The communication should also adhere to the ACL-compliance requirements 
-mentioned in section \ref{sec-acl}.
-\\ \midrule
-\textbf{Requirement 2}: The supported communication modes will be both direct (messaging specific agents) and indirect  
-(broadcast \& subscription). 
-\\ \midrule
-\textbf{Requirement 3}: The framework will support the CAM and DENM message standards out-of-the-box.
-\\ \midrule
-\textbf{Requirement 4}: Agents equipped with communication skill module should be able to act upon received information
-by triggering an appropriate event to the sequencer. 
-\\ \midrule
-\textbf{Requirement 5}: Where applicable, agents should be able to detect conflicting intentions with other agents
-while executing their tasks. The conflict detection will be implemented as a module on the reactive layer.
-\\ \midrule
-\textbf{Requirement 6}: On conflict-detecting agents, they must come with a communication module, to be able to 
-notify other about the conflict or receive such notification. 
-\\ \midrule
-\textbf{Requirement 8}: Conflict resolution should be done by bidding a pre-defined resource(s). Hierarchy level can 
-also count as a resource.
-\\ \bottomrule
-    \end{tabular}
-    \label{sys-requirements}
-\end{table}
 \clearpage
 
 \subsection{Conclusion}
@@ -524,39 +439,5 @@ conflicts through resource bidding.
 With the micro- and macro-architecture being specified, the final requirements for the system implementation were proposed, 
 which aim to help ensure that the software framework will be able to facilitate ITS implementation into IVS software in an 
 organized way, with a high system resilience.
-
-\section{System implementation}
-
-With the finished system specification, it should be discussed which tools should be used to build the software framework. 
-First off, it is important to analyze the IVS simulation system/software (i.e. the super-system) that
-the proposed framework will be incorporated into. An effort should be made to maximize the super-system acceptance of 
-this system by choosing an optimal tool-set for its implementation. This, for the most part,
-refers to an optimal choice a programming language and a subsequent agent-based modelling
-library to use (if there will be any), also due to this being one of the primary tasks of this thesis. 
-Therefore, the next section will be devoted to introduction to the IVS software.
-
-\subsection{Simulator software}
-
-The particular simulator software that is being used at the university's faculty is being
-developed using the \emph{Unity} game engine, developed by Unity Technologies. The game engine
-was first released in 2005 and has been used to develop numerous simulators as well as other
-video games ever since \cite{UnityTechnologies2022}.  Unity has also been used as a tool in
-physical product modelling, AI \& machine learning and digital twins, used in many industries
-\cite{UnityTechnologies2022a}.  The main strengths of Unity are multi-platform development
-support, virtual reality development support, good community support (including its own asset
-store) and good documentation. The game engine has got its own development environment, which 
-can be seen on figure (\ref{unity}) below.
-
-The game engine's runtime is written in the C++ programming language, but the scripting API 
-that it offers is in the C\# language. Consequently, the libraries that will be used to develop 
-the system should ideally also be .NET based to achieve maximum customization and interoperability.
-Potentially, the Unity's Asset store could offer MAS packages, directly utilizing Unity's API.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=.9\textwidth]{unityUI.png}
-    \caption{The Unity development platform UI}
-    \label{unity}
-\end{figure}
 
 \end{document}
