@@ -2,7 +2,7 @@
 
 \graphicspath{{./img}}
 \begin{document}
-\section{Intelligent Transport Systems}\label{its}
+\section{Intelligent Transport Systems}\label{sec-its}
 
 Intelligent transport systems describe an initiative to utilize modern technology 
 in order to optimize and increase efficiency of processes common to the domain of transportation. 
@@ -22,8 +22,6 @@ of MAS for simulation of ITS systems, whether suitable application for agent-bas
 ITS is feasible. , The insights gained by reviewing current state of ITS will 
 serve as a base for further sections, where considerations regarding model framework design and 
 its validation will be discussed. 
-
-
 
 \begin{figure}[htbp]
     \centering
@@ -48,7 +46,7 @@ School of Public Health, air pollution from traffic congestion in 83 of the USA'
 areas contributes to more than 2,200 premature deaths annually, costing the health care system at
 least \$18 billion \cite{Levy2011}.
 
-\subsubsection{IVS-based research}
+\subsection{IVS-based research}
 
 Using virtual simulation tools to research and evaluate impacts of new and existing ITS 
 is a great tool, as it can greatly reduce the overall cost of development, achieved by faster, 
@@ -63,7 +61,7 @@ of interaction with the driver.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.8\textwidth]{why is ITS needed.jpg}
-    \caption{Reasons for ITS usage}
+    \caption{Reasons for ITS usage \cite{Lishchenko2021}}
     \label{whyITS}
 \end{figure}
 
@@ -82,14 +80,17 @@ by trivial logic). The observed use-cases with high driver engagement were deter
 These use-cases should be considered when ITS simulation framework design decisions will be made in the practical part of the 
 thesis.
 
-\subsubsection{MAS-compatibility} \label{mas-compatibility}
+\subsection{Intelligence distribution} \label{mas-compatibility}
 
-Secondly, it is important to acknowledge whether there is an ITS that could be simulated using the MAS theory,
-so that the information gathered in the first section of this thesis could be successfully applied.
-
-Intelligent transport systems are, by nature, systems combining several actors together to achieve a common goal. 
-Would this mean that every ITS can be, in fact, modelled as multi-agent system? The answer is
-that it does \emph{not} apply to all of them. 
+It is important to acknowledge whether the underlying system control is centrally governed 
+or whether the intelligence is distributed across multiple actors, where individual 
+components of the system are able to act semi- or fully independently.
+Such self-imposed reasoning is important to consider, because the way ITS solutions 
+with centralized or distributed intelligence are designed can be fundamentally different 
+and this, different system models are optimal to use when simulating a particular ITS. 
+Intelligent transport systems are, by nature, systems combining several actors together to
+achieve a common goal.  Would this mean that every ITS can be, in fact, modelled as multi-agent
+system? The answer is that it does \emph{not} apply to all of them. 
 
 Historically speaking, ITSs that were
 developed and proved helpful for optimizing traffic were \emph{centralized}, meaning there is a
@@ -100,14 +101,15 @@ safe product. The main drawback of this method is that they are heavily affected
 of instances, increasing the complexity and often result in exceedingly large computation time,
 making the solution sub-optimal \cite{Corman2010}. 
 
-As with the \emph{distributed} systems, the main challenge making individual agents 
-solving sub-problem, cooperating well to achieve good and predictable results, as has been 
-illustrated in section (\ref{mas}). Distributed systems can be used to solve traffic optimization
-problems on a larger scale. These systems have seen larger usage especially in the
-recent times, as newly produced vehicles are equipped with powerful computers that can be used
-to transfer the computational burden from the core computer in centralized systems. Also
-state-of-art communication protocols like DSRC and ITS 5G, which enable low-latency direct
-communication between vehicles. 
+As with the \emph{distributed} systems, the main problem is systematically distributed to
+individual agents solving a sub-problem and cooperating to achieve optimal and predictable
+results, such distributed intelligence is often modelled using \emph{Multi-agent Systems}. 
+This topic will be further discussed in section (\ref{sec-mas}). Distributed systems can be used to
+solve traffic optimization problems on a larger scale. These systems have seen larger usage
+especially in the recent times, as newly produced vehicles are equipped with powerful computers
+that can be used to transfer the computational burden from the core computer in centralized
+systems. Also state-of-art communication protocols like DSRC and ITS 5G, which enable
+low-latency direct communication between vehicles. 
 
 The one example of an ITS where implementations have been carried out in both centralized and 
 decentralized principles numerous times is a \emph{Network traffic control}. The goal of this 
@@ -117,7 +119,7 @@ centralized and distributed network traffic control systems were compared. The c
 although the centralized system was able to achieve better performance higher global efficiency, 
 the decentralized solution required significantly less computation time (40 \% in their experiment case).
 
-Other decentralized, MAS-based systems that are more exposed to the user (driver) include the 
+Other decentralized systems that are more exposed to the user (i.e. driver) include the 
 \emph{Adaptive Cruise Control} (ACC), for example. ACC extends the usual cruise control systems 
 that maintain vehicle speed by adapting to speed of the vehicle in front, if there is any. In fact, 
 recent development has lead to a further improvement, making ACC a cooperative system (CACC) that 
@@ -160,7 +162,7 @@ namely European Truck Platooning (ETPC), Advanced map-enhanced driver assistance
 more. ERTICO's main contribution is to facilitate creation of ITS ecosystem by following a
 multidisciplinary approach involving all relevant transport stakeholder sectors.
 
-\term{Clean \& Eco- Mobility}
+\term{Clean \& Eco Mobility}
 As has been already mentioned, smart mobility innovations make a major contribution towards 
 reducing the impact of transport-induced pollution, which has got a non-negligible contribution to 
 global greenhouse gas emissions production \cite{Ritchie2020}. Below are the four main
@@ -328,7 +330,7 @@ message conveying GLOSA timing information accordingly.
     \label{glosa-chart}
 \end{figure}
 
-\subparagraph{Project C-Roads}
+\subparagraph{Project C-Roads}\label{sec-croads}
 
 In order to study the effects and refine the future deployment process of C-ITS, a project 
 organized by the EU member states and road operators, called \emph{C-Roads} was established. 
@@ -364,7 +366,7 @@ tasks} (GDT):
     \item Planning
     \begin{itemize}
         \itemspacing{.7}
-        \item (dynamic) information and regulations
+        \item (Dynamic) information and regulations
         \item Safe and appropriate navigation plans
         \item Cooperative planning
     \end{itemize}
@@ -382,7 +384,7 @@ it shall offer basic components to simulate all aforementioned GDTs, as because 
 activities have shown that the tasks above will be a fundamental part of the future C-ITS deployment.
 
 To put these GDT use-cases into a better perspective, a mapping was created (table
-(\ref{gdt-mapping}))that links the aforementioned GDTs to existing, relevant ITS solutions.
+(\ref{gdt-mapping})) that links the aforementioned GDTs to existing, relevant ITS solutions.
 This should clear up and simplify the process of defining requirements to the proposed system,
 as the new framework requirements could be easily adopted from existing system documentation of
 the particular mapped ITS.
@@ -441,31 +443,18 @@ the particular mapped ITS.
 %     \label{gdt-legend}
 % \end{table}
 
-
-\
-
-
-
 \subsection{Conclusion}
 
 In this section, the Intelligent Transport Systems have been introduced. This field is an
 important part of traffic engineering, utilizing traffic data and mathematical modelling to
 reduce congestion, improve traffic safety and reduce emissions. The main point of this section
-was to discover important features of intelligent transport systems that are related to 
-simulation and integration into vehicle simulators. 
-find a suitable ITS to implement as a means for the MAS architecture validation 
-proposed in this thesis. Three indicators for
-quantitative analysis have been determined (Driver engagement, MAS-compatibility, research
-relevance) and various ITS projects have been investigated, including the R\&I efforts on the
-EU level. The results suggested that C-ITS systems are a current trend in research and numerous
-projects (e.g. C-Roads) have been established, paving the way for the future of interconnected
-vehicle mobility. Afterwards, a methodology for qualitative analysis was introduced and used to
-determine the best ITS candidates for implementation into an IVS. The resulting best fitted
-systems were both from the C-ITS field, as its features are much alike those of multi-agent
-systems. Finally, the chosen systems to implement were the \emph{IVIS based awareness and
-warning information system} and the \emph{Green Light Optimal Speed Advisory} system. The
-following practical part will be dedicated to the implementation methodology, introduction to
-the development system and the development itself.
+was to discuss important features of Intelligent Transport Systems that are related to 
+the topic of this thesis. The relationship between driver and ITS system, and intelligence 
+distribution across ITS actors have been discussed. ITS projects relevant to the thesis topic
+have been investigated, including the R\&I efforts on the EU level. The results suggested that
+C-ITS systems are a current trend in research and numerous projects (e.g. C-Roads) have been
+established, paving the way for the future of interconnected vehicle mobility. 
+
 \clearpage
 
 \end{document}
