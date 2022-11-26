@@ -8,7 +8,7 @@
 This section is dedicated to designing the system that will be used to implement ITS in the
 vehicle simulator software. A framework dedicated for generic MAS-based ITS system
 implementation will be designed, utilizing the principles and paradigms gathered in the
-preceding sections (\ref{its}, \ref{mas}). Firstly, the \emph{micro-architecture} will be
+preceding sections (\ref{sec-its}, \ref{sec-mas}). Firstly, the \emph{micro-architecture} will be
 defined, i.e. the specification of the system's actors (agents) - their inner structure 
 will be defined, as well as interfaces to the environment, and high-level technical specification 
 will be proposed - responsibilities of inner components and their inter-relationships.
@@ -20,7 +20,7 @@ to build the agent-based ITS framework for IVS software.
 \subsection{Agent/micro architecture overview}
 
 As per the previous section(s), where the individual MAS architectures have been reviewed
-(section \ref{mas}), it was decided to utilize  the hybrid \emph{\textsubscript{3}T
+(section \ref{sec-mas}), it was decided to utilize  the hybrid \emph{\textsubscript{3}T
 architecture\footnote{To remind the reader of the architecture's general structure, its
 schematic is shown below (fig. \ref{3-arch2}).}} (section \ref{hybrid-arch}), which will offer
 sufficient flexibility.  Such modeling flexibility is needed primarily because there won't be a
@@ -420,8 +420,6 @@ truthful and decided correctly according to the bids.
 % \end{figure}
 
 
-\clearpage
-
 \subsection{Conclusion}
 
 In the preceding sections, the multi-agent system framework was proposed. This framework will be used to implement various 
@@ -439,5 +437,7 @@ conflicts through resource bidding.
 With the micro- and macro-architecture being specified, the final requirements for the system implementation were proposed, 
 which aim to help ensure that the software framework will be able to facilitate ITS implementation into IVS software in an 
 organized way, with a high system resilience.
+
+\clearpage
 
 \end{document}
