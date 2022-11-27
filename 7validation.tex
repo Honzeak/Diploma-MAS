@@ -2,39 +2,40 @@
 \graphicspath{{./img}}
 
 \begin{document}
-% \subsection{Implementation}
+\section{System validation}
 
-% In relation to the topic of this thesis, it is important to define ITS features that will create a
-% qualitative analysis/benchmark for identifying suitable system(s) for the ITS implementation. The following 
-% sections will discuss selected features that will be used for deciding which system to implement as a demonstration
-% of the proposed agent-based framework.
+This section will be devoted to evaluation and demonstration of the proposed MAS-based ITS
+implementation framework. A ITS solution will be chosen to demonstrate implementation using 
+the framework, serving as a validation of the system and the overall implementation process will 
+be conducted, as well as demonstration of the framework's capabilities. 
 
-% deployment.  choosing which ITS to develop 
-%  regarding the thesis, Because all of the GDT seem
-% to be more or less distinct
-% activities, the table below (\ref{gdt-mapping}) was created to map each GDT to particular C-ITS system, which
-% will be used to narrow down the potential ITS implementation candidates and hopefully make the final
-% decision for ITS implementation clear. 
+The following paragraphs will pick up on the findings in chapter (\ref{sec-croads}), where the
+table (\ref{gdt-mapping}) maps General Driving Tasks to state-of-the-art ITS solutions. Those
+ITS solutions will be analyzed in this chapter in an attempt to transparently select an optimal
+system to implement using the developed framework in order to validate and demonstrate its
+use-case. 
+
+In order to choose an optimal ITS to implement, it is important to define features that 
+reflect such system's suitability for implementation. Optimally selecting such features 
+for evaluation of previously selected individual ITSs will create a qualitative benchmark that
+will be used to select an ITS solution for demonstration of the proposed framework's
+capabilities.
 
 \subsection{Qualitative analysis}
 
-Looking at the table (\ref{gdt-mapping}), it is evident that all the tasks fall under \emph{four} 
-mapping types. Those will be used as entries in the qualitative analysis. Nevertheless,
-all types of ITS considered in the preceding sections will be examined and subsequently
-evaluated to decide which type of ITS would be the most optimal to implement. 
-
-The method to determine how well-suited the candidate system type is for the implementation to an IVS 
-will be to evaluate it based on the \emph{three} features discussed in the preceding sections: 
+The method to determine how well-suited the candidate system type is for the implementation to
+an IVS will be to evaluate it based on the \emph{three} features discussed in the preceding
+section (\ref{sec-its}): 
 
 \begin{itemize}
     \itemspacing{.5}
-    \item MAS-compatibility
+    \item Intelligence distribution rate
     \item Driver engagement
     \item Research relevance
 \end{itemize}
 
-A set of integer values will determine significance of each feature. The significance
-will be given in four levels:
+A set of integer values will determine the rates how the selected features are represented in the 
+ITS solution in question. The representation level will be expressed in a fuzzy logic given in four levels:
 
 \begin{itemize}
     \itemspacing{.5}
@@ -43,6 +44,17 @@ will be given in four levels:
     \item \talign{Moderate}{5}{$\rightarrow$\quad 5}
     \item \talign{High}{5}{$\rightarrow$\quad 8}
 \end{itemize}
+
+Because \emph{None} representation of the feature does not bear any significance to choosing an ITS 
+in question, it will be assigned zero. \emph{Low} representation should not have a significant impact on 
+suitability of ITS, therefore its value is only incremented by two as opposed to \emph{None}. \emph{Moderate}
+and \emph{High} rates of feature representation should have a more significant influence on the final system 
+choice, therefore their values have been assigned as increments of three instead of two. 
+
+Each system reviewed in section (\ref{sec-its}) will be evaluated and the sum of individual feature evaluation 
+will determine its score, meaning the higher the score, the better the result for a particular ITS. The system 
+with the \emph{highest} score will be chosen to implement using the proposed framework. The results of the 
+qualitative analysis can be seen in the table (\ref{qa-table}) below.
 
 \begin{table}[htbp]
     \caption{Quantitative analysis results}
@@ -64,5 +76,15 @@ will be given in four levels:
     \end{tabular}
     \label{qa-table}
 \end{table}
+
+A methodology for qualitative analysis was introduced and used to
+determine the best ITS candidates for implementation into an IVS. The resulting best fitted
+systems were both from the C-ITS field, as its features are much alike those of multi-agent
+systems. Finally, the chosen systems to implement were the \emph{IVIS based awareness and
+warning information system} and the \emph{Green Light Optimal Speed Advisory} system. The
+following practical part will be dedicated to the implementation methodology, introduction to
+the development system and the development itself.
+
 \clearpage 
+
 \end{document}
