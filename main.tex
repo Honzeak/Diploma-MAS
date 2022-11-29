@@ -23,6 +23,7 @@ AGENT-BASED MODELING OF ITS SYSTEMS IN VEHICLE SIMULATOR
 \date{\Large 2022}
 
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{listings}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
@@ -91,11 +92,37 @@ AGENT-BASED MODELING OF ITS SYSTEMS IN VEHICLE SIMULATOR
 
 \section{Introduction}
 
+The goal of this thesis is to investigate multi-agent systems (MAS), their 
+principles and evaluate usages of these systems related to ITS research, where 
+their shared characteristics of distributed interoperability makes
+agent-based modelling a strong tool for simulating ITS solutions. The output of 
+the experimental/practical part of the thesis is a MAS-based simulation framework 
+for facilitating and the process of ITS solutions simulation with the benefit 
+of modular and fast extensibility.
+
+
+
+In the first two chapters, a review of the state-of-art research about Intelligent 
+Transport Systems and Multi-agent Systems is presented, discussing the important 
+features related to the main topic of the thesis. This research leads to definition of system
+requirements that are described in the third chapter. In the 
+fourth section, a framework architecture model is proposed, in line with 
+MAS paradigms and adapted for ITS solutions simulation. In the fifth section, the
+usage and requirements of tools for framework development is discussed, mainly discussing the simulator software integration
+and additional development platforms and libraries that could potentially facilitate the
+framework design process. In the sixth section, a technical implementation of the 
+framework is presented, showing the implementation details while also serving as the 
+software's documentation. In section number seven, a validation of the proposed 
+system is conducted by implementing a distributed cooperative ITS system into the
+IVS, using the proposed framework and assessing its performance and overall results.
+
+\subsection{Introduction to the problematic}
+
 In a world where vehicle transport plays an inseparable role in the society, with an ever increasing
 demand, it is important to analyze and study driver behaviour and inherently interactions and
 relationships between drivers and their surroundings. This is supported by the fact that, even though
-substantial advancements in autonomous driving are being made, for the near-future, humans will still
-have to control vehicles themselves and therefore be exposed to a substantial risk of danger. 
+substantial advancements in autonomous driving are being made, for the near-future, vehicles 
+will be controlled by humans and therefore be exposed to a substantial risk of danger. 
 Data shows that about 95 \% of traffic accidents are a result of human error \cite{Parliament2021}. 
 Each traffic accident has got a tremendous effect on socio-economic growth. A study be the European
 Union states that accident-related expenses (including cost of fatality) cost 1,8 \% of EU GDP \cite{Wijnen2017}.  
@@ -104,16 +131,16 @@ should be made to diminish fatal accidents.
 
 A method that has proven to be effective at studying driver behaviour and
 traffic safety is by using interactive vehicle simulators (IVS), which allow to
-undertake experiments in a safe, controlled and reproducible way.  Because
-driving simulator is basically a digital twin of a real vehicle, it is naturally
+undertake experiments in a safe, controlled and reproducible way \cite{Winter2012}.  Because
+driving simulator is a digital twin of a real vehicle, it is naturally
 reasonable to make the interaction between the driver and IVS as close to
-reality as possible, which inherently improves data quality of the simulation
-and potentially also the range of IVS application. An IVS has got a broad
-spectrum of employment. It is not only used as a tool to research driver
+reality as possible, which inherently improves trustworthiness of acquired data from experiments
+and potentially also the range of IVS application. The IVS has got a broad
+spectrum of utilization. It is not only used as a tool to research driver
 behaviour, but also used in development and testing of advanced
 driver-assistance systems, extending the simulator to a hardware-in-the-loop or
-a vehicle-in-the-loop system, which enables to test real hardware and simulate
-full road testing.
+a vehicle-in-the-loop software, which enables to test real hardware and simulate
+full road testing \cite{Horvath2019}.
 
 Simulating the traffic environment is a complex problem, mainly because of
 its highly dynamic characteristics. All vehicles  need to interact with
@@ -121,40 +148,21 @@ each other and act upon other drivers' actions. Because agent-based simulations
 have proven to model complex behaviour well, this modelling technique seems like
 a suitable solution for achieving a realistic traffic environment for IVS.
 
-The goal of this thesis is to investigate multi-agent systems (MAS), their 
-principles and evaluate usages of these systems related to ITS research, where 
-their shared characteristics of distributed interoperability could prove to make 
-agent-based modelling a strong tool for simulating ITS solutions. The output of 
-the experimental/practical part of the thesis should be A MAS-based simulation framework 
-for facilitating and streamlining the process of ITS solutions simulation.
 
-In the first two chapters, a review of the state-of-art research about Intelligent 
-Transport Systems and Multi-agent Systems is presented, with an emphasis on the 
-respective field's system model point of view. In the third chapter, requirements 
-for the proposed framework are specified, based on the preceding research. In the 
-fourth section, a self-proposed framework architecture is proposed, in line with 
-MAS paradigms and adapted for ITS solutions simulation. In the fifth section, the
-implementation requirements are specified, mainly discussing the simulator software integration
-and additional development platforms and libraries that could potentially facilitate the
-framework design process. In the sixth section, a technical implementation of the 
-framework is presented, showing the implementation details while also serving as the 
-software's documentation. In section number seven, a validation of the proposed 
-system is conducted by implementing a distributed cooperative ITS system into an 
-IVS, using the proposed framework and assessing its performance and overall results.
 
-\subfile{1its}
+% \subfile{1its}
 
-\subfile{2mas}
+% \subfile{2mas}
 
-\subfile{3requirements}
+% \subfile{3requirements}
 
-\subfile{4system}
+% \subfile{4toolset}
 
-\subfile{5toolset}
+% \subfile{5system}
 
-\subfile{6implementation}
+% \subfile{6implementation}
 
-\subfile{7validation}
+% \subfile{7validation}
 
 \clearpage
 

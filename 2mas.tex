@@ -29,9 +29,9 @@ resemble this MAS definition, for example sport teams, where each player has his
 a defender and striker. Although all players have the same intention (i.e. win the game), their
 specific action differ depending on the state of their environment, each of them acting upon their
 own beliefs, which makes the team resemble a distributed system. From more practical perspective,
-MAS paradigm can be used when building complex computer networks, for example.
+MAS paradigm can be used when building complex computer networks.
 
-\subsection{Agent}
+\subsection{Agents}
 
 Agents are the fundamental building blocks of a multi-agent system. While they can have many
 features and characteristics specific for their use case and are not possible to generalize,
@@ -63,7 +63,7 @@ As has been already stated, in order to model complex applications, the agent ch
 well as their internal control architecture will differ between use cases. In an effort to standardize
 MAS development, several architectures that describe how agents work have been proposed. Generally,
 there are three classes of agent modelling architectures that are defined based on interaction
-complexity with external sources:
+complexity with external sources \cite{Anthony2014}:
 
 \begin{itemize}
     \item Reactive agents
@@ -80,7 +80,7 @@ Having first emerged in behaviorist psychology, the concept of reactive agents i
 that make their decisions based on limited information, with simple situation-action rules. The agents
 usually make decisions directly based on the input from their sensors. This type of agents is mostly
 suited for application where agent resilience and robustness is the most important factor, instead
-of optimal behaviour. An example of a reactive agent architecture is the Subsumption architecture.
+of optimal behaviour \cite{Anthony2014}. An example of a reactive agent architecture is the Subsumption architecture.
 
 \textbf{Subsumption architecture}\newline
 This architecture described by Rodney Brooks in 1986 \cite{1087032} and
@@ -236,7 +236,7 @@ As such, when creating the framework for ITS implementation later in this thesis
 
 \subsection{Interaction between agents}\label{mas-interaction}
 
-It is safe to say that an agent-based ITS system will require some form of agent interaction and
+An agent-based ITS system will require some form of agent interaction and
 thus communication between individual agents. Interacting agents are able to interact with
 other agents within the environment. This concept extends an agent with an interface dedicated
 to communication, which makes them able to directly communicate and thus cooperate in a
@@ -324,7 +324,7 @@ The use of coalitions allows for a highly dynamic system, which on the other han
 system's complexity. 
 
 There are more concepts for structuring a multi-agent system from organizational point of view, 
-such as \emph{teams} and \emph{holons}. However, the two mentioned approaches are the most well-suited for 
+such as \emph{teams} and \emph{holons}. The two mentioned approaches are the most well-suited for 
 an ITS system development, as they have been used in more works for this purpose already 
 (e.g. \cite{Balaji2007} and \cite{Vijsel2004}). 
 

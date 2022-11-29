@@ -6,8 +6,11 @@
 
 This section will be devoted to evaluation and demonstration of the proposed MAS-based ITS
 implementation framework. A ITS solution will be chosen to demonstrate implementation using 
-the framework, serving as a validation of the system and the overall implementation process will 
-be conducted, as well as demonstration of the framework's capabilities. 
+the framework, serving as a validation of the system design. The chosen ITS solution will be simulated
+in the IVS software by using the proposed framework. The implementation process will be documented, 
+and the simulation results will be discussed.
+
+\subsection{Qualitative analysis}
 
 The following paragraphs will pick up on the findings in chapter (\ref{sec-croads}), where the
 table (\ref{gdt-mapping}) maps General Driving Tasks to state-of-the-art ITS solutions. Those
@@ -20,8 +23,6 @@ reflect such system's suitability for implementation. Optimally selecting such f
 for evaluation of previously selected individual ITSs will create a qualitative benchmark that
 will be used to select an ITS solution for demonstration of the proposed framework's
 capabilities.
-
-\subsection{Qualitative analysis}
 
 The method to determine how well-suited the candidate system type is for the implementation to
 an IVS will be to evaluate it based on the \emph{three} features discussed in the preceding
@@ -77,6 +78,19 @@ qualitative analysis can be seen in the table (\ref{qa-table}) below.
     \label{qa-table}
 \end{table}
 
+\subsubsection{Results discussion}
+
+The conducted analysis has determined two ITS solutions as suitable systems to demonstrate 
+implementation - IVIS based awareness and warning information system and Green
+Light Optimal Speed Advisory. Both these come from the state-of-the-art C-ITS subfield. As 
+previously discussed, the GLOSA system is using dedicated message types in its implementation -
+the SPaT and MAP messages. On the other hand, the IVIS system can use the pre-implemented 
+CAM and DENM messages to share traffic-related information. For this reason, the 
+\emph{IVIS based awareness and warning information system} will be chosen to implement 
+using the proposed framework.
+
+\subsubsection{Conclusion}
+
 A methodology for qualitative analysis was introduced and used to
 determine the best ITS candidates for implementation into an IVS. The resulting best fitted
 systems were both from the C-ITS field, as its features are much alike those of multi-agent
@@ -84,6 +98,8 @@ systems. Finally, the chosen systems to implement were the \emph{IVIS based awar
 warning information system} and the \emph{Green Light Optimal Speed Advisory} system. The
 following practical part will be dedicated to the implementation methodology, introduction to
 the development system and the development itself.
+
+\subsection{IVIS implementation}
 
 \clearpage 
 

@@ -5,7 +5,7 @@
     
 \section{Proposed system}\label{sec-system}
 
-This section is dedicated to designing the system that will be used to implement ITS in the
+This section is dedicated to design of the system that will be used to implement ITS in the
 vehicle simulator software. A framework dedicated for generic MAS-based ITS system
 implementation will be designed, utilizing the principles and paradigms gathered in the
 preceding sections (\ref{sec-its}, \ref{sec-mas}). Firstly, the \emph{micro-architecture} will be
@@ -21,29 +21,23 @@ to build the agent-based ITS framework for IVS software.
 
 As per the previous section(s), where the individual MAS architectures have been reviewed
 (section \ref{sec-mas}), it was decided to utilize  the hybrid \emph{\textsubscript{3}T
-architecture\footnote{To remind the reader of the architecture's general structure, its
-schematic is shown below (fig. \ref{3-arch2}).}} (section \ref{hybrid-arch}), which will offer
-sufficient flexibility.  Such modeling flexibility is needed primarily because there won't be a
-single, concrete system to model, but rather a generic system that will facilitate arbitrary
-agent-based ITS implementation. As such, it makes sense to choose a hybrid architecture, which
-will ensure there will be optimal balance between robust, reactive behaviour without giving up
-capabilities to model complex behaviour.
+architecture}\footnote{To remind the reader of the architecture's general structure, the
+architecture model schematic can be found on fig. (\ref{3-arch}) } (section \ref{hybrid-arch}),
+which will offer sufficient flexibility.  Such modeling flexibility is needed primarily because
+there won't be a single, concrete system to model, but rather a generic system that will
+facilitate arbitrary agent-based ITS implementation. As such, it makes sense to choose a hybrid
+architecture, which will ensure there will be optimal balance between robust, reactive
+behaviour without giving up capabilities to model complex behaviour.
 
 Note that the architecture will be formally assume that the its implementation will be realized 
 in an Object-Oriented Programming (OOP) paradigm. There are multiple reasons for that. Firstly, 
 The nature of agent based systems, having their internal logic and interacting with the surroundings 
 through pre-defined interface, corresponds to a large degree to the concepts of OOP, especially
-the encapsulation mechanism.
+the encapsulation principle, and secondly due to the existing IVS software being developed in 
+an OOP way.
 
 The individual layers/components will be outlined in the following section, in a bottom-up
 fashion.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{3t-arch.jpg}
-    \caption{An architecture model of a \textsubscript{3}T hybrid architecture \cite{Bonasso1995}}
-    \label{3-arch2}
-\end{figure}
 
 \subsubsection{The architecture layers}
 
@@ -109,31 +103,17 @@ to define how to handle routine situations. The responsibility for high level pl
 a global goal for an agent is reserved for the upper (deliberation) layer. The sequencing layer's 
 role in relation to the upper layer is to provide an additional layer of abstraction.
 
-To formalize the purpose of this layer in the proposed system, it should contain definitions 
-of which skills to enable to complete a rudimentary task, managing sequences of common skills
-along with logic that will account for completing them in different scenarios. The layer
-interact with both the lower (skill) layer - interacting through events triggered by individual
-skills to alter skill execution, and the upper (deliberation) layer. 
+To formalize the purpose of this layer in the proposed system, it should 
 
-% There will be \emph{two} separate queues, one for basic skill queuing and the second priority queue that 
-% will be used when agent behaviour needs to be temporarily altered. each inducing slightly different effect on currently executing 
-% skill. The second queue type will :
+\begin{itemize}
+    \item Contain definitions of which skills to enable to complete a rudimentary task.
+    \item Managing execution of sequences of common skills (i.e. tasks)
+    \item Implement logic that will serve to adapt to completing the tasks in different conditions.
+\end{itemize}
 
-% \begin{itemize}
-%     \item \textbf{Basic queue} - The default queue with no special effect on current executing skill. After the current 
-%     skill finishes, the next skill in the queue gets initiated and executed.
-%     \item \textbf{Priority queue} - When skills are added to this queue, the currently executing skill gets immediately 
-%     suspended and the newly added skills get executed instead. When this higher-priority queue is cleared, the 
-%     previously suspended task will continue to execute.
-% \end{itemize}
-
-% Because indirect communication (i.e. 
-% broadcasting) will be featured in the proposed system, asynchronous skill sequencing will also be 
-% implemented using \emph{callbacks}. Usage of this feature can be simply argued by the fact that in traffic, 
-% the state of environment is changing rapidly, thus relying on sensory feedback would often not be enough 
-% to avoid faulty behaviour. Furthermore, there is a vast number of ITS solutions that utilize the 
-% broadcaster-subscriber principle, such as CACC systems and C-ITS systems in general.
-
+The layer interact with both the lower (skill) layer - interacting through events triggered by
+individual skills to alter skill execution, and the upper (deliberation) layer. 
+ 
 \textbf{Deliberation layer}
 
 The deliberation layer (also referred to as the planner) synthesizes high-level goals into a
@@ -289,7 +269,7 @@ specification. Among other attributes, the DENM message contains attributes for 
 frequency or temporal validity threshold (expiration time). Despite specifying such 
 attributes, it is still up to the receiving station/vehicle to determine information relevance
 \cite{ETSI2019} and whether to take further actions like displaying the message to the driver.
-The DENM service message specification is on the figure (\ref{denm-spec}) below.
+The DENM service message specification is presented on the figure (\ref{denm-spec}) below.
 
 \begin{figure}[htbp]
     \centering
@@ -299,9 +279,6 @@ The DENM service message specification is on the figure (\ref{denm-spec}) below.
 \end{figure}
 
 \subsubsection{Negotiation \& Agreement}
-\fbox{\begin{minipage}{\dimexpr\textwidth-1em}\textbf{\large I am still not sure if I should
-include the following sections related to conflict resolution as I don't know if pursuing this
-complex topic would bring substantial value to the proposed system}\end{minipage}}
 
 % still quite too theoretical, not related to actual implementation. not sure if it should be here
 Negotiation between agents is important especially when wo agents run into each other, 
@@ -349,8 +326,6 @@ It needs to be said that when one agent detects a conflict through one of its mo
 be required to inform other agents about the conflict so that all involved agents will be
 aware of the situation. 
 
-%add an image? 
-
 \subsubsection{Conflict resolution}
 
 Now that the conflict detection process was defined, in that case, it will be possible to build
@@ -370,54 +345,48 @@ available to them. Also, deciding which bid proposal has won will be handled by 
 had called for the proposal, so the counterparty will assume that the deciding agent is
 truthful and decided correctly according to the bids. 
 
-% \textbf{Example}
+\textbf{Example}
 
-% To illustrate how the system would work in practice a sample scenario is presented below on
-% figure (\ref{agentReplanning}), where the agents are drivers/vehicles. The scenario demonstrates 
-% how agents achieve their goals using the three layers, as well as conflict detection and resolution.
+To illustrate how the system would work in practice a sample scenario is presented below on
+figure (\ref{agentReplanning}), where the agents are drivers/vehicles. The scenario demonstrates 
+how agents achieve their goals using the three layers, as well as conflict detection and resolution.
 
-% There are two vehicle agents (\texttt{A}, \texttt{B}) in the scenario, which both have three skills defined:
-% \texttt{drive}, \texttt{avoid:object} and \texttt{wait} and \texttt{negotiate}. Both vehicle
-% agents have a goal not to crash and keep a certain speed. To ensure a fail-safe behaviour, a
-% dynamic workflow is used, defined as a mapping
-% (\texttt{failed\_skill}$\rightarrow$\texttt{safe\_skill}): 
+There are two vehicle agents (\texttt{A}, \texttt{B}) in the scenario, which both have three routine tasks defined:
+\texttt{drive}, \texttt{avoid:object} and \texttt{wait} and \texttt{negotiate}. Both vehicle
+agents have a goal not to crash and keep a certain speed. To ensure a fail-safe behaviour, 
+a logic defined on the deliberation level is implemented to attempt to avoid object in case the drive task
+fails. Furthermore, if the avoid object task fails due to another vehicle detected, the negotiation 
+task is executed. The execution of this task on one agent should trigger execution of such task on the 
+other agent in conflict as well. Based on the result of the negotiation, the agents' respective 
+deliberation layers enqueue either the \texttt{avoid:object} or \texttt{wait} task and enqueue the 
+basic \texttt{drive} skill to come after the current task completion.
 
-% \begin{itemize}
-%     \itemspacing{.5}
-%     \item \texttt{drive} $\rightarrow$ \texttt{avoid:object}
-%     \item \texttt{avoid:object} $\rightarrow$ \texttt{wait}
-%     \item \texttt{wait} $\rightarrow$ \texttt{fail\_goal} (after a timeout for example)
-% \end{itemize}
+\begin{enumerate}
+    \item Both agents do not detect any obstacles in their surroundings, so the planner
+    initializes a plan with only the \texttt{drive} task sequenced, which gets executed. 
 
-% The mapping of the \texttt{negotiate} skill is \texttt{drive} or \texttt{wait} based on 
-% a negotiation result for each involved agent.
-
-% \begin{enumerate}
-%     \item Both agents do not detect any obstacles in their surroundings, so the planner
-%     initializes a plan with only the \texttt{drive} skill sequenced, which gets executed. 
-
-%     \item Agent (\texttt{A}) spots an obstacle in his way (an oil spill). This makes the
-%     \texttt{drive} skill fail and (\texttt{A})'s planner has to re-plan to reach its goal (not
-%     crash). The failed skill's fail-safe skills are retrieved (\texttt{avoid:object})
-%     and added to the new plan. The new plan is initialized with the two
-%     following skills sequenced: \texttt{avoid:oil\_spill} $\rightarrow$ \texttt{drive}.
+    \item Agent (\texttt{A}) spots an obstacle in his way (an oil spill). This makes the
+    \texttt{drive} task fail and (\texttt{A})'s planner has to re-plan to reach its goal (not
+    crash). The failed task's fail-safe task is triggered (\texttt{avoid:object})
+    and added to the new fail-safe plan. The new plan is initialized with the two
+    following tasks sequenced: \texttt{avoid:oil\_spill} $\rightarrow$ \texttt{drive}.
     
-%     \item However, this plan also fail, as agent (\texttt{B}) detects a path conflict, consequentially 
-%     informing agent (\texttt{A}) about it. They now have to negotiate to reach an agreement and
-%     resolve the conflict using auction-like bidding. The agent (\texttt{B}) wins the bid, due
-%     to being in a right lane and so agent (\texttt{A}) is forced to give way. The planner
-%     creates a new plan: \texttt{wait} $\rightarrow$ \texttt{avoid:oil\_spill} $\rightarrow$
-%     \texttt{drive}.
+    \item However, this plan also fails, as agent (\texttt{B}) detects a path conflict, consequentially 
+    informing agent (\texttt{A}) about it. They now have to initiate a negotiation task to reach an agreement and
+    resolve the conflict using auction-like bidding. The agent (\texttt{B}) wins the bid, due
+    to being in a right lane and so agent (\texttt{A}) is forced to give way. The planner
+    creates a new plan: \texttt{wait} $\rightarrow$ \texttt{avoid:oil\_spill} $\rightarrow$
+    \texttt{drive}.
     
-%     \item The individual skills finish successfully and the agents' goal is fulfilled.
-% \end{enumerate}
+    \item The individual tasks finish successfully and the agents' goal is fulfilled.
+\end{enumerate}
 
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=.8\textwidth]{AgentPlanning.png}
-%     \caption{An example behaviour of vehicle-based agents using the proposed architecture}
-%     \label{agentReplanning}
-% \end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{AgentPlanning.png}
+    \caption{An example behaviour of vehicle-based agents using the proposed architecture}
+    \label{agentReplanning}
+\end{figure}
 
 
 \subsection{Conclusion}

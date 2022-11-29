@@ -10,7 +10,7 @@ This usually involves enabling different actors in the transportation system to 
 with each other and share available information (much like multi-agent systems). With the 
 availability of shared information, complex, data-driven systems can be built utilizing 
 state-of-the-art tech concepts like machine learning, computer vision and IoT, while
-integrating humans, roads and automobiles, improved street protection, efficiency and stability.
+integrating road users to improve street protection and increase traffic efficiency and stability.
 İt also address environmental issues via controlling traffic to prevent congestion or lessen
 their adverse effects. 
 
@@ -19,7 +19,7 @@ be, in less or more ways, resemble multi-agent systems. This section will be foc
 the \emph{inductive} part of research, examining various existing ITS solutions and trying 
 to recognize their agent-based characteristics and principles, to determine possible application 
 of MAS for simulation of ITS systems, whether suitable application for agent-based modelling of 
-ITS is feasible. , The insights gained by reviewing current state of ITS will 
+ITS is feasible. The insights gained by reviewing current state of ITS will 
 serve as a base for further sections, where considerations regarding model framework design and 
 its validation will be discussed. 
 
@@ -31,17 +31,17 @@ its validation will be discussed.
 \end{figure}
 
 ITS can provide itself most useful in the following aspects of transportation: 
-\emph{Mobility}, \emph{Safety}, \emph{Environment}. To provide an example, regarding mobility, 
-one of the most common systems is routing and navigation for road vehicles. Such systems can 
-factor in time, distance and even emissions when providing route guidance. This leads to 
+\emph{Mobility}, \emph{Safety}, \emph{Environment} \cite{Lishchenko2021}. To provide an example, regarding mobility, 
+one of the most common systems is routing and navigation for road users. These systems can 
+factor in time, distance and even emissions when providing route guidance \cite{Firmin2006}. This leads to 
 increased performance of road networks. Regarding safety, one can mention emergency management
 systems like E-Call, which provides automated post-crash assistance by contacting emergency
 services as soon as an incident happens. In terms of the environment, 
 ITS allows for demand management through \emph{electronic fee collection}, which makes flexible 
 charging for road usage possible, based on vehicle type and emissions category \cite{Commision2022}.
 Another, more general example of emissions reduction of ITS is through reducing congestions, as road vehicle 
-emissions have proven to be a significant environmental factor not only in emission production
-per se, but also one that humans are most exposed to. In a study conducted by the Harvard
+emissions have proven to be a significant environmental factor especially because they produce emissions 
+in highly human-populated areas, exposing large number of population to serious health risks. In a study conducted by the Harvard
 School of Public Health, air pollution from traffic congestion in 83 of the USA's largest urban
 areas contributes to more than 2,200 premature deaths annually, costing the health care system at
 least \$18 billion \cite{Levy2011}.
@@ -65,7 +65,7 @@ of interaction with the driver.
     \label{whyITS}
 \end{figure}
 
-As per (\ref{whyITS}), there are ITS use-cases with high degree of driver interaction (determined 
+As per figure (\ref{whyITS}), there are ITS use-cases with high degree of driver interaction (determined 
 by trivial logic). The observed use-cases with high driver engagement were determined as such:
 
 \begin{itemize}
@@ -77,8 +77,8 @@ by trivial logic). The observed use-cases with high driver engagement were deter
     \item Parking guidance service
 \end{itemize}
 
-These use-cases should be considered when ITS simulation framework design decisions will be made in the practical part of the 
-thesis.
+These use-cases should be considered when modelling the ITS simulation framework in the practical part of the 
+thesis to make these ITS use-cases easy to deploy and simulate.
 
 \subsection{Intelligence distribution} \label{mas-compatibility}
 
@@ -89,12 +89,12 @@ Such self-imposed reasoning is important to consider, because the way ITS soluti
 with centralized or distributed intelligence are designed can be fundamentally different 
 and this, different system models are optimal to use when simulating a particular ITS. 
 Intelligent transport systems are, by nature, systems combining several actors together to
-achieve a common goal.  Would this mean that every ITS can be, in fact, modelled as multi-agent
-system? The answer is that it does \emph{not} apply to all of them. 
+achieve a common goal. This, however, doesn't mean that it is optimal to model \emph{every} ITS 
+as a multi-agent system. 
 
 Historically speaking, ITSs that were
-developed and proved helpful for optimizing traffic were \emph{centralized}, meaning there is a
-single core in charge of logic and decision-making, organizing other units/actors within the
+developed and proved helpful for optimizing traffic were \emph{centralized} \cite{Corman2010}, meaning there is a
+single, central component in charge of the decision-making logic, organizing other units/actors within the
 system, while interacting with the drivers in the traffic as external actors. The main
 advantage of these systems is that they are less complex, therefore it is easier to develop a resilient and
 safe product. The main drawback of this method is that they are heavily affected by the size
@@ -104,23 +104,24 @@ making the solution sub-optimal \cite{Corman2010}.
 As with the \emph{distributed} systems, the main problem is systematically distributed to
 individual agents solving a sub-problem and cooperating to achieve optimal and predictable
 results, such distributed intelligence is often modelled using \emph{Multi-agent Systems}. 
-This topic will be further discussed in section (\ref{sec-mas}). Distributed systems can be used to
+This topic will be further discussed in chapter (\ref{sec-mas}). Distributed systems can be used to
 solve traffic optimization problems on a larger scale. These systems have seen larger usage
 especially in the recent times, as newly produced vehicles are equipped with powerful computers
 that can be used to transfer the computational burden from the core computer in centralized
-systems. Also state-of-art communication protocols like DSRC and ITS 5G, which enable
+systems, thanks to the state-of-art communication protocols like DSRC and ITS 5G, which enable
 low-latency direct communication between vehicles. 
 
-The one example of an ITS where implementations have been carried out in both centralized and 
+The one example of ITS where implementations have been carried out in both centralized and 
 decentralized principles numerous times is a \emph{Network traffic control}. The goal of this 
 system is to use knowledge about the traffic on the network to control traffic lights and other 
-active traffic control elements to optimize traffic flow and decrease travel time. In \cite{Chow2019}, 
-centralized and distributed network traffic control systems were compared. The conclusion was that 
-although the centralized system was able to achieve better performance higher global efficiency, 
-the decentralized solution required significantly less computation time (40 \% in their experiment case).
+active control elements to optimize traffic flow and decrease travel time. In a recent research 
+reviewing signal timing optimization approaches, centralized and distributed network traffic
+control systems were compared. The conclusion was that although the centralized system was able
+to achieve better performance higher global efficiency, the decentralized solution required
+significantly less computation time (40 \% in their experiment case) \cite{Chow2019}.
 
 Other decentralized systems that are more exposed to the user (i.e. driver) include the 
-\emph{Adaptive Cruise Control} (ACC), for example. ACC extends the usual cruise control systems 
+\emph{Adaptive Cruise Control} (ACC). ACC extends the usual cruise control systems 
 that maintain vehicle speed by adapting to speed of the vehicle in front, if there is any. In fact, 
 recent development has lead to a further improvement, making ACC a cooperative system (CACC) that 
 enables vehicles to adopt a \emph{driving strategy} by communicating with the infrastructure (V2I 
@@ -275,26 +276,28 @@ gauge clusters have been replaced by an additional screen which improves the HMI
 reducing the disruptive effect of checking the screen and making the displayed information more
 noticeable. 
 
-The conventional, more basic capabilities of IVIS are HVAC control, multimedia controls, navigation support and 
-parking assistance (i.e. parking camera view). These systems on their own, however, aren't valuable with regard 
-to the thesis topic. The important feature of IVIS is the integration with the emerging C-ITS technologies, which 
-greatly extend the capabilities of IVIS, i.e. displaying warning and awareness messages from the V2X interface. 
-This fact makes IVIS a good candidate to implement to the IVS in the practical part, because the V2X C-ITS are 
-a great subject for research as of now and the distributed nature of the systems corresponds to the agent-based 
-requirement of the thesis topic. On top of that, the important HMI aspect of IVIS could provide great value for 
-future utilization in research using IVS. 
-
-The general, a high-level solution for IVIS simulation is to provide C-ITS awareness and warning information system by 
-implementing the C-ITS messaging service standard, which provides interface for broadcasting such information.
- simulating message-based communication between road users \& infrastructure and provide interface to display the 
-information on the infotainment screen.
-
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.8\textwidth]{ivis-dashboard.jpg}
     \caption{Illustrative example of IVIS interface \cite{Saxena}}
     \label{ivis-interface}
 \end{figure}
+
+The conventional, more basic capabilities of IVIS are Heating, Ventilation, and Air
+Conditioning (HVAC) control, multimedia controls, navigation support and parking assistance
+(i.e. parking camera view). These systems on their own, however, aren't valuable with regard to
+the thesis topic. The important feature of IVIS is the integration with the emerging C-ITS
+technologies, which greatly extend the capabilities of IVIS, i.e. displaying warning and
+awareness messages from the V2X interface.  This fact makes IVIS a good candidate to implement
+to the IVS in the practical part, because the V2X C-ITS are a great subject for research as of
+now and the distributed nature of the systems corresponds to the agent-based requirement of the
+thesis topic. On top of that, the important HMI aspect of IVIS could provide great value for
+future utilization in research using IVS. 
+
+The general, a high-level solution for IVIS simulation is to provide C-ITS awareness and warning information system by 
+implementing the C-ITS messaging service standard, which provides interface for broadcasting such information.
+ simulating message-based communication between road users \& infrastructure and provide interface to display the 
+information on the infotainment screen.
 
 \subsection{Cooperative Adaptive Cruise Control}
 
@@ -309,9 +312,12 @@ extra engagement from the driver side.
 
 However, another system that built upon the concept of CACC by utilizing information from the
 infrastructure, namely the traffic signals, has been also recently developed this system can be
-extended by information fs about signal phasing and consequently adopting a speed that would
+extended by sharing information about signal phasing. Consequently, adopting a speed that would
 eliminate the need to stop before a red light, avoiding idle time. The system is called
-\emph{Green Light Optimization Speed Advisory} (GLOSA). According to \cite{Pariota_2019}, the results 
+\emph{Green Light Optimization Speed Advisory} (GLOSA). It uses dedicated C-ITS messages to 
+share timing information among connected vehicles. Dedicated A Signal Phase and Timing (SPaT) messages 
+are used to coordinate oncoming traffic speed and a Map (MAP) message to convey information 
+about intersection topology. According to \cite{Pariota_2019}, the results 
 of simulating deployment of this system demonstrated that even using a simple
 control algorithm with the aim to avoid the stop\&go a reduction of fuel consumption
 and emissions in the region of 5 to 12 \% has been observed. The study in \cite{Katsaros_2011} even 

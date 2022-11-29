@@ -5,9 +5,10 @@
 
 \section{System implementation}
 
-Now that the system has been designed and the technical requirements and tools as well, it is possible 
-to create the system implementation. In this chapter, the process of building the software package 
-and subsequent implementation into the simulator software will be described. 
+Now that the system architecture model has been designed and the technical requirements and
+tools considered, it is possible to create the system implementation. In this chapter, the
+process of building the software package and subsequent implementation into the simulator
+software will be described. 
 
 The software package design will be separated from the simulator software, so that it will be 
 implementation agnostic and could be used for other game engines or other simulation purposes. 
@@ -216,7 +217,58 @@ on figures (\ref{cam-spec}) and (\ref{denm-spec}).
     \label{fig-classes-comm}
 \end{figure}
 
-\clearpage
+\subsection{Unity Integration}
 
+As has been mentioned in introduction to Unity software in chapter (\ref{sec-toolset}), programmatically 
+defined behaviour is implemented by assigning C\# scripts as individual components to Game Objects in 
+the scene. The scripts are not being executed by a main client script like in conventional software, but 
+rather by calling an \texttt{Update()} method in the Unity script which is invoked by the Unity engine 
+on each game tick. Such behaviour is obtained by inheriting from the \texttt{MonoBehaviour} class, which 
+also defines other methods that get invoked in certain scenarios. The most used \texttt{MonoBehaviour} 
+methods, barring \texttt{Update()} are:
+
+\begin{itemize}
+    \item \texttt{Start()} method, which substitutes object initialization 
+through constructor and is called at the start of script lifetime
+    \item \texttt{OnDisable()} method, which gets called when the script component or the whole Game Object 
+    gets disabled. Disabled components aren't rendered and cannot interact with the scene nor be interacted 
+    with. 
+    \item \texttt{OnEnable()} method, which is an inverse to the previous and gets called when Game Objects 
+    or components are enabled/activated.
+\end{itemize}
+
+The idea behind the proposed MAS ITS framework integration with Unity is to assign the \texttt{Agent} 
+class to Game Objects as a component in order to use the Game Object as an agent. For instance, the Game Object can be 
+a vehicle model or even a non-physical Game Object invisible in the scene, for example a traffic controller. When 
+the \texttt{Agent} class would get assigned to a Game Object, it would be able to interact with its other game
+components and object properties through pre-defined sensor or actuator skills. 
+
+Although the \texttt{Agent} class and its components (i.e. layers) come with the \texttt{Update()} method in 
+their default implementation, it will still not get called by the Unity engine. For that reason, a \emph{wrapper}
+class \texttt{AgentMonoWrapper} been created. This class will get added as a components to the Game Object that 
+the user wants to induce agent behaviour on. The class will initialize an agent by calling an abstract method 
+\texttt{InitAgent()} at \texttt{MonoBehaviour.Start()} invocation and call \texttt{Agent.Update()} on 
+\texttt{MonoBehaviour.Update()} invocation. 
+
+\subsection{Conclusion}
+
+In this section, the implementation details of the proposed framework were discussed. The C\# language has been 
+used to write the framework's code, as per the discussion in chapter (\ref{sec-toolset}). The framework's core 
+components were defined as abstract classes, implementing general behaviour and defining required behaviour to 
+be implemented by the user, which is use-case dependent. For instance, such behaviour can be the \texttt{Act()}
+method in the \texttt{Skill} layer, which is serves as Skill's way of interacting with the environment, which is 
+different for every defined Skill. The relations between classes and inner processes have been described, serving 
+as a documentation for the usage of the framework. 
+
+As per the initial requirements, the agent interaction interface has been implemented. The framework's agent 
+architecture components have been used to create dedicated communication skills that are able to broadcast and 
+directly send standardized messages to each other together with a custom messaging service.
+Consequentially, a C\# implementation of ACL and C-ITS (CAM, DENM) message standards has been created to
+be used in the framework. 
+
+Lastly, integration of the framework with the Unity game engine has been discussed and described in detail, 
+introducing an additional wrapper component to ensure proper cross-interaction.
+
+\clearpage
 
 \end{document}
