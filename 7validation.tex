@@ -62,7 +62,7 @@ qualitative analysis can be seen in the table (\ref{qa-table}) below.
     \renewcommand{\arraystretch}{1.4}
     \centering\begin{tabular}{l*{3}{r}r} \toprule
          & \multicolumn{3}{c}{Features} & \\ \cmidrule(rl){2-4}
-        ITS & \multicolumn{1}{p{6em}}{MAS-compatibility} & \multicolumn{1}{p{6em}}{Driver \newline engagement} & \multicolumn{1}{p{6em}}{Research \newline relevance} & Score \\ \midrule
+        ITS & \multicolumn{1}{p{6em}}{MAS-compatibility} & \multicolumn{1}{p{6em}}{Driver \newline engagement} & \multicolumn{1}{p{6em}}{Research \newline relevance} & \textbf{Score } \\ \midrule
         E-Call & 2 & 2 & 5 & 9 \\ 
         Electronic fee collection & 2 & 0 & 2 & 4 \\
         Parking guidance & 2 & 8 & 5 & 15 \\
@@ -164,7 +164,7 @@ package is usage simplicity and friendly UI - the user can create road stretches
 mouse-based UI with the possibility to connect road segments together to create intersections
 and build a road network.
 
-With this tool, a testing road network will be build that the vehicle agents will drive through.
+With this tool, a testing road network will be built that the vehicle agents will drive through.
 
 \begin{figure}[htbp]
     \centering
@@ -175,12 +175,13 @@ With this tool, a testing road network will be build that the vehicle agents wil
 
 \textbf{Simple Traffic System by TurnTheGameOn} \smallskip \\
 This package can be used to easily generate vehicle traffic. The traffic is set up by creation
-of waypoint based routes that can be interconnected in a modular way to create traffic routes
-on roads. Vehicles can be spawned to follow the route waypoints without crashing into each other.
+of waypoint based routes that can be interconnected in a modular way to populate road networks
+with traffic. Vehicles can be spawned to follow the route waypoints without crashing into each
+other.
 
 This tool will be used to create vehicles that will follow a pre-defined path of points. 
-The package also features traffic light interaction where a route can yield vehicles based 
-on traffic light signal. 
+The package also features a traffic light interaction functionality where a route can manage
+yielding vehicles based on the traffic light signal. 
 
 \begin{figure}[htbp]
     \centering
@@ -307,8 +308,8 @@ preceding the branch-off into the two routes. For visual reference, see Figure
 
 To verify and prove that the Smart Routing IVIS system works, simulations were run iteratively with 
 parametrized traffic light queue size threshold for identifying a congestion. The number 
-of vehicles to drive through the road stretch was chosen to be $N_{v} = 20 $ and the queue size 
-threshold ranged from $0..20$. To gather more results 
+of vehicles to drive through the road stretch was chosen to be $N_v = 20 $ and the queue size 
+threshold ranged from $0..N_v$. To gather more results 
 and avoid the risk of unknowingly analyzing an edge case parameter combination, the simulation batch 
 was run multiple times with modified traffic flow influencing parameters. The variable parameters are:
 
@@ -363,6 +364,11 @@ main route, the travel time starts decreasing rapidly, as the main route has eno
 the oncoming traffic without a disruption. Around the threshold level of \textbf{six}, the traffic flow 
 rate reaches the route's capacity and with increasing queue threshold the travel times start to
 increase, while rendering the alternative route under-utilized.
+
+All three simulation batches do have an effect on travel time (which implies that traffic flow 
+is also affected) as expected. The absolute values of travel time have changed, however, 
+the relative changes depending on queue threshold size were very similar in all three 
+variations.
 
 \clearpage 
 
