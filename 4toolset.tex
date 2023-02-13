@@ -8,10 +8,10 @@
 With the finished system specification, it should be discussed which tools should be used to build the software framework. 
 First off, it is important to analyze the IVS simulation system/software (i.e. the super-system) that
 the proposed framework will be incorporated into. An effort should be made to maximize the super-system acceptance of 
-this system by choosing an optimal tool-set for its implementation. This, for the most part,
-refers to an optimal choice a programming language and a subsequent agent-based modelling
+this system by choosing an optimal tool set for its implementation. This, for the most part,
+refers to an optimal choice of a programming language and a subsequent agent-based modeling
 library to use (if there will be any), also due to this being one of the primary tasks of this thesis. 
-% Therefore, the next section will be devoted to introduction to the IVS software.
+% Therefore, the next section will be devoted to an introduction to the IVS software.
 
 In order to find a suitable tool for the case of MAS in the simulator software, the simulator software needs to be examined.
 
@@ -21,26 +21,26 @@ The particular simulator software that is being used at the university's faculty
 developed using the \emph{Unity} game engine, developed by Unity Technologies. The game engine
 was first released in 2005 and has been used to develop numerous simulators as well as other
 video games ever since \cite{UnityTechnologies2022}.  Unity has also been used as a tool in
-physical product modelling, AI \& machine learning and digital twins, used in many industries
+physical product modeling, AI \& machine learning and digital twins, used in many industries
 \cite{UnityTechnologies2022a}.  The main strengths of Unity are multi-platform development
-support, virtual reality development support, good community support (including its own asset
-store) and good documentation. The game engine has got its own development environment, which 
-can be seen on figure (\ref{fig-unity}) below.
+support, virtual reality development support, good community support (including its asset
+store) and good documentation. The game engine has got its development environment, which 
+can be seen in figure (\ref{fig-unity}) below.
 
 The game engine's runtime is written in the C++ programming language, but the scripting API 
 that it offers is in the C\# language. Consequently, there will be a noticeable benefit 
-if the chosen agent-development platform used to develop proposed system will be .NET based as well 
+if the chosen agent-development platform used to develop the proposed system will be .NET based as well 
 to achieve maximum customization and interoperability.
 
-The scripting follows usual object-oriented programming paradigm, where one script contains a
-behaviour encapsulated in a class. Each individual script can contain reference to another
+The scripting follows the usual object-oriented programming paradigm, where one script contains a
+behavior encapsulated in a class. Each script can contain a reference to another
 script/class. Each game object can be assigned an arbitrary number of scripts that upon 
-assigning gain access to game object's properties, such as object velocity, weight and position. 
+assigning gain access to the game object's properties, such as object velocity, weight and position. 
 Scripts can also be used to programmatically gain knowledge about the environment, for example 
 using ray-casting to discover objects surrounding the attached game object. This object-centered 
-development suggests that applying agent-based behaviour could be well integrated into the 
+the development suggests that applying agent-based behavior could be well integrated into the 
 simulator software and offer needed flexibility and cross-integration.
-% Potentially, the Unity's Asset store could offer MAS packages, directly utilizing Unity's
+% Potentially, Unity's Asset store could offer MAS packages, directly utilizing Unity's
 % API. 
 
 \begin{figure}[htbp]
@@ -52,7 +52,7 @@ simulator software and offer needed flexibility and cross-integration.
 
 \subsection{Agent Development Platforms}
 
-Having a development tool that is dedicated for agent-based modeling is an advantage as opposed to building the 
+Having a development tool that is dedicated to agent-based modeling is an advantage as opposed to building the 
 system on a "green field", as the tools have the common domain of agent system paradigms implemented and ready 
 to use by a designated interface (e.g. communication, localization, state definition), ideally being built in line 
 with widespread standards and ideally tested in practical commercial and industrial use. 
@@ -60,8 +60,8 @@ with widespread standards and ideally tested in practical commercial and industr
 An example of popular platforms, according to \cite{Binder2022} can be found below. 
 
 \textbf{JADE} \smallskip \newline 
-Jade is a free software developed under a grant from the European Commision. The main advantage of the 
-platform is containerization of agents, which enables distribution of agents across systems, even 
+Jade is a free software developed under a grant from the European Commission. The main advantage of the 
+platform is the containerization of agents, which allows to distribute agents across systems, even 
 with cross-platform (OS) support. Configuration changes can be done in run-time. The core components of 
 the platform are Agent Management System (AMS), Agent Communication Channel (ACC) and Directory Facilitator (DF). 
 JADE also supports the FIPA communication standard ACL, mentioned earlier. The platform is implemented in 
@@ -73,13 +73,13 @@ which is loosely coupled and offers implementation also on mobile devices. The d
 using the Java programming language. 
 
 Although these most popular platforms for agent-based development are industry-tested tools, in the current 
-times they are obsolete, as their development was abandoned not later than in year 2005. Also, most of the 
+times they are obsolete, as their development was abandoned no later than in the year 2005. Also, most of the 
 advantages described, such as multi-platform support and decentralization across machines is not relevant to 
-this thesis' use-case, as the proposed MAS will be run one one machine, preferably directly within the simulator 
+this thesis' use case, as the proposed MAS will be run on one machine, preferably directly within the simulator 
 software, to minimize system acceptance conflicts. 
 
 Another issue is that such tools have been developed to run on JVM (Java Virtual Machine), therefore the integration 
-with the simulator software would create another layer of complexity to build an ABM framework. 
+with the simulator software would create another layer of complexity to building an ABM framework. 
 Related to the system implementation, it is therefore important to choose a platform supporting 
 development in C\# language as well, to ensure full and non-complex integration with the simulator 
 software.
@@ -87,12 +87,12 @@ software.
 \textbf{ActressMAS} \smallskip \newline
 ActressMAS is a multi-agent framework running on the .NET runtime, written in C\#. The author says that 
 its main advantages are conceptual simplicity and ease of use \cite{Leon2022}. The framework's last release was 
-in the year 2021, making a non-outdated option with potentially ongoing development. Notably, the framework is 
+in the year 2021, making it a non-outdated option with potentially ongoing development. Notably, the framework is 
 open-source, meaning the source code can be inspected and possibly adjusted to the needs of the developed system.
 
 Upon inspecting the source code of ActressMAS, there are three main components that form the basic building 
 blocks of a MAS environment - \texttt{Agent}, \texttt{EnvironmentMas} and \texttt{Container}.
-The class diagram of the components can be seen on the image (\ref{actress-env}) below.
+The class diagram of the components can be seen in the image (\ref{actress-env}) below.
 
 \begin{figure}[htbp]
     \centering
@@ -101,8 +101,8 @@ The class diagram of the components can be seen on the image (\ref{actress-env})
     \label{actress-env}
 \end{figure}
 
-The agent environment can be distributed between more machines. Each machine will run a container which communicates with a 
-server, as seen on fig. (\ref{actress-env}). The service handling communication between containers was is a big part of the 
+The agent environment can be distributed between more machines. Each machine will run a container that communicates with a 
+server, as seen in fig. (\ref{actress-env}). The service handling communication between containers is a big part of the 
 framework, as it is composed of many classes, offering communication through web sockets and even offering to 
 use the SSL security protocol and async version of communication, see fig. (\ref{actress-distr}).
 
@@ -113,18 +113,18 @@ use the SSL security protocol and async version of communication, see fig. (\ref
     \label{actress-distr}
 \end{figure}
 
-There are, however, some issues related to use-case of the proposed ITS framework. Overall, the implementation of the classes 
+There are, however, some issues related to the use case of the proposed ITS framework. Overall, the implementation of the classes 
 creating the local agent environment doesn't contain much logic - the logic mostly serves to distribute messages to agents. 
 It cannot be clearly said if this is an advantage or a disadvantage, as for specific use-cases, like building an ITS multi-
-agent framework is expected to have specialized logic. However, The lack of behaviour implementation also means that the 
-agent architecture will have to be build from the ground up either way, not brining any benefit to use this framework. 
+agent framework is expected to have specialized logic. However, The lack of behavior implementation also means that the 
+agent architecture will have to be built from the ground up either way, not bringing any benefit to using this framework. 
 On the second note, agents are only able to update their state once they receive a message, which doesn't 
 meet the requirement for agents to act independently and autonomously. This also means that agents are not able to gather 
-and act upon information from their sensors, just from messages received from other agents. This behaviour might be implemented 
+and act upon information from their sensors, just from messages received from other agents. This behavior might be implemented 
 by the user, but there might be conflicts with the current design of the interaction interface of the agents and the 
 \texttt{EnvironmentMas} class that would add redundant effort as opposed to building an agent environment from scratch. 
 
-For the reasons explained above, a decision not to use a pre-existing implementation of MAS framework is made. This 
+For the reasons explained above, a decision not to use a pre-existing implementation of the MAS framework is made. This 
 is mainly because of the perceived threat of identified drawbacks of the existing solutions overshadowing the advantages 
 they would bring. Building the framework independent from a pre-existing MAS platform will offer maximum customization 
 according to the system specification and its requirements. 
@@ -132,20 +132,20 @@ according to the system specification and its requirements.
 \subsection{Conclusion}
 
 In this section, the technical aspects of implementation requirements were discussed. The
-simulator engine has been introduced, describing the aspects of programming integration. Main
-aspects of integration have been discussed, which should enhance te subsequent decision about
-which MAS development platform to use for proposed system implementation. Consequently, MAS
-development platforms suggested by literature were examined.  However, their review concluded
-not to use them as they are outdated and would not offer advantage with regard to integration
+simulator engine has been introduced, describing the aspects of programming integration. The main
+aspects of integration have been discussed, which should enhance the subsequent decision about
+which MAS development platform to use for the proposed system implementation. Consequently, MAS
+development platforms suggested by the literature were examined.  However, their review concluded
+not to use them as they are outdated and would not offer an advantage concerning integration
 with simulator software, as their focus is to integrate with distributed computer networks
-focusing on different problematics. Lastly, a promising agent developed framework called 
+focusing on different problems. Lastly, a promising agent-developed framework called 
 ActressMAS has been introduced, whose main advantage, bearing our use-case, being .NET based
 and open-source, allowing for adequate customization. However, after further inspection of the
 codebase, it was concluded that the way the agent-based system proposed in this thesis is
 designed, there were no significant potential benefits that implementation of the framework 
 would bring. The ActressMAS framework's implementation revolved around deployment across 
-multiple machines and offered minimal abstraction of agent framework itself, i.e. 
-agent behaviour and interaction.
+multiple machines and offered minimal abstraction of the agent framework itself, i.e. 
+agent behavior and interaction.
 
 \clearpage
 
