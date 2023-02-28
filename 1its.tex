@@ -23,13 +23,6 @@ ITS is feasible. The insights gained by reviewing the current state of ITS will
 serve as a base for further sections, where considerations regarding model framework design and 
 its validation will be discussed. 
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{ITS-schema.jpg}
-    \caption{Illustration of an ITS topology \cite{ETSI}}
-    \label{its-map}
-\end{figure}
-
 ITS can provide itself most useful in the following aspects of transportation: 
 \emph{Mobility}, \emph{Safety}, \emph{Environment} \cite{Lishchenko2021}. To provide an example, regarding mobility, 
 one of the most common systems is routing and navigation for road users. These systems can 
@@ -58,15 +51,7 @@ scope of the current state of ITS is focused on ITS solutions that integrate aut
 transport and encompass some degree of engaging the driver, favoring solutions that have a large degree 
 of interaction with the driver.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{why is ITS needed.jpg}
-    \caption{Reasons for ITS usage \cite{Lishchenko2021}}
-    \label{whyITS}
-\end{figure}
-
-In figure (\ref{whyITS}), there are ITS use cases with a high degree of driver interaction (determined 
-by trivial logic). The observed use cases with high driver engagement were determined as such:
+To give an example, some ITS use cases with high driver engagement are listed \cite{Lishchenko2021}:
 
 \begin{itemize}
     \itemspacing{.7}
@@ -77,7 +62,7 @@ by trivial logic). The observed use cases with high driver engagement were deter
     \item Parking guidance service
 \end{itemize}
 
-These use cases should be considered when modeling the ITS simulation framework in the practical part of the 
+These use cases could be considered when modeling the ITS simulation framework in the practical part of the 
 thesis to make these ITS use cases easy to deploy and simulate.
 
 \subsection{Intelligence distribution} \label{mas-compatibility}
@@ -200,14 +185,6 @@ Cooperative Intelligent Transport Systems (C-ITS) refers to transport systems, w
 subsystems (personal, vehicle, roadside and central) cooperate. This
 enables and provides an ITS service that offers better quality and an enhanced service level,
 compared to the same ITS service provided by only one of the ITS sub-systems \cite{2022}.
-An example of the concept of the technology can be seen in the figure (\ref{c-its}) below. 
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{c-its.jpg}
-    \caption{Example schematic of C-ITS scenario}
-    \label{c-its}
-\end{figure}
 
 The concept of C-ITS was developed by the European Commission, representatives of industry and 
 authorities in the European Union. In 2016, it was agreed on a coordinated establishment of intelligent
@@ -216,7 +193,7 @@ the \emph{vision zero}, which is a project that aims to mitigate all fatalities 
 transport.
 
 The European Commission outlined its plan for the coordinated deployment of C-ITS in Europe in
-its communication 'A European strategy on Cooperative Intelligent Transport Systems', in which
+its communication "A European strategy on Cooperative Intelligent Transport Systems", in which
 it also states that the full-scale deployment of C-ITS services and C-ITS-enabled vehicles is
 expected to start in 2019.
 
@@ -235,15 +212,45 @@ to as Vehicle-to-everything (V2X) communication.
 
 This technology aims to benefit both manually-driven vehicles 
 as well as autonomous self-driving vehicles. The main use cases, which were developed as
-standalone services using C-ITS technology can be seen in the figure (\ref{c-its-use-case})
+standalone services using C-ITS technology can be seen in the table (\ref{c-its-use-case})
 below.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{c-its-kolecka.png}
+\begin{table}[htbp]
+    \centering\begin{tabular}{ll}
+        \toprule
+        \textbf{General use case} & \textbf{Implementation example} \\ \midrule
+        Signalized intersections & Green Light Optimal Speed Advisory \\ 
+        & Traffic Light Prioritisation \\
+        & Signal Phase and Timing Information \\
+        & Imminent Signal Violation Warning \\ 
+        & Emergency Vehicle Priority \\ \midrule
+        In-Vehicle Signage & Dynamic Speed Limit Information \\ 
+        & Dynamic Lane Management \\ 
+        & Other Signage Information \\ 
+        \midrule
+        Probe Vehicle Data & Vehicle Data Collection \\ 
+        & Event Data Collection \\ 
+        \midrule
+        Hazardous Location Notification & Accident Zone \\ 
+        & Traffic jam Ahead \\ 
+        & Stationary vehicle\\ 
+        & Weather condition warning \\ 
+        & Emergency vehicle approaching \\ 
+        \midrule
+        Road works warning & Lane closure \\ 
+        & Road closure \\ 
+        & Road works - mobile \\ \bottomrule
+    \end{tabular}
     \caption{C-ITS use cases \cite{2022}}
     \label{c-its-use-case}
-\end{figure}
+\end{table}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=.8\textwidth]{c-its-kolecka.png}
+%     \caption{C-ITS use cases \cite{2022}}
+%     \label{c-its-use-case}
+% \end{figure}
 
 In general, traffic safety and traffic flow improvements can be grouped based on which 
 operational tasks they serve \cite{CRoads2021}: 
@@ -267,7 +274,7 @@ The In-Vehicle Information System, shortly IVIS, is a term that comprises a vast
 solutions that assist the driver either by providing information about the vehicle and the surrounding environment 
 or serving as an interface to control vehicle systems. 
 
-The integral part is the \emph{Infotainment system} (fig. \ref{ivis-interface}), which is a
+The integral part is the \emph{Infotainment system}, which is a
 video/audio interface, providing control through elements such as touch screen button panel or
 voice commands.  Moreover, it integrates other vehicle technology elements, such as the CAN
 interface, connectivity modules (e.g. Wi-Fi, GPS), sensors etc \cite{Saxena}. A screen panel is
@@ -275,13 +282,6 @@ an excellent medium to provide additional safety information to the driver, espe
 gauge clusters have been replaced by an additional screen which improves the HMI aspect by
 reducing the disruptive effect of checking the screen and making the displayed information more
 noticeable. 
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{ivis-dashboard.jpg}
-    \caption{Illustrative example of IVIS interface \cite{Saxena}}
-    \label{ivis-interface}
-\end{figure}
 
 The conventional, more basic capabilities of IVIS are Heating, Ventilation, and Air
 Conditioning (HVAC) control, multimedia controls, navigation support and parking assistance
@@ -327,6 +327,7 @@ should be capable of CACC implementation - facilitating a GLOSA traffic controll
 and respective interface for transmitting such information to vehicles, which will react to a received 
 message, conveying GLOSA timing information accordingly. 
 
+% Should I also delete this ????
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.8\textwidth]{glosa-perf-chart.png} 
