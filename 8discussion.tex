@@ -50,8 +50,40 @@ traffic light and connected vehicles. The implementation of the sample system ha
 ITS solutions using the developed framework, therefore simulating Intelligent Transport Systems using agent-based modelling is 
 possible.
 
-\subsection{Advantages}
+\subsection{Results}
 
-This section will go over the identified advantages of using 
+Based on the designed system and its implementation, the implications of the research activity and its benefits, caveats and application 
+possibilities will be analyzed. 
+
+\subsection{Benefits}
+
+The main suspected benefit of developing an ITS implementation framework is obvious. In theory, the framework should facilitate 
+ITS implementation into a vehicle simulator so that it enables the developer to focus more on the high-level implementation related 
+to the ITS system itself, as the structure of the underlying agent system would be pre-implemented. 
+
+For instance, the developer implementing a given ITS solution into the IVS is able to implement a desired behaviour of an actor in 
+the system by dividing the algorithm into atomical skill modules which inherently makes developing complex behaviour easier and more 
+manageable, as well as open to extending its capabilities by iteratively adding more modules. Also, one of the greater benefits is 
+the fact that communication API has been developer for the system developer to be used, according to the C-ITS ETSI standards. This 
+shifts the focus of implementation completely away from communication development. This has proven to be the case when developing 
+dynamic vehicle navigation using C-ITS as part of the framework capabilities' validation, where
+the focus was simply filling the pre-defined DENM and CAM messages with desired information
+about status of the system actors (e.g. connected vehicles). Given the inner architecture of an agent, they can perform variety 
+of different tasks based on their current state and the state of the environment which means that the actors can be developed 
+to perform complex tasks with a wide variety of activities that can dynamically change. 
+
+\subsubsection{Shortcomings}
+
+When implementing the sample C-ITS system using the proposed framework, shortcomings were also identified during the process. The 
+perceived disadvantage of using the framework is that when implementing a simple behaviour which does not need complex decision making,
+all the agent layers need to be implemented, although they might not be fully utilized. For instance, the \emph{Connected 
+traffic light} in section (\ref{sec-implementation}) only has one goal in the deliberation layer and also just one task to perform, 
+which implies that the agent model could have been reduced just to a static, cyclic execution of the skills used mainly for communication with the 
+connected vehicles. Therefore, the developed MAS framework is likely to demonstrate its advantages only when building larger-scale 
+ITS projects in the vehicle simulator which require developing complex behaviour logic for the agents. 
+
+Another potential disadvantage which was identified during the framework development is that altough the 3-layer concept might be 
+effective, it might not be intuitive to use for someone new to the concepts for multi-agent systems. For instance, it is not very 
+clear how to decide on the atomicity of the individual actions the agent is able to perform. 
 
 \end{document}
