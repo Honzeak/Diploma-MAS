@@ -18,7 +18,7 @@ was identifying important implementation details of MAS which aided the ITS impl
 In section (\ref{sec-its}), the current research regarding ITS systems was reviewed. The current trends in ITS suggest that 
 modern ITS systems will rely on maximizing interoperability between individual road users, utilizing direct, non-centralized wireless 
 communication. Such features are common in agent-based systems as well, therefore it has been concluded that MAS could represent 
-a convenient way how to simulate such systems. Cooperative ITS (C-ITS) systems and connected In-vehicle Informatio Systems were 
+a convenient way how to simulate such systems. Cooperative ITS (C-ITS) systems and connected In-vehicle Information Systems were 
 identified as the most suitable systems for application using MAS.
 
 \ul{\textbf{Guideline \#3:} Research of available modules and libraries for implementation of MAS in different programming
@@ -28,7 +28,7 @@ As a secondary objective to building an ITS simulation framework for an IVS, it 
 modules that would facilitate building the desired framework. Multiple modules were reviewed, including their main use-cases 
 and implementation details. After discussing the main aspects of integration into the simulator
 software (section (\ref{sec-toolset})), it was concluded that there are no suitable modules for MAS implementation to the
-specific IVS, as the researched modules were either outdated or focused on a different aspects
+specific IVS, as the researched modules were either outdated or focused on different aspects
 of multi-agent systems. Therefore, it was decided that the framework would be built from the
 ground up.
 
@@ -37,17 +37,17 @@ simulation of an ITS into an existing IVS using ABM.}
 
 In section (\ref{sec-system}), a system to integrate novel ITS solutions into a vehicle simulator was developed using the research findings in the 
 preceding parts of the thesis. The system implemented the \textsubscript{3}T architecture for individual agents that was supposed 
-to offer sufficient balance between system complexity and modularity. The architecture of the macro-system, which defined mainly 
-how agents interact between each other, has been also developed in line with requirements based on MAS research as well. The 
+to offer a sufficient balance between system complexity and modularity. The architecture of the macro-system, which defined mainly 
+how agents interact with each other, has been also developed in line with requirements based on MAS research as well. The 
 system was then implemented using the C\# programming language, because of its object-oriented properties and the fact that 
-the intended simulator software uses C\# scripting API as well, allowing for deep integration with the software. The implementation comprised of partially functional classes that 
-defined the system's structure but were open to detailed logic implementation based on the specific use-case. 
+the intended simulator software uses C\# scripting API as well, allowing for deep integration with the software. The implementation comprised partially functional classes that 
+defined the system's structure but were open to detailed logic implementation based on the specific use case. 
 
 \ul{\textbf{Guideline \#5:} Evaluate advantages and disadvantages of ABM in IVS for ITS simulation}
 
-The system evaluation was, in part, done by implementing a sample C-ITS system into the simulator software, with cooperative 
+The system evaluation was, in part, done by implementing a sample C-ITS system into the simulator software, with a cooperative 
 traffic light and connected vehicles. The implementation of the sample system has proved that it is possible to implement specific 
-ITS solutions using the developed framework, therefore simulating Intelligent Transport Systems using agent-based modelling is 
+ITS solutions using the developed framework, therefore simulating Intelligent Transport Systems using agent-based modeling is 
 possible.
 
 \subsection{Results}
@@ -55,42 +55,60 @@ possible.
 Based on the designed system and its implementation, the implications of the research activity and its benefits, caveats and application 
 possibilities will be analyzed. 
 
-\subsection{Benefits}
+\subsubsection{Benefits}
 
-The main suspected benefit of developing an ITS implementation framework is obvious. In theory, the framework should facilitate 
-ITS implementation into a vehicle simulator so that it enables the developer to focus more on the high-level implementation related 
-to the ITS system itself, as the structure of the underlying agent system would be pre-implemented. 
+The main suspected benefit of developing an ITS implementation framework is obvious. In theory,
+the framework should facilitate ITS implementation into a vehicle simulator so that it enables
+the developer to focus more on the high-level implementation related to the ITS system itself,
+as the structure of the underlying agent system would be pre-implemented. 
 
-For instance, the developer implementing a given ITS solution into the IVS is able to implement a desired behaviour of an actor in 
-the system by dividing the algorithm into atomical skill modules which inherently makes developing complex behaviour easier and more 
+For instance, the developer implementing a given ITS solution into the IVS can implement a desired behavior of an actor in 
+the system by dividing the algorithm into atomical skill modules which inherently makes developing complex behavior easier and more 
 manageable, as well as open to extending its capabilities by iteratively adding more modules. Also, one of the greater benefits is 
-the fact that communication API has been developer for the system developer to be used, according to the C-ITS ETSI standards. This 
+the fact that communication API  for the system developer has been implemented, according to the C-ITS ETSI standards. This 
 shifts the focus of implementation completely away from communication development. This has proven to be the case when developing 
 dynamic vehicle navigation using C-ITS as part of the framework capabilities' validation, where
 the focus was simply filling the pre-defined DENM and CAM messages with desired information
-about status of the system actors (e.g. connected vehicles). Given the inner architecture of an agent, they can perform variety 
+about the status of the system actors (e.g. connected vehicles). Given the inner architecture of an agent, they can perform a variety 
 of different tasks based on their current state and the state of the environment which means that the actors can be developed 
 to perform complex tasks with a wide variety of activities that can dynamically change. 
 
 \subsubsection{Shortcomings}
 
-When implementing the sample C-ITS system using the proposed framework, shortcomings were also identified during the process. The 
-perceived disadvantage of using the framework is that when implementing a simple behaviour which does not need complex decision making,
-all the agent layers need to be implemented, although they might not be fully utilized. For instance, the \emph{Connected 
-traffic light} in section (\ref{sec-implementation}) only has one goal in the deliberation layer and also just one task to perform, 
-which implies that the agent model could have been reduced just to a static, cyclic execution of the skills used mainly for communication with the 
-connected vehicles. Therefore, the developed MAS framework is likely to demonstrate its advantages only when building larger-scale 
-ITS projects in the vehicle simulator which require developing complex behaviour logic for the agents. 
+When implementing the sample C-ITS system using the proposed framework, shortcomings were also
+identified during the process. The perceived disadvantage of using the framework is that when
+implementing a simple behavior that does not need complex decision-making, all the agent layers
+need to be implemented, although they might not be fully utilized. For instance, the
+\emph{Connected traffic light} in section (\ref{sec-implementation}) only has one goal in the
+deliberation layer and also just one task to perform, which implies that the agent model could
+have been reduced just to a static, cyclic execution of the skills used mainly for
+communication with the connected vehicles. Therefore, the developed MAS framework is likely to
+demonstrate its advantages only when building larger-scale ITS projects in the vehicle
+simulator which require developing complex behavior logic for the agents. 
 
-Another potential disadvantage which was identified during the framework development is that altough the 3-layer concept might be 
-effective, it might not be intuitive to use for someone new to the concepts for multi-agent systems. For instance, it is not very 
-clear how to decide on the atomicity of the individual actions the agent is able to perform. 
+Another potential disadvantage that was identified during the framework development is that
+although the 3-layer concept might be effective, it might not be intuitive to use for someone
+new to the concepts for multi-agent systems. For instance, it is not very clear how to decide
+on the atomicity of the individual actions the agent can perform. However, this problem can be
+solved by providing a template for a "simple" agent which has got the deliberation (and
+potentially also the middle sequencing layer) in a single state. 
 
-\subsection{Future work}
+\subsection{Future work \& implications}
 
-Regarding future work and further improvements of the outcomes of this thesis, it would be beneficial to implement agent negotiation, which 
-has been discussed in the theoretical part of the thesis but has not been implemented as part of the framework. The system validation section 
-has shown that it is possible to develop fully functional simulations of Intelligent Transport Systems, however, developing a negotiation model 
-for the agents would make the frameowork more robust and would allow to model systems with greater complexity. 
+Regarding future work and further improvements of the outcomes of this thesis, it would be
+beneficial to implement agent negotiation, which has been discussed in the theoretical part of
+the thesis but has not been implemented as part of the framework. The system validation section
+has shown that it is possible to develop fully functional simulations of Intelligent Transport
+Systems, however, developing a negotiation model for the agents would make the framework more
+robust and would allow modeling systems with greater complexity.
+
+Apart from the improvement mentioned above, the system can already be used to model ITS systems
+with intelligent agents, including state-of-the-art cooperative ITS systems. To mention a few,
+the framework can model various In-vehicle Information Systems, such as the Intersection
+Collision Warning, Emergency Vehicle Warning or Overtaking Warning.  Apart from the mentioned
+sensing \& perception systems, planning-focused ITS systems such as Dynamic Vehicle Routing or
+Green Light Optimal Speed Advisory can be modeled. After the potential improvement of adding
+agent negotiation, autonomous driving and related ADAS systems could be also possible to
+implement using the framework.
 
 \end{document}

@@ -18,11 +18,10 @@ ITS solutions will be analyzed in this chapter in an attempt to transparently se
 system to implement using the developed framework in order to validate and demonstrate its
 use-case. 
 
-In order to choose an optimal ITS to implement, it is important to define features that 
-reflect such system's suitability for implementation. Optimally selecting such features 
-for evaluation of previously selected individual ITSs will create a qualitative benchmark that
-will be used to select an ITS solution for demonstration of the proposed framework's
-capabilities.
+In order to choose an optimal ITS to implement, it is important to define features that reflect
+such a system's suitability for implementation. Optimally selecting such features for
+evaluation of previously selected individual ITSs will create a qualitative benchmark that will
+be used to select an ITS solution for demonstration of the proposed framework's capabilities.
 
 The method to determine how well-suited the candidate system type is for the implementation to
 an IVS will be to evaluate it based on the \emph{three} features discussed in the preceding
@@ -158,10 +157,10 @@ Smart Routing system implementation, additional packages available to use in the
 software will be utilized to model the traffic. Below is a brief overview of the external packages.
 
 \textbf{EasyRoads3D by AndaSoft} \smallskip \\
-This package allows one to easily build roads directly in the Unity UI. The main advantage of the 
-package is usage simplicity and friendly UI - the user can create road stretches using simple
-mouse-based UI with the possibility to connect road segments to create intersections
-and build a road network.
+This package allows one to easily build roads directly in the Unity UI. The main advantage of
+the package is usage simplicity and friendly UI - the user can create road stretches using
+simple mouse-based UI with the possibility to connect road segments to create intersections and
+build a road network.
 
 With this tool, a testing road network will be built that the vehicle agents will drive through.
 
@@ -198,11 +197,11 @@ well as using its pre-defined C-ITS communication modules to simulate V2X commun
 
 \textbf{Connected Traffic Light} \smallskip \\
 The Connected Traffic Light agent is the first actor in the Smart Routing implementation.
-There will be only one instance of this agent in the simulation which will manage a 
-single traffic light. This agent will monitor the number of vehicles in the queue at a
-designated intersection and process the data to evaluate if congestion is forming. It informs
-about its local traffic state via localized (meaning that message includes the traffic light's
-location) DENM messages broadcasted to all connected road users.
+There will be only one instance of this agent in the simulation which will manage a single
+traffic light. This agent will monitor the number of vehicles in the queue at a designated
+intersection and process the data to evaluate if congestion is forming. It informs about its
+local traffic state via localized (meaning that message includes the traffic light's location)
+DENM messages broadcasted to all connected road users.
 
 Since the agent's behavior is constant, apart from broadcasted DENM message content (value of
 Sub-Cause Code), the agent has got only one task, consisting of two Skills - 
@@ -287,8 +286,7 @@ the time taken by each vehicle to reach its destination can be measured and furt
 
 \subsubsection{Simulation set-up}
 
-After describing the IVIS system implementation details, the simulation set-up and evaluation 
-methodology will be described. 
+After describing the IVIS system implementation details, the simulation set-up and evaluation methodology will be described. 
 
 Using the third-party packages, a road stretch has been created to test the implementation.
 The road stretch features a primary route that has got a traffic light along the way, imitating 
@@ -385,6 +383,5 @@ changes to ensure successful integration with the agent framework. Simulation me
 introduced and simulations were successfully run, after which the results were analyzed. From the 
 simulation results, it was identified that the chosen system behaved as one would expect and it
 was concluded that the implementation of the C-ITS system was successful. 
-
 
 \end{document}
