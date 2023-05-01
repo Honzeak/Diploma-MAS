@@ -86,37 +86,52 @@ AGENT-BASED MODELING OF ITS SYSTEMS IN VEHICLE SIMULATOR
 \includepdf[pages=-]{zadani-dp-jan-macek.pdf}
 
 \begin{abstract}
-    TODO
-\end{abstract}
+    The use of Intelligent Transport Systems (ITS) has become increasingly important in
+    managing transportation networks and improving safety, efficiency, and sustainability. This
+    research aims to advance the development of ITS through the application of Multi-agent Systems (MAS)
+    in a vehicle simulator. The opportunities and underlying challenges of successfully performing a 
+    simulation of an ITS system in a vehicle simulator are investigated and consequentially, a 
+    framework for ITS solution implementation into a simulator software is presented. The agent-based 
+    framework is able to facilitate simulating complex behaviour of various road users as well as 
+    road equipment such as (cooperative) traffic lights. The main advantages of the framework are 
+    modularization of agent's skills which makes it easier to model complex behaviour. The framework 
+    also simplifies implementation of communication interface to arbitrary agent, making it a strong tool 
+    for simulating Cooperative ITS (C-ITS). In the last part of the thesis, a simple ITS solution is 
+    successfully developed using the framework, which features a connected traffic light which provides 
+    information to connected vehicles for dynamic navigation. The framework can enable vehicle simulator 
+    developers to be able to implement various Intelligent Transport Systems into vehicle
+    simulator software while reducing development time and increasing maintainability of the software.
+ \end{abstract}
 
 \tableofcontents
 \newpage
 
 \section{Introduction}
 
-Simulating the traffic in a virtual environment is a complex problem, mainly because of
-its highly dynamic characteristics. All vehicles need to interact with
-each other and act upon other drivers' actions. Because agent-based simulations
-have proven to model complex behavior well, this modeling technique seems like
-a suitable solution for achieving a realistic traffic environment for IVS. This thesis aims to
-investigate the possibilities and delimitations of multi-agent systems application(s) for ITS
+Simulating traffic in a virtual environment, such as an Interactive Vehicle Simulator (IVS), is
+a complex problem, mainly because of its highly dynamic nature. Trying to accurately simulate
+traffic on a microscopic level, where individual road users (e.g. vehicles) are the elementary
+units in a system requires complex modelling.  All vehicles need to interact with each other
+and act upon other drivers' actions. Because agent-based simulations have proven to model
+complex behavior well, this modeling technique seems like a suitable solution for achieving a
+realistic traffic environment for IVS. This thesis aims to investigate the possibilities and
+delimitations of multi-agent systems application(s) for Intelligent Transport Systems (ITS)
 modeling in an IVS. 
 
-In the first two chapters, a review of the state-of-art research on Intelligent 
-Transport Systems and Multi-agent Systems are presented, discussing the important 
-features related to the main topic of the thesis. This research leads to the definition of system
-requirements that are described in the third chapter. In the 
-fourth section, a framework architecture model is proposed, in line with 
-MAS paradigms and adapted for ITS solutions simulation. In the fifth section, the
-usage and requirements of tools for framework development are discussed, mainly describing the simulator software integration
-and additional development platforms and libraries that could potentially facilitate the
-framework design process. In the sixth section, a technical implementation of the 
-framework is presented, showing the implementation details while also serving as the 
-software's documentation. In section number seven, a validation of the proposed 
-system is conducted by implementing a distributed cooperative ITS system into the
+In the first two chapters, a review of the state-of-art research on Intelligent Transport
+Systems and Multi-agent Systems (MAS) are presented, discussing the important features related
+to the main topic of the thesis. This research leads to the definition of system requirements
+that are described in the third chapter. In the fourth section, a framework architecture model
+is proposed, in line with MAS paradigms and adapted for ITS solutions simulation. In the fifth
+section, the usage and requirements of tools for framework development are discussed, mainly
+describing the simulator software integration and additional development platforms and
+libraries that could potentially facilitate the framework design process. In the sixth section,
+a technical implementation of the framework is presented, showing the implementation details
+while also serving as the software's documentation. In section number seven, a validation of
+the proposed system is conducted by implementing a distributed cooperative ITS system into the
 IVS, using the proposed framework and assessing its performance and overall results.
 
-\subsection{Introduction to the problematic}
+\subsection{Introduction to the problem}
 
 In a world where vehicle transport plays an inseparable role in society, with an ever-increasing
 demand, it is important to analyze and study driver behavior and inherently interactions and
@@ -127,7 +142,7 @@ Data shows that about 95 \% of traffic accidents are a result of human error \ci
 Each traffic accident has got a tremendous effect on socioeconomic growth. A study by the European
 Union states that accident-related expenses (including the cost of a fatality) cost 1,8 \% of EU GDP \cite{Wijnen2017}.  
 A rather non-cynical point of view is that each life lost is a failure in society itself and an effort
-should be made to diminish fatal accidents.
+should be made to eliminate fatal accidents.
 
 A method that has proven to be effective at studying driver behavior and traffic safety is by
 using interactive vehicle simulators (IVS), which allow to undertake experiments in a safe,
@@ -147,25 +162,30 @@ evaluate the usages of these systems related to Intelligent Transport Systems (I
 where their shared characteristics of distributed interoperability make agent-based modeling a
 strong tool for simulating ITS solutions. The output of the experimental/practical part of the
 thesis is a MAS-based simulation framework for facilitating the process of ITS solutions
-simulation with the benefit of modular and fast extensibility.
+simulation with the benefit of modular and fast extensibility.  The developed system should
+also be able to model state-of-the-art ITS systems that utilize communication between road
+users, such as C-ITS systems. 
 
  \subsection{Research questions}
 
 In order to evaluate the research, the following questions are given that the thesis should answer, which are following up on the thesis assignment. 
 
+% \begin{itemize}
+%     \item Agent-based modeling and multi-agent systems introduction and application examples
+%     \item Research of possible application of MAS or ABM for simulation of ITS systems
+%     \item Research of available modules and libraries for implementation of MAS in different programming languages
+%     \item Propose and design a methodology and algorithms for implementation for the simulation of an ITS into an existing IVS using ABM
+%     \item Evaluate advantages and disadvantages of ABM in IVS for ITS simulation
+% \end{itemize}
+
 \begin{itemize}
-    \item Agent-based modeling and multi-agent systems introduction and application examples
-    \item Research of possible application of MAS or ABM for simulation of ITS systems
-    \item Research of available modules and libraries for implementation of MAS in different programming languages
-    \item Propose and design a methodology and algorithms for implementation for the simulation of an ITS into an existing IVS using ABM
-    \item Evaluate advantages and disadvantages of ABM in IVS for ITS simulation
+    \item Can agent-based modeling be applied to simulate Intelligent Transport Systems in vehicle simulators and are they a viable option?
+    \item What are the available modules and libraries for implementing MAS in different programming languages?
+    \item What are the key features that need to be included in an agent-based model to accurately represent Intelligent Transport Systems in vehicle simulators?
+    \item What are the limitations and challenges associated with using agent-based modeling to simulate Intelligent Transport Systems in vehicle simulators, and how can they be addressed?
 \end{itemize}
 
 % \begin{itemize}
-%     \item How can agent-based modeling be applied to simulate Intelligent Transport Systems in vehicle simulators?
-%     \item What are the key features that need to be included in an agent-based model to accurately represent Intelligent Transport Systems in vehicle simulators?
-%     \item Is agent-based modeling a suitable tool for the application of ITS in a vehicle simulator?
-%     \item What are the limitations and challenges associated with using agent-based modeling to simulate Intelligent Transport Systems in vehicle simulators, and how can they be addressed?
 % \end{itemize}
 
 \subsection{Methodology}
@@ -195,17 +215,8 @@ model's capabilities and shortcomings.
 Research delimitations refer to the scope of the study. The delimitations
 for a thesis on Agent-based modeling of Intelligent Transport Systems in vehicle simulator include mainly 
 the technical scope. The framework will need to be compatible with the Unity game development engine which 
-is used in the faculty's IVS laboratories. It should be well-integrated with the simulator software so that 
+is used in the IVS laboratories of the CTU University in Prague. It should be well-integrated with the simulator software so that 
 the development using the framework will offer seamless interaction with other components of the simulator software. 
-
-The developed system should also be able to model state-of-the-art ITS systems that utilize communication between 
-road users, such as C-ITS systems. 
-
-
-
-%research question -  Find a way to simulate its in using its | ze zadani
-% delmitation - software
-% methodology - vsechno co jsme delali - prozkoumam mas, prozkoumam existujici methodology
 
 
 \subfile{1its}

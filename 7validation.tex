@@ -72,7 +72,7 @@ qualitative analysis can be seen in the table (\ref{qa-table}) below.
         Mobility as a Service & 8 & 2 & 8 & 18 \\
         Map services (Geo-fencing) & 2 & 5 & 8 & 15 \\
         \multicolumn{1}{p{5em}}{Self-driving algorithms} \& Platooning & 8 & 2 & 8 & 18 \\
-        \textbf{IVIS} & 8 & 8 & 8 & \textbf{24} \\ \bottomrule
+        \textbf{In-vehicle Information System} & 8 & 8 & 8 & \textbf{24} \\ \bottomrule
     \end{tabular}
     \label{qa-table}
 \end{table}
@@ -80,13 +80,47 @@ qualitative analysis can be seen in the table (\ref{qa-table}) below.
 \subsubsection{Results discussion}
 
 The conducted analysis has determined two ITS solutions as suitable systems to demonstrate 
-implementation - IVIS-based awareness and warning information system and Green
-Light Optimal Speed Advisory. Both these come from the state-of-the-art C-ITS subfield. As 
+implementation - In-vehicle Information System (IVIS) awareness and warning system and Green
+Light Optimal Speed Advisory (GLOSA). Both these come from the state-of-the-art C-ITS subfield. As 
 previously discussed, the GLOSA system is using dedicated message types in its implementation -
 the SPaT and MAP messages. On the other hand, the IVIS system can use the pre-implemented 
 CAM and DENM messages to share traffic-related information. For this reason, the 
 \emph{IVIS-based awareness and warning information system} will be chosen to implement 
-using the proposed framework.
+using the proposed framework. In the following section, the system will be described.
+
+The developed system should also be able to model state-of-the-art ITS systems that utilize communication between 
+road users, such as C-ITS systems. 
+\subsubsection{In-Vehicle Information System}
+
+The In-Vehicle Information System, shortly IVIS, is a term that comprises a vast number of vehicle technology 
+solutions that assist the driver either by providing information about the vehicle and the surrounding environment 
+or serving as an interface to control vehicle systems. 
+
+The integral part is the \emph{Infotainment system}, which is a
+video/audio interface, providing control through elements such as touch screen button panel or
+voice commands.  Moreover, it integrates other vehicle technology elements, such as the CAN
+interface, connectivity modules (e.g. Wi-Fi, GPS), sensors etc \cite{Saxena}. A screen panel is
+an excellent medium to provide additional safety information to the driver, especially when the
+gauge clusters have been replaced by an additional screen which improves the HMI aspect by
+reducing the disruptive effect of checking the screen and making the displayed information more
+noticeable. 
+
+The conventional, more basic capabilities of IVIS are Heating, Ventilation, and Air
+Conditioning (HVAC) control, multimedia controls, navigation support and parking assistance
+(i.e. parking camera view). Despite these systems not being of value concerning
+the thesis topic, the important feature of IVIS is the integration with the emerging C-ITS
+technologies, which greatly extend the capabilities of IVIS, i.e. displaying warning and
+awareness messages from the V2X interface.  This fact makes IVIS a good candidate to implement
+the IVS in the practical part because the V2X C-ITS is a great subject for research as of
+now and the distributed nature of the systems corresponds to the agent-based requirement of the
+thesis topic. On top of that, the important HMI aspect of IVIS could provide great value for
+future utilization in research using IVS. 
+
+The general, high-level solution for IVIS simulation is to provide C-ITS awareness and warning information system by 
+implementing the C-ITS messaging service standard, which provides a dedicated interface for broadcasting such information,
+simulating message-based communication between road users \& infrastructure, integrating with
+technical solutions to display the information on the infotainment screen.
+
 
 \subsubsection{Conclusion}
 

@@ -1,4 +1,4 @@
-\documentclass[main.tex]{subfiles}
+\documentclass[0main.tex]{subfiles}
 \graphicspath{{./img}}
 
 \begin{document}
@@ -15,7 +15,7 @@ should be working towards some form of a common goal, which could be achieved
 either by cooperating or competing.  The agents usually have a perception
 through which they can gain knowledge from their environment.
 
-The basic definition of MAS suggests that they should be used to model/represent
+The basic definition of MAS suggests that they should be used to model
 a system that is not centralized but rather distributed, where autonomous, intelligent units perform
 actions independently. Multi-agent systems have gained popularity in recent years, as they
 offer high flexibility in modeling highly non-linear systems and offering abstraction levels that
@@ -53,7 +53,7 @@ An agent is able to work on abstract goal specifications, identifying and utiliz
 An agent is able to respond to a perceived condition of the environment in a timely fashion.
 
 \term{Social behaviour}
-Agent must be able to interact with external sources when the need arises, e.g. cooperating
+An agent must be able to interact with external sources when the need arises, e.g. cooperating
 and sharing knowledge.
 
 \subsection{Agent type and architecture}
@@ -78,18 +78,18 @@ the respective classes will be given.
 Having first emerged in behaviorist psychology, the concept of reactive agents is founded by agents
 that make their decisions based on limited information, with simple situation-action rules. The agents
 usually make decisions directly based on input from their sensors. This type of agent is mostly
-suited for application where agent resilience and robustness is the most important factor, instead
-of optimal behavior \cite{Anthony2014}. An example of a reactive agent architecture is the Subsumption architecture.
+suited for applications where agent resilience and robustness is the most important factor, instead
+of optimal behavior \cite{Anthony2014}. An example of a reactive agent architecture is the
+\textbf{Subsumption architecture}.
 
-\textbf{Subsumption architecture}\newline
-This architecture described by Rodney Brooks \cite{1087032} 
+This architecture, described by Rodney Brooks \cite{1087032},
 decomposes the agent into hierarchical levels that operate in a bottom-up
 fashion, meaning that the bottom layers that control elementary behavior are
 activated by the upper layers that define more complex actions or define goals for
 the agent. It is important to note that the behavioral modules map sensations
 directly to actions and can only define what the agent does, not being able to
 change its desires. An example of a subsumption architecture is depicted in fig.
-(\ref{Subsumption}) with example modules from each hierarchical level, where the
+\ref{Subsumption} with example modules from each hierarchical level, where the
 bottom-level module is \texttt{Avoid Objects}, which is a needed action in order
 to complete the \texttt{Wander Around} action, which can be induced by the
 general goal on the top layer \texttt{Explore World}.
@@ -109,10 +109,9 @@ possesses an explicitly represented, symbolic model of the world, and in which
 decisions are made via symbolic reasoning \cite{Wooldridge1996}. In other words,
 the agent maintains its internal representation of the external environment and
 thus is capable to plan its actions, while being in an explicit mental state which
-can dynamically change. The Beliefs, Desires and Intentions (BDI) architecture
+can dynamically change. The \textbf{The Beliefs, Desires and Intentions (BDI)} architecture
 is the most widely known modeling approach of deliberative agents.
 
-\textbf{BDI architecture}\newline
 The BDI paradigm has been used in various applications, such as simulating the impacts of climate
 change on agricultural land use and production \cite{Caillou2017} or improving internet
 network resilience by creating BDI agents that combat DDoS attacks \cite{Nunes2017}. The main

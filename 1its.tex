@@ -1,4 +1,4 @@
-\documentclass[main.tex]{subfiles}
+\documentclass[0main.tex]{subfiles}
 
 \graphicspath{{./img}}
 \begin{document}
@@ -39,17 +39,17 @@ School of Public Health, air pollution from traffic congestion in 83 of the USA'
 areas contribute to more than 2,200 premature deaths annually, costing the healthcare system at
 least \$18 billion \cite{Levy2011}.
 
-\subsection{IVS-based research}
+\subsection{Simulator-based research}
 
 Using virtual simulation tools to research and evaluate the impacts of new and existing ITS 
 can greatly reduce the overall cost of system development, achieved by faster, 
 and flexible testing in virtual space allowing for frequent, iterative evaluation of features.
 
 It is important to say that ITS solutions vary in terms of \emph{driver engagement}. Because
-the primary use case of an interactive vehicle simulator is to research driver behavior, the 
-scope of the current state of ITS is focused on ITS solutions that integrate automotive 
-transport and encompass some degree of engaging the driver, favoring solutions that have a large degree 
-of interaction with the driver.
+the primary use case of an IVS is to research driver behavior, the scope of the current state
+of ITS is focused on ITS solutions that integrate automotive transport and encompass some
+degree of engaging the driver, favoring solutions that have a large degree of interaction with
+the driver.
 
 To give an example, some ITS use cases with high driver engagement are listed \cite{Lishchenko2021}:
 
@@ -89,7 +89,7 @@ making the solution sub-optimal \cite{Corman2010}.
 As with the \emph{distributed} systems, the main problem is systematically distributed to
 individual agents solving a sub-problem and cooperating to achieve optimal and predictable
 results, such distributed intelligence is often modeled using \emph{Multi-agent Systems}.  This
-topic is further discussed in the chapter (\ref{sec-mas}). Distributed systems can be used to
+topic is further discussed in the chapter \ref{sec-mas}. Distributed systems can be used to
 solve traffic optimization problems on a larger scale. These systems have seen larger usage,
 especially in recent times, as newly produced vehicles are equipped with powerful computers
 that can be used to transfer the computational burden from the core computer in centralized
@@ -115,11 +115,11 @@ communication).
 \subsubsection{Current research}\label{sec-research}
 
 In general, it is important to choose a time-relevant system that would bring benefit to
-current as well as future IVS and HMI research activities. Therefore, the third quality for choosing 
-an ITS to implement would be still subject to research and current trends in 
-the ITS industry and explore state-of-the-art ITS. To determine which ITSs are relevant, 
-it is important to review ongoing projects of governmental bodies and their strategies as well as the
-current trends in automotive ITS research activities.
+current as well as future IVS and Human-Machine Interface (HMI) research activities. Therefore,
+the third quality for choosing an ITS to implement would be still subject to research and
+current trends in the ITS industry and explore state-of-the-art ITS. To determine which ITSs
+are relevant, it is important to review ongoing projects of governmental bodies and their
+strategies as well as the current trends in automotive ITS research activities.
 
 In Europe, there are initiatives to centralize decision-making and ITS deployment on the scale of 
 the European continent. The reason behind this initiative is quite clear - to enable Europe-wide 
@@ -152,7 +152,7 @@ multidisciplinary approach involving all relevant transport stakeholder sectors.
 As has been already mentioned, smart mobility innovations make a major contribution towards 
 reducing the impact of transport-induced pollution, which has got a non-negligible contribution to 
 global greenhouse gas emissions production \cite{Ritchie2020}. Below are the four main
-objectives in the area of Clean \& Eco-Mobility. 
+objectives in the area of Clean \& Eco-Mobility \cite{ertico}.
 
 \begin{itemize}
     \setlength\itemsep{-10pt}
@@ -212,7 +212,7 @@ to as Vehicle-to-everything (V2X) communication.
 
 This technology aims to benefit both manually-driven vehicles 
 as well as autonomous self-driving vehicles. The main use cases, which were developed as
-standalone services using C-ITS technology can be seen in the table (\ref{c-its-use-case})
+standalone services using C-ITS technology can be seen in the table \ref{c-its-use-case}
 below.
 
 \begin{table}[htbp]
@@ -262,70 +262,39 @@ operational tasks they serve \cite{CRoads2021}:
     \item Provide \emph{warnings} to road users about incidents ahead in their exact nature. 
 \end{itemize}
 
-To provide more insight into the design and applications of C-ITS systems, two systems are 
-introduced - In-vehicle Information System and Cooperative Adaptive Cruise Control. These 
-systems were selected because their operation is conditional to user engagement and are 
-considered state-of-the-art applications, utilizing the C-ITS technology specification. For 
-those reasons, they are also relevant to IVS-based research. 
+% To provide more insight into the design and applications of C-ITS systems, two systems are 
+% introduced - In-vehicle Information System and Cooperative Adaptive Cruise Control. These 
+% systems were selected because their operation is conditional to user engagement and are 
+% considered state-of-the-art applications, utilizing the C-ITS technology specification. For 
+% those reasons, they are also relevant to IVS-based research. 
 
-\subsection{In-Vehicle Information System}
+% \subsection{Cooperative Adaptive Cruise Control}
 
-The In-Vehicle Information System, shortly IVIS, is a term that comprises a vast number of vehicle technology 
-solutions that assist the driver either by providing information about the vehicle and the surrounding environment 
-or serving as an interface to control vehicle systems. 
+% The Cooperative Adaptive Cruise Control (CACC) is an extension to an already well-proven ITS -
+% Adaptive Cruise Control.  As has been described above, this system extends the base (adaptive)
+% cruise control system by utilizing the V2V information broadcasted by other road users. The
+% system has proved to reduce the number of shock-waves by reducing oscillations that would
+% otherwise happen without speed information sharing and increasing capacity of the traffic
+% network, albeit only with higher penetration rates ($\ge 40\%$) \cite{van_Arem_2006}. Nonetheless,
+% regarding the aspect of driver engagement, the system in itself does not provide any
+% extra engagement from the driver side. 
 
-The integral part is the \emph{Infotainment system}, which is a
-video/audio interface, providing control through elements such as touch screen button panel or
-voice commands.  Moreover, it integrates other vehicle technology elements, such as the CAN
-interface, connectivity modules (e.g. Wi-Fi, GPS), sensors etc \cite{Saxena}. A screen panel is
-an excellent medium to provide additional safety information to the driver, especially when the
-gauge clusters have been replaced by an additional screen which improves the HMI aspect by
-reducing the disruptive effect of checking the screen and making the displayed information more
-noticeable. 
+% However, another system called \emph{Green Light Optimization Speed Advisory} (GLOSA), which
+% can be considered as an extension of the CACC system utilizes information about signal phasing
+% using V2I communication. This system attempts to recommend a speed that would eliminate the
+% need to stop before a red light, avoiding idle time. Dedicated A Signal Phase and Timing (SPaT)
+% messages are used to coordinate oncoming traffic speed and a Map (MAP) message is to convey
+% information about intersection topology. According to \cite{Pariota_2019}, the results of
+% simulating the deployment of this system demonstrated that even using a simple control algorithm
+% to avoid the stop\&go a reduction of fuel consumption and emissions in the region
+% of 5 to 12 \% has been observed. The study in \cite{Katsaros_2011} even concluded that with
+% enough penetration, the idle (stop) time could be decreased by more than $70 \%$ (see fig.
+% \ref{glosa-chart} below).
 
-The conventional, more basic capabilities of IVIS are Heating, Ventilation, and Air
-Conditioning (HVAC) control, multimedia controls, navigation support and parking assistance
-(i.e. parking camera view). Despite these systems not being of value concerning
-the thesis topic, the important feature of IVIS is the integration with the emerging C-ITS
-technologies, which greatly extend the capabilities of IVIS, i.e. displaying warning and
-awareness messages from the V2X interface.  This fact makes IVIS a good candidate to implement
-the IVS in the practical part because the V2X C-ITS is a great subject for research as of
-now and the distributed nature of the systems corresponds to the agent-based requirement of the
-thesis topic. On top of that, the important HMI aspect of IVIS could provide great value for
-future utilization in research using IVS. 
-
-The general, high-level solution for IVIS simulation is to provide C-ITS awareness and warning information system by 
-implementing the C-ITS messaging service standard, which provides a dedicated interface for broadcasting such information,
-simulating message-based communication between road users \& infrastructure, integrating with
-technical solutions to display the information on the infotainment screen.
-
-\subsection{Cooperative Adaptive Cruise Control}
-
-The Cooperative Adaptive Cruise Control (CACC) is an extension to an already well-proven ITS -
-Adaptive Cruise Control.  As has been described above, this system extends the base (adaptive)
-cruise control system by utilizing the V2V information broadcasted by other road users. The
-system has proved to reduce the number of shock-waves by reducing oscillations that would
-otherwise happen without speed information sharing and increasing capacity of the traffic
-network, albeit only with higher penetration rates ($\ge 40\%$) \cite{van_Arem_2006}. Nonetheless,
-regarding the aspect of driver engagement, the system in itself does not provide any
-extra engagement from the driver side. 
-
-However, another system called \emph{Green Light Optimization Speed Advisory} (GLOSA), which
-can be considered as an extension of the CACC system utilizes information about signal phasing
-using V2I communication. This system attempts to recommend a speed that would eliminate the
-need to stop before a red light, avoiding idle time. Dedicated A Signal Phase and Timing (SPaT)
-messages are used to coordinate oncoming traffic speed and a Map (MAP) message is to convey
-information about intersection topology. According to \cite{Pariota_2019}, the results of
-simulating the deployment of this system demonstrated that even using a simple control algorithm
-to avoid the stop\&go a reduction of fuel consumption and emissions in the region
-of 5 to 12 \% has been observed. The study in \cite{Katsaros_2011} even concluded that with
-enough penetration, the idle (stop) time could be decreased by more than $70 \%$ (see fig.
-\ref{glosa-chart} below).
-
-Because of the ongoing research and possibilities of such a system, the proposed simulation architecture 
-should be capable of CACC implementation - facilitating a GLOSA traffic controller simulation deployment
-and respective interface for transmitting such information to vehicles, which will react to a received 
-message, conveying GLOSA timing information accordingly. 
+% Because of the ongoing research and possibilities of such a system, the proposed simulation architecture 
+% should be capable of CACC implementation - facilitating a GLOSA traffic controller simulation deployment
+% and respective interface for transmitting such information to vehicles, which will react to a received 
+% message, conveying GLOSA timing information accordingly. 
 
 % Should I also delete this ????
 % \begin{figure}[htbp]
@@ -357,8 +326,8 @@ deployment of C-ITS \cite{Commision2021}.
 Regarding the scope of this thesis, \emph{WG3} is the most informative segment. The focus of this group 
 was, in the first place, regarding the infrastructure support for automated vehicles (SAE L4). One of 
 the objectives were linking relevant physical and digital infrastructure, assessing the relevance between 
-them and automated vehicles, and mapping infrastructure elements to use-cases as \emph{generic driving 
-tasks} (GDT):
+them and automated vehicles, and mapping infrastructure elements to use-cases as \emph{Generic Driving 
+Tasks} (GDTs):
 
 \begin{itemize}
     \item Sensing \& Perception
@@ -385,11 +354,11 @@ tasks} (GDT):
 
 It is therefore advisable to keep these General Driving Tasks in mind when thinking about the proposed framework 
 features. To maximize the number of potential use cases of the designed MAS simulation framework, 
-it shall offer basic components to simulate all aforementioned GDTs, as previous R\&I
-activities have shown that the tasks above will be a fundamental part of the future C-ITS deployment.
+it shall offer basic components to simulate all aforementioned GDTs, as the tasks above will be
+a fundamental part of the future C-ITS deployment.
 
 To put these GDT use cases into a better perspective, a mapping was created (table
-(\ref{gdt-mapping})) that links the aforementioned GDTs to existing, relevant ITS solutions.
+\ref{gdt-mapping}) that links the aforementioned GDTs to existing, relevant ITS solutions.
 This should clear up and simplify the process of defining requirements for the proposed system,
 as the new framework requirements could be easily adopted from existing system documentation of
 the particular mapped ITS.
