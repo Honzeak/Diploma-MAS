@@ -1,4 +1,4 @@
-\documentclass[main.tex]{subfiles}
+\documentclass[0main.tex]{subfiles}
 \graphicspath{{./img}}
 
 \begin{document}
@@ -17,7 +17,7 @@ In order to find a suitable tool for the case of MAS in the simulator software, 
 
 \subsection{Simulator software}
 
-The particular simulator software that is being used at the university's faculty is being
+The particular simulator software that is being used at the CTU's HMI research laboratories is being
 developed using the \emph{Unity} game engine, developed by Unity Technologies. The game engine
 was first released in 2005 and has been used to develop numerous simulators as well as other
 video games ever since \cite{UnityTechnologies2022}.  Unity has also been used as a tool in
@@ -25,12 +25,13 @@ physical product modeling, AI \& machine learning and digital twins, used in man
 \cite{UnityTechnologies2022a}.  The main strengths of Unity are multi-platform development
 support, virtual reality development support, good community support (including its asset
 store) and good documentation. The game engine has got its development environment, which 
-can be seen in figure (\ref{fig-unity}) below.
+can be seen in figure \ref{fig-unity}.
 
-The game engine's runtime is written in the C++ programming language, but the scripting API 
-that it offers is in the C\# language. Consequently, there will be a noticeable benefit 
-if the chosen agent-development platform used to develop the proposed system will be .NET based as well 
-to achieve maximum customization and interoperability.
+The game engine's runtime is written in the C++ programming language, but the scripting API
+that it offers is in the C\# language. Consequently, there will be a noticeable benefit if the
+chosen agent-development platform used to develop the proposed system will be written in the
+C\# language using the .NET run time as well as the Unity scripting API to achieve maximum
+customization and interoperability.
 
 The scripting follows the usual object-oriented programming paradigm, where one script contains a
 behavior encapsulated in a class. Each script can contain a reference to another
@@ -38,7 +39,7 @@ script/class. Each game object can be assigned an arbitrary number of scripts th
 assigning gain access to the game object's properties, such as object velocity, weight and position. 
 Scripts can also be used to programmatically gain knowledge about the environment, for example 
 using ray-casting to discover objects surrounding the attached game object. This object-centered 
-the development suggests that applying agent-based behavior could be well integrated into the 
+development suggests that applying agent-based behavior could be well integrated into the 
 simulator software and offer needed flexibility and cross-integration.
 % Potentially, Unity's Asset store could offer MAS packages, directly utilizing Unity's
 % API. 
@@ -64,16 +65,16 @@ Jade is a free software developed under a grant from the European Commission. Th
 platform is the containerization of agents, which allows to distribute agents across systems, even 
 with cross-platform (OS) support. Configuration changes can be done in run-time. The core components of 
 the platform are Agent Management System (AMS), Agent Communication Channel (ACC) and Directory Facilitator (DF). 
-JADE also supports the FIPA communication standard ACL, mentioned earlier. The platform is implemented in 
+JADE also supports the FIPA communication standard ACL, mentioned earlier. The platform is implemented with 
 the Java programming language.
 
 \textbf{FIPA-OS} \smallskip \newline 
 FIPA-OS is an open-source implementation of the FIPA standard. It is a small-footprint development platform, 
 which is loosely coupled and offers implementation also on mobile devices. The development is also done 
-using the Java programming language. 
+using Java. 
 
 Although these most popular platforms for agent-based development are industry-tested tools, in the current 
-times they are obsolete, as their development was abandoned no later than in the year 2005. Also, most of the 
+times they are obsolete, as their development was abandoned in the year 2005. Also, most of the 
 advantages described, such as multi-platform support and decentralization across machines is not relevant to 
 this thesis' use case, as the proposed MAS will be run on one machine, preferably directly within the simulator 
 software, to minimize system acceptance conflicts. 
@@ -92,42 +93,37 @@ open-source, meaning the source code can be inspected and possibly adjusted to t
 
 Upon inspecting the source code of ActressMAS, there are three main components that form the basic building 
 blocks of a MAS environment - \texttt{Agent}, \texttt{EnvironmentMas} and \texttt{Container}.
-The class diagram of the components can be seen in the image (\ref{actress-env}) below.
+The class diagram of the components can be seen in the figure \ref{actress-env} below.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.9\textwidth]{actress-environment2.png}
-    \caption{ActressMAS - Class diagram of framework's main components}
+    \caption{ActressMAS - Class diagram of framework's main components \cite{Leon2022}}
     \label{actress-env}
 \end{figure}
 
 The agent environment can be distributed between more machines. Each machine will run a container that communicates with a 
-server, as seen in fig. (\ref{actress-env}). The service handling communication between containers is a big part of the 
+server, as seen in fig. \ref{actress-env}. The service handling communication between containers is a big part of the 
 framework, as it is composed of many classes, offering communication through web sockets and even offering to 
-use the SSL security protocol and async version of communication, see fig. (\ref{actress-distr}).
+use the SSL security protocol and async version of communication, see fig. \ref{actress-distr}.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=.9\textwidth]{ClassDiagram-actress-containers.png}
-    \caption{ActressMAS - Class diagram of distribution service}
+    \includegraphics[width=.99\textwidth]{ClassDiagram-actress-containers.png}
+    \caption{ActressMAS - Class diagram of distribution service \cite{Leon2022}}
     \label{actress-distr}
 \end{figure}
 
 There are, however, some issues related to the use case of the proposed ITS framework. Overall, the implementation of the classes 
 creating the local agent environment doesn't contain much logic - the logic mostly serves to distribute messages to agents. 
 It cannot be clearly said if this is an advantage or a disadvantage, as for specific use-cases, like building an ITS multi-
-agent framework is expected to have specialized logic. However, The lack of behavior implementation also means that the 
+agent framework is expected to have specialized logic. However, the lack of behavior implementation also means that the 
 agent architecture will have to be built from the ground up either way, not bringing any benefit to using this framework. 
-On the second note, agents are only able to update their state once they receive a message, which doesn't 
+On a second note, agents are only able to update their state once they receive a message, which doesn't 
 meet the requirement for agents to act independently and autonomously. This also means that agents are not able to gather 
 and act upon information from their sensors, just from messages received from other agents. This behavior might be implemented 
 by the user, but there might be conflicts with the current design of the interaction interface of the agents and the 
 \texttt{EnvironmentMas} class that would add redundant effort as opposed to building an agent environment from scratch. 
-
-For the reasons explained above, a decision not to use a pre-existing implementation of the MAS framework is made. This 
-is mainly because of the perceived threat of identified drawbacks of the existing solutions overshadowing the advantages 
-they would bring. Building the framework independent from a pre-existing MAS platform will offer maximum customization 
-according to the system specification and its requirements. 
 
 \subsection{Conclusion}
 
@@ -145,7 +141,9 @@ codebase, it was concluded that the way the agent-based system proposed in this 
 designed, there were no significant potential benefits that implementation of the framework 
 would bring. The ActressMAS framework's implementation revolved around deployment across 
 multiple machines and offered minimal abstraction of the agent framework itself, i.e. 
-agent behavior and interaction.
+agent behavior and interaction. Therefore, building the framework independent from a
+pre-existing MAS platform will offer maximum customization according to the system
+specification and its requirements. 
 
 \clearpage
 

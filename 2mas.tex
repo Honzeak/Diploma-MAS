@@ -96,7 +96,7 @@ general goal on the top layer \texttt{Explore World}.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width = .6\textwidth]{Subsumption_Architecture_Abstract_Diagram.png}
+    \includegraphics[width = .8\textwidth]{Subsumption_Architecture_Abstract_Diagram-unified.png}
     \caption{Example of a Subsumption architecture}
     \label{Subsumption}
 \end{figure}
@@ -132,12 +132,12 @@ The plans are pre-defined within an agent, formally called a \emph{plan library}
 The plan that an agent has set to carry out can dynamically change based on updated beliefs or
 desires.
 
-These components together define an agent's \emph{reasoning engine} (fig. (\ref{bdi-schematic})),
+These components together define an agent's \emph{reasoning engine} (fig. \ref{bdi-schematic}),
 which drives the agent's (deliberative) behavior. 
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width = .8\textwidth]{bdi-infographic.png}
+    \includegraphics[width = .8\textwidth]{bdi-infographic-unified.png}
     \caption{The BDI architecture schematic}
     \label{bdi-schematic}
 \end{figure}
@@ -178,11 +178,11 @@ hierarchically on the lowest level. Then, there are \emph{planning} layers that 
 logic-based, deliberative tasks and often interact with the controller layer. In between them, 
 there is usually a \emph{sequencing} layer that can suppress output from the reactive layer. 
 An example of a well-known hybrid architecture is the \textsubscript{3}T architecture, whose 
-abstract model can be seen in the figure (\ref{3-arch}) below.
+abstract model can be seen in the figure \ref{3-arch} below.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=.6\textwidth]{3t-arch.jpg}
+    \includegraphics[width=.65\textwidth]{3t-arch-unified.png}
     \caption{An architecture model of a \textsubscript{3}T hybrid architecture}
     \label{3-arch}
 \end{figure}
@@ -207,30 +207,6 @@ Finally, the deliberation layer is responsible for planning on a high level of a
 order to make its problem space small. Routine sequences of tasks should not be specified or 
 dealt with at this layer. 
 
-\subsubsection{Conclusion}
-
-The different architecture types that were presented can each have a different application where 
-they excel. It is also important to note that a line between reactive and deliberative agents 
-is not necessarily strict, hence the existence of hybrid architecture types. 
-
-Choosing the optimal agent architecture will depend on the scope of agent goals, 
-environment and action space definition. Concerning the topic of this thesis, which is to 
-create a framework for implementing various ITS, there isn't a clear-cut choice regarding 
-architecture selection. Although the vast majority of ITS share the same goals (see section \ref{sec-its}), 
-the operating environment, underlying concepts and also used technology vary substantially.
-
-To put things into a perspective, let's consider an example from the ITS domain. 
-Systems such as autonomous driving algorithms require high resilience, determinism, 
-and high performance, all in extremely dynamic conditions. This would suggest using a
-\emph{reactive} architecture. On the other hand, there are systems such as traffic network management, 
-where highly complex problems with lots of variables are considered. Such non-linear behavior 
-requires complex logic and frequent re-planning, therefore more suited for \emph{deliberative}
-architectures. Furthermore, when considering the aforementioned cooperative ITS, where the emphasis 
-on information sharing and environmental awareness is given, it becomes clear that \emph{hybrid} 
-architectures that offer both planning and reactive behavior would be the optimal choice.
-
-As such, when creating the framework for ITS implementation later in this thesis, the
-\textsubscript{3}T architecture with RAP utilization will be used.  
 
 \subsection{Interaction between agents}\label{mas-interaction}
 
@@ -250,7 +226,7 @@ situations where conflicts of interest between agents occur with no clear positi
 i.e. zero-sum games.
 
 One should adhere to some communication principles to facilitate cooperation between agents. As
-such, agents should communicate according to Gricean maxims (see the table below)
+such, agents should communicate according to Gricean maxims (see the table \ref{maxims})
 \cite{Shoham}. This way, the communication and performance overhead is minimized and the system 
 is more stable. 
 
@@ -350,14 +326,14 @@ building blocks of dialogue between agents. A communicative act has a well-defin
 meaning independent of the content of any given act. CAs are modeled on speech act theory.
 Pragmatically, CA's are performed by an agent sending a message to another agent, using a
 specified message format. For the index of the defined CAs and their classification, see the
-table (\ref{cas}).
+table \ref{cas}.
 
 Using all of the defined message types is not mandatory in order to use the ACL.
 However, the standard introduces ACL-compliant agent requirements that need to be fulfilled. The 
-agent requirements are in the table (\ref{requirements}). 
+agent requirements are in the table \ref{requirements}. 
 
 Apart from the mentioned communicative acts, the ACL standard also defines message parameters, which
-form the structure of a message (table (\ref{message-parameters})).
+form the structure of a message (table \ref{message-parameters}).
 % A sample composed message structure can be found in figure (\ref{message-structure}).
 
 
@@ -386,9 +362,32 @@ to be included in messages. This can give applications more understandable infor
 unexpected events. In addition, the richer set of primitives can lead to more flexible
 interaction processes.
 
-\subsubsection{Conclusion}
+\subsection{Conclusion}
 
-In this section, the ways how agents interact with each other were described, concerning the
+The different architecture types that were presented can each have a different application where 
+they excel. It is also important to note that a line between reactive and deliberative agents 
+is not necessarily strict, hence the existence of hybrid architecture types. 
+
+Choosing the optimal agent architecture will depend on the scope of agent goals, 
+environment and action space definition. Concerning the topic of this thesis, which is to 
+create a framework for implementing various ITS, there isn't a clear-cut choice regarding 
+architecture selection. Although the vast majority of ITS share the same goals (see section \ref{sec-its}), 
+the operating environment, underlying concepts and also used technology vary substantially.
+
+To put things into a perspective, let's consider an example from the ITS domain. 
+Systems such as autonomous driving algorithms require high resilience, determinism, 
+and high performance, all in extremely dynamic conditions. This would suggest using a
+\emph{reactive} architecture. On the other hand, there are systems such as traffic network management, 
+where highly complex problems with lots of variables are considered. Such non-linear behavior 
+requires complex logic and frequent re-planning, therefore more suited for \emph{deliberative}
+architectures. Furthermore, when considering the aforementioned cooperative ITS, where the emphasis 
+on information sharing and environmental awareness is given, it becomes clear that \emph{hybrid} 
+architectures that offer both planning and reactive behavior would be the optimal choice.
+
+As such, when creating the framework for ITS implementation later in this thesis, the
+\textsubscript{3}T architecture with RAP utilization will be used.  
+
+The ways how agents interact with each other were described, concerning the
 application scope of this thesis, i.e. applying MAS principles to implement an ITS simulation. The most important
 facts are that agent organization needs to be considered - although MAS is
 designed to be highly distributed, giving the agents hierarchical roles can often facilitate

@@ -1,4 +1,4 @@
-\documentclass[main.tex]{subfiles}
+\documentclass[0main.tex]{subfiles}
 \graphicspath{{./img}}
 
 \begin{document}
@@ -8,7 +8,7 @@
 This section is dedicated to designing the system that will be used to implement ITS in the
 vehicle simulator software. A framework dedicated to generic MAS-based ITS system
 implementation will be designed, utilizing the principles and paradigms gathered in the
-preceding sections (\ref{sec-its}, \ref{sec-mas}). Firstly, the \emph{micro-architecture} will be
+preceding sections \ref{sec-its} \& \ref{sec-mas}. Firstly, the \emph{micro-architecture} will be
 defined, i.e. the specification of the system's actors (agents) - their inner structure 
 will be defined, as well as interfaces to the environment, and high-level technical specification 
 will be proposed - responsibilities of inner components and their inter-relationships.
@@ -22,7 +22,7 @@ to build the agent-based ITS framework for IVS software.
 As per the previous section(s), where the individual MAS architectures have been reviewed
 (section \ref{sec-mas}), it was decided to utilize the hybrid \emph{\textsubscript{3}T
 architecture}\footnote{To remind the reader of the architecture's general structure, the
-architecture model schematic can be found on fig. (\ref{3-arch}) } (section \ref{hybrid-arch}),
+architecture model schematic can be found on fig. \ref{3-arch} } (section \ref{hybrid-arch}),
 which will offer sufficient flexibility.  Such modeling flexibility is needed primarily because
 there won't be a single, concrete system to model, but rather a generic system that will
 facilitate arbitrary agent-based ITS implementation. As such, it makes sense to choose a hybrid
@@ -31,7 +31,7 @@ behavior without giving up capabilities to model complex behavior.
 
 Note that the architecture will be formally assumed that its implementation will be realized 
 in an Object-Oriented Programming (OOP) paradigm. There are multiple reasons for that. Firstly, 
-The nature of agent-based systems, having their internal logic and interacting with the surroundings 
+the nature of agent-based systems, having their internal logic and interacting with the surroundings 
 through a pre-defined interface, corresponds to a large degree to the concepts of OOP, especially
 the encapsulation principle, and secondly due to the existing IVS software being developed in 
 an OOP way.
@@ -61,17 +61,17 @@ proposing the architecture stresses the following canonical approach for skill s
 \cite{Bonasso1995}:
 
 \begin{enumerate}
-    \item The skill's input and output specification. Each skill must provide a
+    \item \emph{The skill's input and output specification} - Each skill must provide a
 description of the inputs it expects and a listing of the outputs that it
 generates 
-    \item A computational transform This is where the skill does its work. Once a
+    \item \emph{A computational transform} - This is where the skill does its work. Once a
 skill is enabled, it uses this transform to continually recompute its outputs
 based on its current inputs.
-    \item An initialization routine. Each skill is allowed to initialize itself when the system is started 
-    \item An enable function. The sequencer can enable and disable skills Depending on the
+    \item \emph{An initialization routine} - Each skill is allowed to initialize itself when the system is started 
+    \item \emph{An enable function} - The sequencer can enable and disable skills Depending on the
     context, a skill is allowed to perform any special start-up procedures each
     time it is enabled.
-    \item A disable function When a skill is no longer needed, the sequencer will disable it
+    \item \emph{A disable function} - When a skill is no longer needed, the sequencer will disable it
     and the disable function performs any necessary cleanup actions.
 \end{enumerate}
 
@@ -84,8 +84,8 @@ through pre-defined events specific to each skill.
 
 About the lower-level skills (i.e. communication and sensory), such skills should be 
 able to have configurable physical layer parameters such as signal range or relative service
-reliability (error rate). Speaking of error behavior, a skill should also be able to return a
-failure state event to enable fail-safe behavior. 
+reliability (error rate). A skill should also be able to return a
+failure state event to enable fail-safe behavior. \pagebreak
 
 \textbf{Sequencing layer}
 
@@ -101,13 +101,13 @@ the sequencer) will be handled differently on a road with more than two lanes.
 The sequencing layer should not be responsible for more complicated reasoning, but rather 
 to define how to handle routine situations. The responsibility for high-level planning to achieve 
 a global goal for an agent is reserved for the upper (deliberation) layer. The sequencing layer's 
-role in the upper layer is to provide an additional layer of abstraction.
+role is to provide interface to control execution of particular skills.
 
 To formalize the purpose of this layer in the proposed system, it should 
 
 \begin{itemize}
     \item Contain definitions of which skills to enable in order to complete a rudimentary task.
-    \item Managing execution of sequences of common skills (i.e. tasks)
+    \item Managing execution of sequences of common skills (i.e. tasks).
     \item Implement logic that will serve to adapt to completing the tasks in different conditions.
 \end{itemize}
 
@@ -143,7 +143,7 @@ plan to prioritize will be determined by sets of pre-conditions and constraints 
 the agent state.
 
 To sum it up, a detailed view of the individual components of the architecture and their
-interface is on the figure (\ref{arch-proposal}) below.
+interface is on the figure \ref{arch-proposal}.
 
 \begin{figure}[htbp]
     \centering
@@ -187,7 +187,7 @@ interface is on the figure (\ref{arch-proposal}) below.
 
 As has been discussed in the previous sections, communication plays an important part in 
 MAS, mainly because it vastly extends the capabilities of interaction between agents and thus 
-the ability to model more complex behavior. In section (\ref{sec-acl}), the ACL communication 
+the ability to model more complex behavior. In section \ref{sec-acl}, the ACL communication 
 standard for MAS has been introduced and requirements for the protocol implementation have 
 been presented. To be able to 
 utilize the communication, requirements for messaging utility and high-level implementation 
@@ -240,19 +240,19 @@ Due to the wide range of beneficial use cases for the aforementioned types of in
 types (periodic status exchange \& asynchronous notifications), ETSI has defined two basic
 messaging services; The CAM message (synchronous status update) and the DENM message
 (asynchronous notifications). Both message types will be described along with the implementation 
-details.
+details. 
 
-\textbf{Cooperative Awareness Message}\smallskip\newline
+\textbf{Cooperative Awareness Message}
 
 The CAM message is specified by the Cooperative Awareness Basic Service. By definition, CAM
 provides a means of periodic status data sending, sharing cooperative awareness to neighboring
 nodes. From the message propagation point of view, the CAM differs from the DENM message by 
 only allowing \emph{single-hop transmission}. This way, only vehicles in the relative vicinity 
 of the broadcasting vehicle will receive the message. CAM messages should be then processed by 
-the CAM Management component to apply additional logic \cite{ETSI2014}. For example, CAM Management can 
-detect a Slow Vehicle Warning by analyzing received CAM messages from a particular vehicle. 
+the CAM management component to apply additional logic \cite{ETSI2014}. For example, CAM management can 
+detect a slow vehicle warning by analyzing received CAM messages from a particular vehicle. 
 In other words, the receiver is expected to evaluate the relevance of the contained information.
-The CAM service has its message format specification, which is found in figure (\ref{cam-spec}) below. 
+The CAM service has its message format specification, which is found in figure \ref{cam-spec}. 
 
 \begin{figure}[htbp]
     \centering
@@ -261,7 +261,8 @@ The CAM service has its message format specification, which is found in figure (
     \label{cam-spec}
 \end{figure}
 
-\textbf{Decentralized Environmental Notification Message}\smallskip\newline
+\textbf{Decentralized Environmental Notification Message}
+
 Instead of vehicle/station status updates, DENM messages directly carry traffic safety-related 
 information, characterized by \emph{event type} identifier. Another difference from the previous 
 message type is that DENM messages are \emph{multi-hop}, and their range is expressed by geo-validity 
@@ -269,7 +270,7 @@ specification. Among other attributes, the DENM message contains attributes for 
 frequency or temporal validity threshold (expiration time). Despite specifying such 
 attributes, it is still up to the receiving station/vehicle to determine information relevance
 \cite{ETSI2019} and whether to take further actions like displaying the message to the driver.
-The DENM service message specification is presented in the figure (\ref{denm-spec}) below.
+The DENM service message specification is presented in the figure \ref{denm-spec}.
 
 \begin{figure}[htbp]
     \centering
@@ -295,24 +296,24 @@ The DENM service message specification is presented in the figure (\ref{denm-spe
 %     \label{denm-spec-tbl}
 % \end{table}
 
-\subsubsection{Negotiation \& Agreement}
+\subsubsection{Negotiation and Agreement}
 
 % still quite too theoretical, not related to actual implementation. not sure if it should be here
 Negotiation between agents is important especially when two agents run into each other, 
 followed by the currently executing skills of the agents getting interrupted. In other words, 
-The best course of action for one agent is not necessarily the best for the other. This is more than
+the best course of action for one agent is not necessarily the best for the other. This is more than
 likely to happen in environments where multiple agents share the same resource and their state
 is defined on the same domain, which is often the case. As such, the theory of games is formally 
 used to model these interactions \cite{Binder2022}. 
 
-This is quite different from the principles of agent cooperation. In cooperation negotiations, 
-the worst-case scenario improvement as opposed to working individually is net-zero. \cite{Binder2022}
-defines four speech acts in agent negotiation, as seen in fig. (\ref{fig-speech-acts}). This is 
-inherently contrary to the statement made in the chapter (\ref{mas-interaction}), where it was suggested 
-that agent cooperation should be emphasized. As agents are formally modeled as self-interested, 
-it cannot be guaranteed that they won't encounter conflicts with each other. Therefore, modeling 
-cooperation before figuring out conflict resolution would inherently result in a more fragile system 
-more prone to malfunction. 
+Such type of negotiation is quite different from the principles of agent cooperation. In
+cooperation negotiations, the worst-case scenario improvement as opposed to working
+individually is net-zero \cite{Binder2022}.  This is inherently contrary to the statement made
+in the section \ref{mas-interaction}, where it was suggested that agent cooperation should be
+emphasized. As agents are formally modeled as self-interested, it cannot be guaranteed that
+they won't encounter conflicts with each other. Therefore, modeling cooperation before figuring
+out conflict resolution would inherently result in a more fragile system more prone to
+malfunction. 
 
 % \begin{figure}[htbp]
 %     \centering
@@ -338,14 +339,14 @@ agent is expected to run into a conflict with another agent (of the same
 with the implementation left to a specific use case. In other words, the logic for conflict detection will be 
 left to define together will specific agent and its properties, and other modules.
 
-It needs to be said that when one agent detects a conflict through one of its modules, it will 
+When one agent detects a conflict through one of its modules, it will 
 be required to inform other agents about the conflict so that all involved agents will be
 aware of the situation. 
 
 \subsubsection{Conflict resolution}
 
-Now that the conflict detection process was defined, in that case, it will be possible to build
-on it to define how conflicts will be resolved. Considering the findings in chapter
+Now that the conflict detection process is defined, in that case, it will be possible to build
+on it to define how conflicts will be resolved. Considering the findings in section
 \ref{sec-conflicts}, the simplest tool to resolve conflicts is to define a hierarchy in the
 agent. In order to avoid more complex mathematical reasoning models \cite{Binder2022},
 hierarchy, along with agent-bound state variables can be used as a bidding resource. Whichever
@@ -361,10 +362,13 @@ available to them. Also, deciding which bid proposal has won will be handled by 
 had called for the proposal, so the counterparty will assume that the deciding agent is
 truthful and decided correctly according to the bids. 
 
+To better illustrate the negotiation process, an example scenario of the negotiation process is 
+described in the \emph{Example} part below.
+
 \textbf{Example}
 
 To illustrate how the system would work in practice a sample scenario is presented below in
-figure (\ref{agentReplanning}), where the agents are drivers/vehicles. The scenario demonstrates 
+figure \ref{agentReplanning}, where the agents are drivers/vehicles. The scenario demonstrates 
 how agents achieve their goals using the three layers, as well as conflict detection and resolution.
 
 There are two vehicle agents (\texttt{A}, \texttt{B}) in the scenario, which both have three routine tasks defined:
@@ -381,16 +385,16 @@ basic \texttt{drive} skill to come after the current task completion.
     \item Both agents do not detect any obstacles in their surroundings, so the planner
     initializes a plan with only the \texttt{drive} task sequenced, which gets executed. 
 
-    \item Agent (\texttt{A}) spots an obstacle in his way (an oil spill). This causes the
-    \texttt{drive} task to fail and (\texttt{A})'s planner has to re-plan to reach its goal (not
+    \item Agent \texttt{A} spots an obstacle in his way (an oil spill). This causes the
+    \texttt{drive} task to fail and \texttt{A}'s planner has to re-plan to reach its goal (not
     crash). The failed task's fail-safe task is triggered (\texttt{avoid:object})
     and added to the new fail-safe plan. The new plan is initialized with the two
     following tasks sequenced: \texttt{avoid:oil\_spill} $\rightarrow$ \texttt{drive}.
     
-    \item However, this plan also fails, as agent (\texttt{B}) detects a path conflict, consequentially 
-    informing agent (\texttt{A}) about it. They now have to initiate a negotiation task to reach an agreement and
-    resolve the conflict using auction-like bidding. The agent (\texttt{B}) wins the bid, due
-    to being in the right lane and so agent (\texttt{A}) is forced to give way. The planner
+    \item However, this plan also fails, as agent \texttt{B} detects a path conflict, consequentially 
+    informing agent \texttt{A} about it. They now have to initiate a negotiation task to reach an agreement and
+    resolve the conflict using auction-like bidding. The agent \texttt{B} wins the bid, due
+    to being in the right lane and so agent \texttt{A} is forced to give way. The planner
     creates a new plan: \texttt{wait} $\rightarrow$ \texttt{avoid:oil\_spill} $\rightarrow$
     \texttt{drive}.
     

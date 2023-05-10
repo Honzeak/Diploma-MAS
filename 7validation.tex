@@ -1,4 +1,4 @@
-\documentclass[main.tex]{subfiles}
+\documentclass[0main.tex]{subfiles}
 \graphicspath{{./img}}
 
 \begin{document}
@@ -12,20 +12,24 @@ and the simulation results will be discussed.
 
 \subsection{Qualitative analysis}
 
-The following paragraphs will pick up on the findings in the chapter (\ref{sec-croads}), where the
-table (\ref{gdt-mapping}) maps General Driving Tasks to state-of-the-art ITS solutions. Those
-ITS solutions will be analyzed in this chapter in an attempt to transparently select an optimal
+The following paragraphs will pick up on the findings in the section \ref{sec-croads}, where the
+table \ref{gdt-mapping} maps GDTs to state-of-the-art ITS solutions. Those
+ITS solutions will be analyzed in this section in an attempt to transparently select an optimal
 system to implement using the developed framework in order to validate and demonstrate its
 use-case. 
 
-In order to choose an optimal ITS to implement, it is important to define features that reflect
-such a system's suitability for implementation. Optimally selecting such features for
-evaluation of previously selected individual ITSs will create a qualitative benchmark that will
-be used to select an ITS solution for demonstration of the proposed framework's capabilities.
+In order to demonstrate the framework's capabilities, a suitable ITS will be chosen to
+implement using the framework.  The goal is to identify which ITS solutions are suitable to
+implement using the multi-agent simulation framework.  In order to achieve this, attributes
+reflecting the suitability to implement will be defined. For each system in a selection of
+relevant ITS solutions, a value will be assigned to each identified attribute, based on how
+strongly the feature is represented in the system. A sum of the scores for each ITS solution
+will make for a qualitative benchmark that will be used to select an ITS solution for
+demonstration of the proposed framework's capabilities.
 
 The method to determine how well-suited the candidate system type is for the implementation to
 an IVS will be to evaluate it based on the \emph{three} features discussed in the preceding
-section (\ref{sec-its}): 
+section \ref{sec-its}: 
 
 \begin{itemize}
     \itemspacing{.5}
@@ -51,17 +55,17 @@ the suitability of ITS, therefore its value is only incremented by two as oppose
 and \emph{High} rates of feature representation should have a more significant influence on the final system 
 choice, therefore their values have been assigned as increments of three instead of two. 
 
-Each system reviewed in section (\ref{sec-its}) will be evaluated and the sum of individual feature evaluation 
+Each system reviewed in section \ref{sec-its} will be evaluated and the sum of individual feature evaluation 
 will determine its score, meaning the higher the score, the better the result for a particular ITS. The system 
 with the \emph{highest} score will be chosen to implement using the proposed framework. The results of the 
-qualitative analysis can be seen in the table (\ref{qa-table}) below.
+qualitative analysis can be seen in the table \ref{qa-table} below.
 
 \begin{table}[htbp]
     \caption{Quantitative analysis results}
     \renewcommand{\arraystretch}{1.4}
     \centering\begin{tabular}{l*{3}{r}r} \toprule
          & \multicolumn{3}{c}{Features} & \\ \cmidrule(rl){2-4}
-        ITS & \multicolumn{1}{p{6em}}{MAS-compatibility} & \multicolumn{1}{p{6em}}{Driver \newline engagement} & \multicolumn{1}{p{6em}}{Research \newline relevance} & \textbf{Score } \\ \midrule
+        ITS & \multicolumn{1}{p{6em}}{Intelligence distribution} & \multicolumn{1}{p{6em}}{Driver \newline engagement} & \multicolumn{1}{p{6em}}{Research \newline relevance} & \textbf{Score} \\ \midrule
         E-Call & 2 & 2 & 5 & 9 \\ 
         Electronic fee collection & 2 & 0 & 2 & 4 \\
         Parking guidance & 2 & 8 & 5 & 15 \\
@@ -121,18 +125,7 @@ implementing the C-ITS messaging service standard, which provides a dedicated in
 simulating message-based communication between road users \& infrastructure, integrating with
 technical solutions to display the information on the infotainment screen.
 
-
-\subsubsection{Conclusion}
-
-A methodology for qualitative analysis was introduced and used to
-determine the best ITS candidates for implementation into an IVS. The resulting best-fitted
-systems were both from the C-ITS field, as their features are much alike those of multi-agent
-systems. Finally, the chosen systems to implement were the \emph{IVIS-based awareness and
-warning information system} and the \emph{Green Light Optimal Speed Advisory} system. The
-following practical part will be dedicated to the implementation methodology, introduction to
-the development system and the development itself.
-
-\subsection{IVIS implementation}
+\subsection{In-Vehicle Information System implementation}
 
 With the particular ITS implementation decided, the whole process of implementation will be 
 described. Before describing the implementation process itself, a description of the 
@@ -140,10 +133,10 @@ implemented IVIS solution will be given, together with implementation requiremen
 results. Afterward, the custom testing environment setup (i.e. the system implementation) will % TODO reword
 be presented. Finally, the implementation test results will be presented and discussed.
 
-\subsubsection{System description \& requirements}
+\subsubsection{System description and requirements}
 
-As has been described in the chapter (\ref{sec-its}), the In-Vehicle Information System can enable 
-the driver to control various aspects of vehicle set-up, as well as provide (relevant) information about 
+As has been described in the preceding section, the In-Vehicle Information System can enable 
+the driver to control various aspects of vehicle set-up, as well as provide information about 
 the vehicle and the environment, including traffic conditions. The state-of-the-art IVIS solutions include 
 V2X communication where vehicles and the infrastructure can distribute otherwise locally-available 
 information to all interested road users. 
@@ -173,11 +166,11 @@ the following specification:
     \item There should be two types of ITS agents - the connected vehicle agent and the connected infrastructure agent.
     \item The infrastructure agent should be able to detect emerging congestion forming nearby.
     \item Likewise, the agent should also detect that the congestion has decreased.
-    \item The congestion event should be specified by the appropriate Cause Code - \texttt{TrafficSituation}.
+    \item The congestion event should be specified by the appropriate Cause Code.
     \item Similarly, the event status should be specified with a Sub-Cause Code value - 1 for
     free flow and 4 for heavy traffic jam \cite{ETSI2019}. 
     \item The connected vehicle agent should then be able to commit to a plan where it attempts to reach a
-    destination, \emph{potentially re-planning its route if it receives a DENM message about a downstream congestion forming}.
+    destination, potentially re-planning its route if it receives a DENM message about a downstream congestion forming.
  \end{enumerate}
 
 If these conditions are met, the system should have a positive effect on traffic by decreasing the overall 
@@ -222,7 +215,7 @@ yielding vehicles based on the traffic light signal.
     \label{fig-sts}
 \end{figure}
 
-\subsubsection{IVIS implementation}\label{sec-implementation}
+\subsubsection{Agent implementation}\label{sec-implementation}
 
 This section will cover the implementation of the chosen C-ITS solution using the proposed 
 MAS framework. Based on the specification, two agents will be created. The agents will be 
@@ -241,8 +234,8 @@ Since the agent's behavior is constant, apart from broadcasted DENM message cont
 Sub-Cause Code), the agent has got only one task, consisting of two Skills - 
 \texttt{ITSCommunicationSkill} for messaging service and \texttt{MonitorQueueSkill} which 
 changes broadcasted Sub-Cause Code based on discovered number of vehicles in the queue. 
-For reference, the agent's composition can be seen in fig. (\ref{cd-trafficLight}) and 
-the agent's activity diagram can be seen in fig. (\ref{ad-trafficLight}).
+For reference, the agent's composition can be seen in fig. \ref{cd-trafficLight} and 
+the agent's activity diagram can be seen in fig. \ref{ad-trafficLight}.
 
 
 \begin{figure}[htbp]
@@ -286,8 +279,8 @@ four Skills:
     plan the default or an alternative route. 
 \end{itemize}
 
-The agent's class diagram can be seen in figure (\ref{cd-smartRoutingVehicle}) and its activity diagram 
-on figure (\ref{ad-smartRoutingVehicle}).
+The agent's class diagram can be seen in figure \ref{cd-smartRoutingVehicle} and its activity diagram 
+on figure \ref{ad-smartRoutingVehicle}.
 
 \begin{figure}[htbp]
     \centering
@@ -328,7 +321,7 @@ an intersection. This route represents the shortest path route through an urban 
 There is also a second route, which is considerably longer and winding, representing a countryside 
 road with less average traffic intensity. A "warm-up" section where vehicles are spawned is
 preceding the branch-off into the two routes. For visual reference, see Figure
-(\ref{fig-routeMap}) below.
+\ref{fig-routeMap}.
 
 \begin{figure}[htbp]
     \centering
@@ -351,7 +344,7 @@ was run multiple times with modified traffic flow influencing parameters. The va
     \item Yellow phase length ($T_{yellow}$)
 \end{itemize}
 
-The Table (\ref{tab-sims}) shows the three variations of chosen simulation parameters.
+Table \ref{tab-sims} shows the three variations of chosen simulation parameters.
 
 \begin{table}[htbp]
     \caption{Parameter values for simulation batches}
@@ -369,8 +362,8 @@ The Table (\ref{tab-sims}) shows the three variations of chosen simulation param
 \subsubsection{Simulation results}
 
 The simulations were successfully run and the logs containing travel time for each vehicle were processed 
-and evaluated. The observed variables were \emph{Total travel time}, \emph{Maximum travel time}
-and \emph{Minimum travel time}. The plotted simulation results are in Figures (\ref{fig-sim-ttt}) \& (\ref{fig-sim-minmax}).
+and evaluated. The observed variables were \emph{Total travel time} (TTT), \emph{Maximum travel time}
+and \emph{Minimum travel time}. The plotted simulation results are in Figures \ref{fig-sim-ttt} and \ref{fig-sim-minmax}.
 Note that the plot legend conveys information about simulation parameters in format [ $V_{alt}$ - $T_{green}$ - $T_{yellow}$ ].
 
 \begin{figure}[htbp]
@@ -392,7 +385,7 @@ travel time of vehicles, which is expected if the IVIS implementation is assumed
 the threshold equal to zero, all vehicles take the alternative longer path and experience large
 travel times. When the threshold gradually increases, allowing groups of vehicles onto the 
 main route, the travel time starts decreasing rapidly, as the main route has enough capacity to clear 
-the oncoming traffic without disruption. Around the threshold level of \textbf{six}, the traffic flow 
+the oncoming traffic without disruption. Around the threshold level of six, the traffic flow 
 rate reaches the route's capacity and with increasing queue threshold the travel times start to
 increase while rendering the alternative route under-utilized.
 
@@ -401,11 +394,9 @@ is also affected) as expected. The absolute values of travel time have changed, 
 the relative changes depending on queue threshold size were very similar in all three 
 variations.
 
-\clearpage 
-
 \subsection{Conclusion}
 
-In this chapter, an ITS solution for the framework validation has been chosen to implement
+In this section, an ITS solution for the framework validation has been chosen to implement
 using the proposed framework, based on a qualitative analysis considering criteria determined
 from preceding discussion and research. The system to implement was the Smart Routing C-ITS
 utilizing V2I communication, dynamically re-planning optimal route to the destination. Requirements

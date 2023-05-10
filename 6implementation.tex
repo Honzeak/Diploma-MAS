@@ -1,4 +1,4 @@
-\documentclass[main.tex]{subfiles}
+\documentclass[0main.tex]{subfiles}
 \graphicspath{{./img}}
 
 \begin{document}
@@ -6,7 +6,7 @@
 \section{System implementation}
 
 Now that the system architecture model has been designed and the technical requirements and
-tools considered, it is possible to create the system implementation. In this chapter, the
+tools considered, it is possible to create the system implementation. In this section, the
 process of building the software package and subsequent implementation into the simulator
 software will be described. 
 
@@ -25,7 +25,7 @@ gives the user freedom and guidance concerning detailed behavior implementation.
 
 \subsection{Agent implementation}
 
-As has been defined in the chapter proposing the system model (\ref{sec-system}), the agent component 
+As has been defined in the section \ref{sec-system} which proposed the system model, the agent component 
 will be composed of the three main layers, represented as standalone classes interacting with 
 each other - \emph{deliberation}, \emph{sequencer} and \emph{skill} classes.
 
@@ -42,7 +42,7 @@ potentially important/interesting events that have taken place while operating a
 the environment.
 
 Below is a class diagram of the components with marked dependencies, including their methods and 
-properties (fig. (\ref{mas-its-components})).
+properties (fig. \ref{mas-its-components}).
 
 
 \begin{figure}[htbp]
@@ -60,9 +60,9 @@ being abstract (i.e. requiring further implementation details specified by inher
 class), it is also generic, which means that it will defer the type specification of its state until 
 it is declared by the derived class. This leaves the state specification to be implemented 
 to the user's needs. For example, a vehicle agent can have its state as a three-dimensional
-vector, whereas a broadcasting station will have its state defined differently (enum etc.).
-The initial value of the state parameter is required to be specified upon object instantiation/
-creation.
+vector, whereas a broadcasting station will have its state defined as one of its possible
+states (e.g. represented by a single discrete number).  The initial value of the state parameter
+is required to be specified upon object instantiation/creation.
 
 Upon providing a goal to the layer by the executing client, it should resolve it by
 initializing a sequence of pre-defined \texttt{AgentTask} objects whose execution should 
@@ -70,23 +70,23 @@ accomplish the goal. The input goal should be defined
 as a high-level keyword, and the layer is assumed to receive only pre-defined goal keywords,
 which will be matched to different patterns of task-resolving logic.
 
-The \texttt{AgentTask} class encapsulates a list of Skill types that shall be activated 
-once the Task is executed. The skill list does not contain the actual instantiated 
+The \texttt{AgentTask} class encapsulates a list of skill types that shall be activated 
+once the task is executed. The skill list does not contain the actual instantiated 
 objects, but just information about skill type (derived from the \texttt{Skill} abstract 
 class). Such type of pseudo-contract is then transferred to the \texttt{Sequencer} layer and 
 validated at run-time. In other words, the \texttt{Sequencer} class must contain instantiated
 \texttt{Skill} objects listed in the received \texttt{AgentTask}.
 
-To offer a form of Task reuse, a parametrization of Tasks is implemented. This feature is 
+To offer a form of task reuse, a parametrization of tasks is implemented. This feature is 
 implemented in a way that the task also contains an optional transform procedure delegate which 
 gets passed to the \texttt{Skill} object once it's activated as part of the task execution.
-As an example, a Task that contains a general communication skill that broadcasts messages to
+As an example, a task that contains a general communication skill that broadcasts messages to
 other agents can have the broadcasted message type and content specified differently in each 
-separate instance of resolved Tasks. The logic in the \texttt{AgentTask} type can be reused 
+separate instance of resolved tasks. The logic in the \texttt{AgentTask} type can be reused 
 while allowing for parametrized Skill initialization (e.g. broadcasted information type). 
 
-This layer can also receive notification from the lower layer when a Task has failed or 
-the initialized sequence of Tasks (i.e. plan) has finished. As defined in the system requirements, 
+This layer can also receive notification from the lower layer when a task has failed or 
+the initialized sequence of tasks (i.e. plan) has finished. As defined in the system requirements, 
 the user must implement behavior when the execution of an instantiated plan has failed or 
 has been interrupted by impacting events in the operating environment. The user has to implement 
 a fail-safe \texttt{AgentTask} that will get activated in case the Deliberation layer is not able 
@@ -97,10 +97,10 @@ to achieve the specified goal.
 The \texttt{Sequencer} class is responsible for the most amount of general logic. This is because 
 it interacts with both the upper and lower layer and hands over information about skill execution 
 to the Deliberation layer. Its primary responsibility is to keep track of currently executing skills 
-and activate or deactivate them respectively to the currently executing Task. 
+and activate or deactivate them respectively to the currently executing task. 
 
-When the Deliberation layer generates a sequence of Tasks, it is enqueued into the
-\texttt{Sequencer}'s internal Task queue. The Tasks in the queue get sequentially executed. 
+When the Deliberation layer generates a sequence of tasks, it is enqueued into the
+\texttt{Sequencer}'s internal task queue. The tasks in the queue get sequentially executed. 
 Before activating skills according to the task specification, the task-specific 
 initialization transform, if there is any, is applied to respective Skill(s). Afterward, 
 the Skills get activated by the Sequencer. The \texttt{Sequencer} class also exposes the interface 
@@ -115,9 +115,9 @@ When one of the Skills triggers such an event and terminates, the \texttt{Sequen
 about the \emph{type} of terminated Skill and \emph{termination reason}, which is of one of 
 three defined values - \texttt{Finished}, \texttt{Interrupted} or \texttt{Failed}. The logic 
 implemented by the user, based on the type- and reason-based inputs, should identify whether 
-the case of Skill termination is detrimental to the execution of the whole Task (meaning 
-Task execution has \emph{failed} or \emph{finished}). If so, the \texttt{Sequencer} triggers
-the respective Task termination event and the resolving logic is handled to the \texttt{Deliberation}
+the case of Skill termination is detrimental to the execution of the whole task (meaning 
+task execution has \emph{failed} or \emph{finished}). If so, the \texttt{Sequencer} triggers
+the respective task termination event and the resolving logic is handled to the \texttt{Deliberation}
 class. Alternatively, the terminated Skill can be left disabled or re-started. 
 
 \subsubsection{Skill layer}
@@ -125,12 +125,12 @@ class. Alternatively, the terminated Skill can be left disabled or re-started.
 The Skill layer comprises a defined collection of objects derived from the base
 \texttt{Skill} class. The implementation of the base abstract class is only about 
 defining its methods that should ensure proper integration with the upper layers, such 
-as methods for activation \& deactivation of the skill exposed to the \texttt{Sequencer}
+as methods for activation and deactivation of the skill exposed to the \texttt{Sequencer}
 class.
 
 The implementation required by the user-specific use case of a particular skill is mainly 
-the \texttt{Act()} method implementation, where the user is required to specify the Skill's
-computational transform (as specified by the requirements in section (\ref{sec-system})).
+the \texttt{Act} method implementation, where the user is required to specify the Skill's
+computational transform (as specified by the requirements in section \ref{sec-system}).
 
 The Skill layer is also expected to utilize the chaining of Skill inputs and outputs. Skills are 
 expected to slightly vary in abstraction level, meaning there should be Skills directly 
@@ -142,8 +142,8 @@ public class properties. To allow the use of Skill \texttt{A}'s output in skill 
 the reference of \texttt{A} is provided in \texttt{B}'s constructor. The \texttt{B} Skill 
 can then use \texttt{A}'s exposed output property in its transform function.
 
-A simplified activity diagram barring user-implemented logic can be seen on 
-figure (\ref{fig-activity-diagram}).
+An activity diagram sowing process logic and interaction between inner components can be 
+seen in figure \ref{fig-activity-diagram}.
 
 \begin{figure}[htbp]
     \centering
@@ -152,18 +152,19 @@ figure (\ref{fig-activity-diagram}).
     \label{fig-activity-diagram}
 \end{figure}
 
-\subsection{Communication implementation}
+\subsection{Communication module implementation}
 
-As has been defined in the system requirements chapter (\ref{sec-requirements}), the 
-framework will come with a pre-implemented communication interface. There are two 
-base object types handling communication between agents - an agent-bound 
-\texttt{CommunicationSkill} class that serves as an agent's proxy to the communication 
-space, and the \texttt{MessageBroker} class that handles message delivery to individual 
-agents. In addition to that Message types created according to the C-ITS and ACL 
-standards were created to carry appropriate content. The class diagram of the 
-communication interface can be seen in figure (\ref{fig-classes-comm}).
+As has been started section \ref{sec-requirements}, where in the system requirements were
+defined, the framework will come with a pre-implemented communication interface which will 
+allow the agents to exchange pre-defined messages. There are two
+base object types handling communication between agents - an agent-bound
+\texttt{CommunicationSkill} class that serves as an agent's proxy to the communication space,
+and the \texttt{MessageBroker} class that handles message delivery to individual agents. In
+addition to that Message types created according to the C-ITS and ACL standards were created to
+carry appropriate content. The class diagram of the communication interface can be seen in
+figure \ref{fig-classes-comm}.
 
-\subsubsection{Message Broker}
+\subsubsection{Message broker}
 
 The \texttt{MessageBroker} is a \emph{static} class (only one allowed instance per 
 simulation) which manages message delivery and simulates the communication space. 
@@ -192,7 +193,7 @@ provide the recipient agent ID.
 The \texttt{CommunicationSkill} class derives from the base \texttt{Skill} class, so it should
 be handled like any other skill. This type itself is \emph{generic} and \emph{abstract}. For
 the skill to be used, a derived class with a specified Message type needs to be created and
-implemented. The pre-defined behavior is in the \texttt{Act()} method, where all Messages to
+implemented. The pre-defined behavior is in the \texttt{Act} method, where all Messages to
 broadcast are handed to the \texttt{MessageBroker} class.  The Messages to broadcast are
 specified upon \texttt{AgentTask} initialization by the transform procedure. That way,
 different \texttt{AgentTasks} can re-use the single \texttt{CommunicationSkill} class.  Then,
@@ -205,10 +206,11 @@ the message, deciding if they are interested in the contents and acting upon it 
 
 \subsubsection{Message implementation}
 
+%% TODO: image reference %%
 The ACL and C-ITS (i.e. DENM and CAM services) message contents were implemented according to 
 the official documentation. For reference, the ACL message contents can be seen in the figure
-(\ref{message-structure}) and table (\ref{cas}), the C-ITS message contents can be seen 
-in figures (\ref{cam-spec}) and (\ref{denm-spec}).
+\ref{message-structure} and table \ref{cas}, the C-ITS message contents can be seen 
+in figures \ref{cam-spec} and \ref{denm-spec}.
 
 \begin{figure}[htbp]
     \centering
@@ -217,35 +219,35 @@ in figures (\ref{cam-spec}) and (\ref{denm-spec}).
     \label{fig-classes-comm}
 \end{figure}
 
-\subsection{Unity Integration}
+\subsection{Unity integration}
 
-As has been mentioned in the introduction to Unity software in the chapter (\ref{sec-toolset}), programmatically 
-defined behavior is implemented by assigning C\# scripts as individual components to Game Objects in 
+As has been mentioned in the introduction to Unity software in the section \ref{sec-toolset}, programmatically 
+defined behavior is implemented by assigning C\# scripts as individual components to game objects in 
 the scene. The scripts are not being executed by a main client script like in conventional software, but 
-rather by calling an \texttt{Update()} method in the Unity script which is invoked by the Unity engine 
+rather by calling an \texttt{Update} method in the Unity script which is invoked by the Unity engine 
 on each game tick. Such behavior is obtained by inheriting from the \texttt{MonoBehaviour} class, which 
-also defines other methods that get invoked in certain scenarios. The most used \texttt{MonoBehaviour} 
-methods, barring \texttt{Update()} are:
+also defines other methods that get invoked in certain scenarios. Including the \texttt{Update}
+method, the standard methods used in most cases are:
 
 \begin{itemize}
-    \item \texttt{Start()} method, which substitutes object initialization 
+    \item \texttt{Start} method, which substitutes object initialization 
 through the constructor and is called at the start of the script lifetime
-    \item \texttt{OnDisable()} method, which gets called when the script component or the whole Game Object 
+    \item \texttt{OnDisable} method, which gets called when the script component or the whole game object 
     gets disabled. Disabled components aren't rendered and cannot interact with the scene nor be interacted 
     with. 
-    \item \texttt{OnEnable()} method, which is inverse to the previous and gets called when Game Objects 
+    \item \texttt{OnEnable} method, which is inverse to the previous and gets called when game objects 
     or components are enabled/activated.
 \end{itemize}
 
 The idea behind the proposed MAS ITS framework integration with Unity is to assign the \texttt{Agent} 
-class to Game Objects as a component in order to use the Game Object as an agent. For instance, the Game Object can be 
-a vehicle model or even a non-physical Game Object invisible in the scene, for example, a traffic controller. When 
-the \texttt{Agent} class would get assigned to a Game Object, it would be able to interact with its other game
+class to game objects as a component in order to use the game object as an agent. For instance, the game object can be 
+a vehicle model or even a non-physical game object invisible in the scene, for example, a traffic controller. When 
+the \texttt{Agent} class would get assigned to a game object, it would be able to interact with its other game
 components and object properties through pre-defined sensor or actuator skills. 
 
-Although the \texttt{Agent} class and its components (i.e. layers) come with the \texttt{Update()} method in 
+Although the \texttt{Agent} class and its components (i.e. layers) come with the \texttt{Update} method in 
 their default implementation, it will still not get called by the Unity engine. For that reason, a \emph{wrapper}
-class \texttt{AgentMonoWrapper} been created. This class will get added as a component to the Game Object that 
+class \texttt{AgentMonoWrapper} been created. This class will get added as a component to the game object that 
 the user wants to induce agent behavior on. The class will initialize an agent by calling an abstract method 
 \texttt{InitAgent()} at \texttt{MonoBehaviour.Start()} invocation and call \texttt{Agent.Update()} on 
 \texttt{MonoBehaviour.Update()} invocation. 
@@ -253,9 +255,9 @@ the user wants to induce agent behavior on. The class will initialize an agent b
 \subsection{Conclusion}
 
 In this section, the implementation details of the proposed framework were discussed. The C\# language has been 
-used to write the framework's code, as per the discussion in the chapter (\ref{sec-toolset}). The framework's core 
+used to write the framework's code, as per the discussion in the section \ref{sec-toolset}. The framework's core 
 components were defined as abstract classes, implementing general behavior and defining required behavior to 
-be implemented by the user, which is use-case dependent. For instance, such behavior can be the \texttt{Act()}
+be implemented by the user, which is use-case dependent. For instance, such behavior can be the \texttt{Act}
 method in the \texttt{Skill} layer, which serves as Skill's way of interacting with the environment, which is 
 different for every defined Skill. The relations between classes and inner processes have been described, serving 
 as documentation for the usage of the framework. 
