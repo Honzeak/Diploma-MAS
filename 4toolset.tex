@@ -5,33 +5,34 @@
 
 \section{Implementation toolset}\label{sec-toolset}
 
-With the finished system specification, it should be discussed which tools should be used to build the software framework. 
+With the finished system specification, this section discusses which tools will be used to build the software framework. 
 First off, it is important to analyze the IVS simulation system/software (i.e. the super-system) that
-the proposed framework will be incorporated into. An effort should be made to maximize the super-system acceptance of 
+the proposed framework is incorporated into. It should maximize the super-system acceptance of 
 this system by choosing an optimal tool set for its implementation. This, for the most part,
 refers to an optimal choice of a programming language and a subsequent agent-based modeling
-library to use (if there will be any), also due to this being one of the primary tasks of this thesis. 
+library to use, also due to this being one of the primary tasks of this thesis. 
 % Therefore, the next section will be devoted to an introduction to the IVS software.
 
-In order to find a suitable tool for the case of MAS in the simulator software, the simulator software needs to be examined.
+In order to find a suitable tool for the case of MAS in the simulator software, the simulator
+software is examined.
 
 \subsection{Simulator software}
 
 The particular simulator software that is being used at the CTU's HMI research laboratories is being
 developed using the \emph{Unity} game engine, developed by Unity Technologies. The game engine
 was first released in 2005 and has been used to develop numerous simulators as well as other
-video games ever since \cite{UnityTechnologies2022}.  Unity has also been used as a tool in
+video games ever since \cite{UnityTechnologies2022}. Unity has also been used as a tool in
 physical product modeling, AI \& machine learning and digital twins, used in many industries
-\cite{UnityTechnologies2022a}.  The main strengths of Unity are multi-platform development
+\cite{UnityTechnologies2022a}. The main strengths of Unity are multi-platform development
 support, virtual reality development support, good community support (including its asset
-store) and good documentation. The game engine has got its development environment, which 
+store) and detailed documentation. The game engine has got its development environment, which 
 can be seen in figure \ref{fig-unity}.
 
 The game engine's runtime is written in the C++ programming language, but the scripting API
-that it offers is in the C\# language. Consequently, there will be a noticeable benefit if the
-chosen agent-development platform used to develop the proposed system will be written in the
-C\# language using the .NET run time as well as the Unity scripting API to achieve maximum
-customization and interoperability.
+that it offers is in the C\# language. Consequently, there should be a noticeable benefit when the
+chosen agent-development platform used to develop the proposed system is also written in the
+C\# language (same as the Unity scripting API) to achieve maximum customization and
+interoperability.
 
 The scripting follows the usual object-oriented programming paradigm, where one script contains a
 behavior encapsulated in a class. Each script can contain a reference to another
@@ -102,7 +103,7 @@ The class diagram of the components can be seen in the figure \ref{actress-env} 
     \label{actress-env}
 \end{figure}
 
-The agent environment can be distributed between more machines. Each machine will run a container that communicates with a 
+The agent environment can be distributed between more machines. Each machine runs a container that communicates with a 
 server, as seen in fig. \ref{actress-env}. The service handling communication between containers is a big part of the 
 framework, as it is composed of many classes, offering communication through web sockets and even offering to 
 use the SSL security protocol and async version of communication, see fig. \ref{actress-distr}.
@@ -115,34 +116,34 @@ use the SSL security protocol and async version of communication, see fig. \ref{
 \end{figure}
 
 There are, however, some issues related to the use case of the proposed ITS framework. Overall, the implementation of the classes 
-creating the local agent environment doesn't contain much logic - the logic mostly serves to distribute messages to agents. 
+creating the local agent environment doesn't contain much (relevant) logic - the logic mostly serves to distribute messages to agents. 
 It cannot be clearly said if this is an advantage or a disadvantage, as for specific use-cases, like building an ITS multi-
 agent framework is expected to have specialized logic. However, the lack of behavior implementation also means that the 
-agent architecture will have to be built from the ground up either way, not bringing any benefit to using this framework. 
-On a second note, agents are only able to update their state once they receive a message, which doesn't 
+agent architecture has to be built from the ground up either way, not bringing any benefit to using this framework. 
+On a second note, agents only update their state once they receive a message, which doesn't 
 meet the requirement for agents to act independently and autonomously. This also means that agents are not able to gather 
 and act upon information from their sensors, just from messages received from other agents. This behavior might be implemented 
 by the user, but there might be conflicts with the current design of the interaction interface of the agents and the 
-\texttt{EnvironmentMas} class that would add redundant effort as opposed to building an agent environment from scratch. 
+\texttt{EnvironmentMas} class that would add redundant effort as opposed to building an agent environment from "scratch". 
 
 \subsection{Conclusion}
 
-In this section, the technical aspects of implementation requirements were discussed. The
-simulator engine has been introduced, describing the aspects of programming integration. The main
-aspects of integration have been discussed, which should enhance the subsequent decision about
+In this section, the technical aspects of implementation requirements are discussed. The
+simulator engine is introduced, describing the aspects of programming integration. The main
+aspects of integration are discussed, which should enhance the subsequent decision about
 which MAS development platform to use for the proposed system implementation. Consequently, MAS
-development platforms suggested by the literature were examined.  However, their review concluded
+development platforms suggested by the literature are examined. However, their review concludes
 not to use them as they are outdated and would not offer an advantage concerning integration
-with simulator software, as their focus is to integrate with distributed computer networks
+with simulator software. Their focus is to integrate with distributed computer networks
 focusing on different problems. Lastly, a promising agent-developed framework called 
-ActressMAS has been introduced, whose main advantage, bearing our use-case, being .NET based
+ActressMAS is introduced, whose main advantage is being .NET/C\# based
 and open-source, allowing for adequate customization. However, after further inspection of the
 codebase, it was concluded that the way the agent-based system proposed in this thesis is
 designed, there were no significant potential benefits that implementation of the framework 
-would bring. The ActressMAS framework's implementation revolved around deployment across 
+would bring. The ActressMAS framework's implementation revolves around deployment across 
 multiple machines and offered minimal abstraction of the agent framework itself, i.e. 
 agent behavior and interaction. Therefore, building the framework independent from a
-pre-existing MAS platform will offer maximum customization according to the system
+pre-existing MAS platform offers maximum customization according to the system
 specification and its requirements. 
 
 \clearpage

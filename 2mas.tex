@@ -6,22 +6,22 @@
 \section{Multi-agent systems} \label{sec-mas}
 
 Multi-agent systems (MAS) is a broad paradigm and/or research topic. It is a subfield of Distributed
-problem-solving. A multi-agent system can be, concisely, described as a group
+problem-solving. A multi-agent system can be concisely described as a group
 of autonomous agents that act towards their objectives in an environment to achieve a common goal
 \cite{ParasumannaGokulan2010}. The agents can be defined as independent units in
-an environment, forming a system. They can act independently, possess
+an environment, forming a system. They act independently, possess
 knowledge and communicate with each other (i.e. share knowledge). The agents
 should be working towards some form of a common goal, which could be achieved
-either by cooperating or competing.  The agents usually have a perception
+either by cooperating or competing. The agents usually have a perception
 through which they can gain knowledge from their environment.
 
 The basic definition of MAS suggests that they should be used to model
 a system that is not centralized but rather distributed, where autonomous, intelligent units perform
 actions independently. Multi-agent systems have gained popularity in recent years, as they
-offer high flexibility in modeling highly non-linear systems and offering abstraction levels that
+offer high flexibility in modeling highly non-linear systems. They also offer abstraction levels that
 make it more natural to deal with scale and complexity in these systems
 \cite{Burmeister1997ApplicationOM}. MAS excels in modeling social environments
-involving humans. MAS shares a lot of features with human societies, as these societies also revolve
+involving humans. MAS also share a lot of features with human societies, as these societies also revolve
 around atomic units - persons, that act independently - each person makes decisions and acts upon
 their own beliefs. People also interact with each other, be it through communication, cooperation or
 competition, while working towards some goal. Numerous real-life examples strongly
@@ -40,7 +40,7 @@ several elementary characteristics define them in the scope of MAS
 
 \term{Situatedness}
 Agents are designed so that they interact with the environment through sensors,
-resulting in actions using actuators.  The agent should be able to directly interact with its
+resulting in actions using actuators. The agent should be able to directly interact with its
 environment using actuators.
 
 \term{Autonomy}
@@ -58,11 +58,11 @@ and sharing knowledge.
 
 \subsection{Agent type and architecture}
 
-As has been already stated, in order to model complex applications, the agent characteristics as
-well as their internal control architecture will differ between use cases. To standardize
-MAS development, several architectures that describe how agents work have been proposed. Generally,
-three classes of agent modeling architectures are defined based on interaction
-complexity with external sources \cite{Anthony2014}:
+As has been already stated, in order to model complex applications, the agent characteristics
+as well as their internal control architecture will differ between use cases. To standardize
+MAS development, several architectures that describe how agents work have been proposed.
+Generally, \cite{Anthony2014} defines three classes of agent modeling architectures based on
+interaction complexity with external sources 
 
 \begin{itemize}
     \item Reactive agents
@@ -71,7 +71,7 @@ complexity with external sources \cite{Anthony2014}:
 \end{itemize}
 
 An overview of the class characteristics and examples of agent architectures utilizing
-the respective classes will be given.
+the respective classes is given in the sections below.
 
 \subsubsection{Reactive agent architectures}
 
@@ -84,15 +84,15 @@ of optimal behavior \cite{Anthony2014}. An example of a reactive agent architect
 
 This architecture, described by Rodney Brooks \cite{1087032},
 decomposes the agent into hierarchical levels that operate in a bottom-up
-fashion, meaning that the bottom layers that control elementary behavior are
+fashion. In other words, the bottom layers that control elementary behavior are
 activated by the upper layers that define more complex actions or define goals for
 the agent. It is important to note that the behavioral modules map sensations
 directly to actions and can only define what the agent does, not being able to
 change its desires. An example of a subsumption architecture is depicted in fig.
 \ref{Subsumption} with example modules from each hierarchical level, where the
-bottom-level module is \texttt{Avoid Objects}, which is a needed action in order
-to complete the \texttt{Wander Around} action, which can be induced by the
-general goal on the top layer \texttt{Explore World}.
+bottom-level module is \texttt{Avoid Objects}. This action is needed in order
+to complete the \texttt{Wander Around} action, which is consequently induced by the
+general goal on the top layer - \texttt{Explore World}.
 
 \begin{figure}[htbp]
     \centering
@@ -172,12 +172,12 @@ interfaces. This helps to deal with design complexity. Furthermore, having disti
 them to run in parallel, thus increasing an agent's computational ability as well as reactivity
 \cite{Mueller1999}.
 
-Generally, amongst the most widely used hybrid architectures, a \emph{controller} layer can be
-found, which handles reactive tasks, therefore, is also connected to the sensor readings, and is 
+Generally, the most widely used hybrid architectures feature a \emph{controller} layer which
+handles reactive tasks. This layer is also connected to the sensor readings, and is
 hierarchically on the lowest level. Then, there are \emph{planning} layers that handle the
-logic-based, deliberative tasks and often interact with the controller layer. In between them, 
-there is usually a \emph{sequencing} layer that can suppress output from the reactive layer. 
-An example of a well-known hybrid architecture is the \textsubscript{3}T architecture, whose 
+logic-based, deliberative tasks and often interact with the controller layer. In between them,
+there is usually a \emph{sequencing} layer that can suppress output from the reactive layer.
+An example of a well-known hybrid architecture is the \textsubscript{3}T architecture, whose
 abstract model can be seen in the figure \ref{3-arch} below.
 
 \begin{figure}[htbp]
@@ -214,16 +214,16 @@ An agent-based ITS system will require some form of agent interaction and
 thus communication between individual agents. Interacting agents can interact with
 other agents within the environment. This concept extends an agent with an interface dedicated
 to communication, which makes them able to directly communicate and thus cooperate in a
-decentralized fashion.  The concept of cooperation between agents is important in the ITS
+decentralized fashion. The concept of cooperation between agents is important in the ITS
 modeling context, as these systems facilitate sharing of information in-between drivers and also
 from the road traffic environment to drivers. Therefore, interaction is a strong component when
 considering modeling ITS and road traffic in general. However, this interface also adds to the
 system's complexity.
 
-It is expected that most agents would achieve their common goal through cooperation, where some
-form of forced altruism is given to the agents. With that being said there could also be
-situations where conflicts of interest between agents occur with no clear positive outcome,
-i.e. zero-sum games.
+Most agents achieve their common goal through cooperation, where some form of forced altruism
+is given to the agents. Furthermore, situations can happen where conflicts of interest between
+agents occur with no clear positive outcome, i.e. zero-sum games
+\cite{ParasumannaGokulan2010}.
 
 One should adhere to some communication principles to facilitate cooperation between agents. As
 such, agents should communicate according to Gricean maxims (see the table \ref{maxims})
@@ -249,17 +249,16 @@ is more stable.
     \label{maxims}
 \end{table}
 
-It needs to be said that the agents developed for an ITS system will most likely not be
-competing with each other, as the agent reward should be higher the more the agents cooperate.
-For example, 
- when designing a cooperative intersections system, the reward function for the
-individual intersections
-(i.e. agents) should take into account not only the throughput on their intersection but also 
-the throughput of the whole system. However, that doesn't eliminate the need to negotiate. Consider a 
-situation where there are multiple traffic light intersections, each deciding on which phases to 
-enable based on the incoming traffic intensity. An optimal option that minimizes cost (e.g. 
-travel time) for one agent could have a significant negative effect on other intersections. 
-Therefore it is important to achieve an equilibrium that minimizes the overall cost. 
+It needs to be said that the agents developed for an ITS simulation should make an effort to
+cooperate rather than to compete, with the desired state of the system being rated "better"
+the more the agents cooperate.  For example, when designing a cooperative intersections system,
+the reward function for the individual intersections (i.e. agents) should take into account not
+only the throughput on their intersection but also the throughput of the whole system. However,
+that doesn't eliminate the need to negotiate. Let's consider a situation where there are multiple
+traffic light intersections, each deciding on which phases to enable based on the incoming
+traffic intensity.  An optimal option that minimizes cost (e.g. travel time) for one agent
+could have a significant negative effect on other intersections. Therefore the main objective
+would be to achieve an optimum that minimizes the overall cost.
 
 \subsubsection{Organizational decomposition}\label{sec-conflicts}
 
@@ -275,9 +274,9 @@ from higher levels.
 
 A simple form of hierarchical organization ensures that there is a low number of conflicts and
 the system can be operated by relatively simpler sequential processes where the control flow
-is straightforward, however, this also decreases the robustness of the system, because the
-control and autonomy not as distributed, e.g. when a failure of a single agent with at a high
-hierarchical level causes the whole system to fail. In a subtype of this organization - a 
+is straightforward. However, this also decreases the robustness of the system because the
+control and autonomy not as distributed. To illustrate, a failure of a single agent at a high
+hierarchical level causes the whole system to fail. In a 
 uniform hierarchy, the authority is more distributed among the agents. This makes the
 system more fault tolerant and performs graceful degradation in scenarios where one or more
 parts of the system fail \cite{ParasumannaGokulan2010}. Here, special attention needs to be
@@ -293,14 +292,14 @@ The use of coalitions allows for a highly dynamic system, which on the other han
 system's complexity. 
 
 There are more concepts for structuring a multi-agent system from an organizational point of view, 
-such as \emph{teams} and \emph{holons}. The two mentioned approaches are the most well-suited for 
+such as \emph{teams} and \emph{holons}. Though, the two mentioned approaches are the most well-suited for 
 an ITS system development, as they have been used in more works for this purpose already 
 (e.g. \cite{Balaji2007} and \cite{Vijsel2004}). 
 
 In conclusion, the usage of the aforementioned organization should ensure that the system complexity 
 is kept as low as possible and the topology is transparent and uncluttered. The hierarchical 
 organization can be beneficial when applied to ITS systems such as urban traffic management, where 
-conflicts of interest need to be resolved by a capable authority. Whereas, the coalition-based 
+conflicts of interest are resolved by a capable authority. Whereas, the coalition-based 
 organization could be applied to create virtual clusters of connected vehicles (platooning) to apply 
 C-ITS features, e.g. dynamic navigation or GLOSA.
 
@@ -344,7 +343,7 @@ form the structure of a message (table \ref{message-parameters}).
 %     \label{message-structure}
 % \end{figure}
 
-It needs to be considered that there are plenty of other standard definitions that are suited for
+One needs to consider that there are plenty of other standard definitions that are suited for
 distributed system interoperability, such as W3C, CORBA, UML and many others, so the choice 
 of the ACL needs to be argued. A lot of these applications are based on the so-called CRUD set of 
 communication primitives - Create, Read, Update and Delete. In contrast to this, ACL defines a lot 
@@ -364,48 +363,48 @@ interaction processes.
 
 \subsection{Conclusion}
 
-The different architecture types that were presented can each have a different application where 
-they excel. It is also important to note that a line between reactive and deliberative agents 
+The different architecture types that are presented each have a different application where 
+they excel. It is important to note that a line between reactive and deliberative agents 
 is not necessarily strict, hence the existence of hybrid architecture types. 
 
-Choosing the optimal agent architecture will depend on the scope of agent goals, 
+Choosing the optimal agent architecture depends depend on the scope of agent goals, 
 environment and action space definition. Concerning the topic of this thesis, which is to 
 create a framework for implementing various ITS, there isn't a clear-cut choice regarding 
-architecture selection. Although the vast majority of ITS share the same goals (see section \ref{sec-its}), 
+architecture selection. Although the vast majority of ITS solutions share the same goals (see section \ref{sec-its}), 
 the operating environment, underlying concepts and also used technology vary substantially.
 
 To put things into a perspective, let's consider an example from the ITS domain. 
 Systems such as autonomous driving algorithms require high resilience, determinism, 
-and high performance, all in extremely dynamic conditions. This would suggest using a
+and high performance, all in extremely dynamic conditions. This suggests using a
 \emph{reactive} architecture. On the other hand, there are systems such as traffic network management, 
 where highly complex problems with lots of variables are considered. Such non-linear behavior 
 requires complex logic and frequent re-planning, therefore more suited for \emph{deliberative}
-architectures. Furthermore, when considering the aforementioned cooperative ITS, where the emphasis 
-on information sharing and environmental awareness is given, it becomes clear that \emph{hybrid} 
+architectures. Furthermore, when considering the aforementioned cooperative ITS, which give emphasis 
+on information sharing and environmental awareness, it becomes clear that \emph{hybrid} 
 architectures that offer both planning and reactive behavior would be the optimal choice.
 
 As such, when creating the framework for ITS implementation later in this thesis, the
-\textsubscript{3}T architecture with RAP utilization will be used.  
+\textsubscript{3}T architecture with RAP utilization is used.  
 
-The ways how agents interact with each other were described, concerning the
-application scope of this thesis, i.e. applying MAS principles to implement an ITS simulation. The most important
-facts are that agent organization needs to be considered - although MAS is
-designed to be highly distributed, giving the agents hierarchical roles can often facilitate
-interaction between agents and can decrease system complexity while preserving functionality,
-especially during negotiation between agents. Agent grouping should, while also contributing to
-decreased system distribution, decrease computation and communication overhead. 
+The ways how agents interact with each other are described, concerning the application scope of
+this thesis, i.e. applying MAS principles to implement an ITS simulation. The most important
+findings are that agent organization needs to be considered - although MAS is designed to be
+highly distributed, giving the agents hierarchical roles can often facilitate interaction
+between agents. Also, it can decrease system complexity while preserving functionality, especially
+during negotiation between agents. Agent grouping should, while also contributing to decreased
+system distribution, decrease computation and communication overhead. 
 
-Next, it was found that designing how agents communicate is a crucial part of MAS development
+Designing how agents communicate is a crucial part of MAS development
 that can get complex, so it is important to keep the ways of sharing information as organized
 as possible, which can be done by defining the language, primarily its semantics and associated
-syntax.  The cornerstones of inter-agent communication were discussed, and a suitable framework
-for the thesis' use case of setting up communication between agents was investigated and
+syntax. The cornerstones of inter-agent communication are discussed, and a suitable framework
+for the thesis' use case of setting up communication between agents is investigated and
 chosen. The framework of choice was the Agent Communication Language, because its set of
 communication primitives already assumes the MAS-based use cases, with predefined requirements,
 message parameters and message types while also being open for extension.
 
-Moving forward, the following section will be dedicated to proposing the actual system that will 
-be implemented, subject to the topic of the thesis. 
+Moving forward, the following section is dedicated to proposing the actual system that is 
+implemented, subject to the topic of the thesis. 
 
 \begin{table}[htbp]
     \renewcommand{\arraystretch}{1.7}
