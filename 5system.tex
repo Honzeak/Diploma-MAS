@@ -3,52 +3,51 @@
 
 \begin{document}
     
-\section{Proposed system}\label{sec-system}
+\section{Proposed framework}\label{sec-system}
 
-This section is dedicated to designing the system that will be used to implement ITS in the
+This section is dedicated to designing the system that is used to implement ITS in the
 vehicle simulator software. A framework dedicated to generic MAS-based ITS system
-implementation will be designed, utilizing the principles and paradigms gathered in the
-preceding sections \ref{sec-its} \& \ref{sec-mas}. Firstly, the \emph{micro-architecture} will be
+implementation is designed, utilizing the principles and paradigms gathered in the
+preceding sections \ref{sec-its} \& \ref{sec-mas}. Firstly, the \emph{micro-architecture} is
 defined, i.e. the specification of the system's actors (agents) - their inner structure 
-will be defined, as well as interfaces to the environment, and high-level technical specification 
-will be proposed - responsibilities of inner components and their inter-relationships.
-This will form the elementary foundation that will be used to build an actual system.
-The subsequent \emph{macro-architecture} proposal will mainly encompass modes of inter-
-agent communication. This outline will form a system specification that will be used 
+is defined, as well as interfaces to the environment. Secondly, a high-level technical specification 
+is proposed - responsibilities of inner components and their inter-relationships.
+This will form the elementary foundation that is used to build an actual framework.
+The subsequent \emph{macro-architecture} proposal mainly encompasses modes of inter-
+agent communication. This outline forms a system specification that is used 
 to build the agent-based ITS framework for IVS software.
 
 \subsection{Agent/micro architecture overview}
 
 As per the previous section(s), where the individual MAS architectures have been reviewed
 (section \ref{sec-mas}), it was decided to utilize the hybrid \emph{\textsubscript{3}T
-architecture}\footnote{To remind the reader of the architecture's general structure, the
-architecture model schematic can be found on fig. \ref{3-arch} } (section \ref{hybrid-arch}),
+architecture} (section \ref{hybrid-arch}),
 which will offer sufficient flexibility.  Such modeling flexibility is needed primarily because
-there won't be a single, concrete system to model, but rather a generic system that will
+there won't be a single, particular system to model, but rather a generic system that will
 facilitate arbitrary agent-based ITS implementation. As such, it makes sense to choose a hybrid
-architecture, which will ensure there will be an optimal balance between robust, reactive
+architecture, which ensures that there is an optimal balance between robust, reactive
 behavior without giving up capabilities to model complex behavior.
 
-Note that the architecture will be formally assumed that its implementation will be realized 
-in an Object-Oriented Programming (OOP) paradigm. There are multiple reasons for that. Firstly, 
+The architecture is designed with a formal assumption that the implementation will be realized 
+using the Object-Oriented Programming (OOP) paradigm. There are multiple reasons for that. Firstly, 
 the nature of agent-based systems, having their internal logic and interacting with the surroundings 
 through a pre-defined interface, corresponds to a large degree to the concepts of OOP, especially
-the encapsulation principle, and secondly due to the existing IVS software being developed in 
+the encapsulation principle. Secondly due to the existing IVS software being developed in 
 an OOP way.
 
-The individual layers/components will be outlined in the following section, in a bottom-up
+The individual layers/components are outlined in the following section, in a bottom-up
 fashion.
 
 \subsubsection{The architecture layers}
 
-In this section, the individual layers of the architecture will be defined. The layers' definition will 
-adhere to the characteristics of the \textsubscript{3}T architecture. For each layer, its purpose and 
-relation to other layers will be described, together with technical implementation guidelines, such as 
-configuration etc.
+In this section, the individual layers of the architecture are defined. The layers' definition 
+adheres to the characteristics of the \textsubscript{3}T architecture. For each layer, its purpose and 
+relation to other layers is described, together with technical implementation guidelines, such as 
+configuration, operation modes, inter-layer interface and internal processes within the individual layers.
 
 \textbf{Reactive skills layer}
 
-This layer encapsulates all the \emph{skills} the agent can do. These are the 
+This layer encapsulates all the \emph{skills} an agent can do. These are the 
 most primitive types of its behaviour\footnote{The original author of the architecture refers to them 
 as Reactive Action Packages (RAPs) \cite{Firby1987}.}. For example, a skill might be to slow
 down or to follow a vehicle in the case of a vehicle-based agent. Skills can be activated and deactivated based 
@@ -57,7 +56,7 @@ any moment, and they should be independent of each other. However, one skill mig
 skill as its input, effectively making a network of skills. By providing skills for elementary operation,
 a level of abstraction is created, which emphasizes focus on the impacts of task sequencing without being 
 overly concerned by how the individual skills interact with the environment. The original article 
-proposing the architecture stresses the following canonical approach for skill specification
+proposing the architecture outlines the following canonical approach for skill specification
 \cite{Bonasso1995}:
 
 \begin{enumerate}
@@ -75,40 +74,42 @@ based on its current inputs.
     and the disable function performs any necessary cleanup actions.
 \end{enumerate}
 
-In practice, each skill will be an individual script that will be \emph{asynchronously} run.
-Each script will have to implement a \emph{start-up} and \emph{clean-up} function.
-Inside the script, it will be possible to interact with the skills inputs and transform them into 
-outputs. For instance, mainly will be possible to route output from sensor or communication skills
-to other skills that use the outputs. Skills will provide an interface to the higher abstraction layer 
+In practice, each skill is an individual script that runs \emph{asynchronously}.
+Each script implements a \emph{activation}, \emph{update} and \emph{deactivation} function.
+The script is used to define functionality of each particular skill with outputs from other pre-selected skills 
+optionally available and consequentially to define its own outputs.
+Inside the script, it is possible to interact with the skills inputs and transform them into 
+outputs. The primary use case of this functionality is routing output from sensors or communication skills
+to (multiple) other skills that could utilize the information. Skills will provide an interface to the higher abstraction layer 
 through pre-defined events specific to each skill.
 
-About the lower-level skills (i.e. communication and sensory), such skills should be 
-able to have configurable physical layer parameters such as signal range or relative service
+The lower-level skills (i.e. communication and sensory) should 
+have configurable physical layer parameters such as signal range or relative service
 reliability (error rate). A skill should also be able to return a
 failure state event to enable fail-safe behavior. \pagebreak
 
 \textbf{Sequencing layer}
 
-The sequencing layer is responsible for \emph{execution} of the individual skills, essentially 
+The sequencing layer is responsible for the individual skills \emph{execution}, essentially 
 controlling which skills to enable/disable to achieve a certain behavior. It is the 
 intermediate layer between the reactive skill layer and the deliberative planning layer. 
 
-This layer will feature logic that will be used to accomplish a task in varying circumstances, 
+This layer features logic that is used to accomplish a task in varying circumstances, 
 based on the state of the environment or the agent itself. For instance, regarding a driving 
 vehicle, a routine task to avoid an obstacle (which is defined by enabling certain skills by
-the sequencer) will be handled differently on a road with more than two lanes.
+the sequencer) is handled differently on a road with more than two lanes.
 
 The sequencing layer should not be responsible for more complicated reasoning, but rather 
 to define how to handle routine situations. The responsibility for high-level planning to achieve 
 a global goal for an agent is reserved for the upper (deliberation) layer. The sequencing layer's 
 role is to provide interface to control execution of particular skills.
 
-To formalize the purpose of this layer in the proposed system, it should 
+To formalize the purpose of this layer in the proposed system, it should:
 
 \begin{itemize}
     \item Contain definitions of which skills to enable in order to complete a rudimentary task.
     \item Managing execution of sequences of common skills (i.e. tasks).
-    \item Implement logic that will serve to adapt to completing the tasks in different conditions.
+    \item Implement logic that serves to adapt to completing the tasks in different conditions.
 \end{itemize}
 
 The layer interacts with both the lower (skill) layer - interacting through events triggered by
@@ -118,17 +119,16 @@ individual skills to alter skill execution and the upper (deliberation) layer.
 
 The deliberation layer (also referred to as the planner) synthesizes high-level goals into a
 partially ordered \emph{plan}, listing tasks that the agent has to perform, in order to achieve
-the specified goal. Ultimately, the main purpose of the layer is to manage the execution of tasks to
-achieve a specified goal. For example,  More generally, a goal could be something that the user
-wants the agent to accomplish, for example, a vehicle's goal is to arrive at its final
-destination.
+the specified goal. Ultimately, the main purpose of the layer is to manage the execution of
+tasks to achieve a specified goal. A goal could be something that the user wants the agent to
+accomplish, for example, a vehicle's goal is to arrive at its final destination.
 
 Thanks to the abstractions provided by the two lower layers, the planner can be represented as
 a conditional state-based model, vastly simplifying its definition \cite{Bonasso1995}. In
-addition to this, it will be possible to add parameters to the goal definition. The final version of the plan 
-will then be generated based on parameter values and internal logic that will process them.
+addition to this, it is possible to add parameters to the goal definition. The final version of the plan 
+is then generated based on parameter values and internal logic that processes them.
 
-In practice, the most trivial specification of the deliberation layer will consist of:
+In practice, the most trivial specification of the deliberation layer consists of:
 
 \begin{enumerate}[label=\alph*)]
     \item \textbf{Primary goal} - The main objective that the agent was designed to perform.
@@ -139,7 +139,7 @@ In practice, the most trivial specification of the deliberation layer will consi
  \end{enumerate}
 
 For more complex behavior, additional goals can be specified. In that case, the choice which 
-plan to prioritize will be determined by sets of pre-conditions and constraints represented by
+plan to prioritize is determined by sets of pre-conditions and constraints represented by
 the agent state.
 
 To sum it up, a detailed view of the individual components of the architecture and their
@@ -189,15 +189,14 @@ As has been discussed in the previous sections, communication plays an important
 MAS, mainly because it vastly extends the capabilities of interaction between agents and thus 
 the ability to model more complex behavior. In section \ref{sec-acl}, the ACL communication 
 standard for MAS has been introduced and requirements for the protocol implementation have 
-been presented. To be able to 
-utilize the communication, requirements for messaging utility and high-level implementation 
-details will be presented. 
+been presented. To be able to utilize the communication, requirements for messaging utility and
+high-level implementation details is presented below. 
 
 \subsubsection{Broadcasting}
 
-The first type of communication that will be implemented is message broadcasting. This is 
-argued by the fact that ITS uses information broadcasting in a lot of cases.
-Generally, there are mostly two types of service messaging in ITS \cite{Santa2013}:
+Message broadcasting is the first type of communication that will be implemented, due to the
+fact that ITS uses information broadcasting in a lot of cases. Generally, there are mostly two
+types of service messaging in ITS \cite{Santa2013}:
 
 \begin{itemize}
     \item \textbf{Periodic status exchange} - ITS services often need to know about 
@@ -222,15 +221,14 @@ asynchronous events, which should ensure that all potential use cases are covere
 
 \subsubsection{Implementation}
 
-As has been mentioned above, the ability to broadcast and subscribe to said broadcast should be
-handled by a separate skill component. Upon skill initialization, the communication skill will
-connect to a communication channel and listen to or send messages. Each communication stream will have 
-to specify what kind (group) of messages it will be sent through it so that agents can be set up to 
-only use channels with messages relevant to them. The agents will be able to react to received
-messages by sending an internal event message to the sequencer. 
+The ability to broadcast and subscribe to a broadcast should be handled by a separate skill
+component. Upon skill initialization, a communication skill connects to a communication channel
+and listen to or send messages. Each communication stream has a specified message format so that
+agents can be set up to process the broadcasted information. The agents are then able
+to react to received messages by sending an internal event message to the sequencer. 
 
 Given the great utility of the C-ITS system and identified similar characteristics and use-cases 
-with agent-based systems (discussed in section \ref{sec-research}), the framework will feature 
+with agent-based systems (discussed in section \ref{sec-research}), the framework features 
 V2V communication support with standardized message structure and semantics out-of-the-box; 
 Namely the Cooperative Awareness Message (CAM) and Decentralized Environmental Notification Message (DENM).
 
@@ -239,8 +237,8 @@ Namely the Cooperative Awareness Message (CAM) and Decentralized Environmental N
 Due to the wide range of beneficial use cases for the aforementioned types of information sharing
 types (periodic status exchange \& asynchronous notifications), ETSI has defined two basic
 messaging services; The CAM message (synchronous status update) and the DENM message
-(asynchronous notifications). Both message types will be described along with the implementation 
-details. 
+(asynchronous notifications). Both message types are described along with the implementation 
+details below.
 
 \textbf{Cooperative Awareness Message}
 
@@ -299,8 +297,8 @@ The DENM service message specification is presented in the figure \ref{denm-spec
 \subsubsection{Negotiation and Agreement}
 
 % still quite too theoretical, not related to actual implementation. not sure if it should be here
-Negotiation between agents is important especially when two agents run into each other, 
-followed by the currently executing skills of the agents getting interrupted. In other words, 
+Negotiation between agents is important especially when agents (mutually) prevent other agents from completion of their goals.
+In other words, 
 the best course of action for one agent is not necessarily the best for the other. This is more than
 likely to happen in environments where multiple agents share the same resource and their state
 is defined on the same domain, which is often the case. As such, the theory of games is formally 
@@ -312,8 +310,7 @@ individually is net-zero \cite{Binder2022}.  This is inherently contrary to the 
 in the section \ref{mas-interaction}, where it was suggested that agent cooperation should be
 emphasized. As agents are formally modeled as self-interested, it cannot be guaranteed that
 they won't encounter conflicts with each other. Therefore, modeling cooperation before figuring
-out conflict resolution would inherently result in a more fragile system more prone to
-malfunction. 
+out conflict resolution would inherently result in a more fragile system. 
 
 % \begin{figure}[htbp]
 %     \centering
@@ -324,43 +321,42 @@ malfunction.
 
 \subsubsection{Conflict detection}
 
-As has been argued above, because of the scope limitation of this thesis, 
+As has been stated above, because of the scope limitation of this thesis, 
 conflict resolution as a system functionality should precede cooperation. The cooperation 
 abilities of agents can be added later by extending the framework.
 This decision will theoretically lead to better system stability, before offering extended
 behavior possibilities. 
 
-The first step is to have a way for an agent to determine if a conflict has happened. Agents wouldn't be 
-able to resolve conflicts if they didn't know it has occurred. To comply with the \textsubscript{3}T
+The first step is to have a way for an agent to determine if a conflict has happened. An agent is not
+able to resolve s conflict if it doesn't know it has occurred. To comply with the \textsubscript{3}T
 architecture topology defined above, this should be handled on the reactive skills layer. 
-Consequentially, detected conflict will be handled through a dedicated skill module. If an
+Consequentially, detected conflict is handled by a dedicated skill module. If an
 agent is expected to run into a conflict with another agent (of the same 
- type), it will have to be equipped with a dedicated skill that will behave as a sensor detecting conflict 
-with the implementation left to a specific use case. In other words, the logic for conflict detection will be 
+ type), it has to be equipped with a dedicated skill that behaves as a sensor detecting conflict 
+with the implementation left to a specific use case. In other words, the logic for conflict detection is 
 left to define together will specific agent and its properties, and other modules.
 
-When one agent detects a conflict through one of its modules, it will 
-be required to inform other agents about the conflict so that all involved agents will be
-aware of the situation. 
+When one agent detects a conflict through one of its modules, it required to inform other
+agents involved about the conflict so that all involved agents are aware of the situation. 
 
 \subsubsection{Conflict resolution}
 
-Now that the conflict detection process is defined, in that case, it will be possible to build
-on it to define how conflicts will be resolved. Considering the findings in section
+Now that the conflict detection process is defined, in that case, it is possible to build
+on it to define how conflicts are resolved. Considering the findings in section
 \ref{sec-conflicts}, the simplest tool to resolve conflicts is to define a hierarchy in the
 agent. In order to avoid more complex mathematical reasoning models \cite{Binder2022},
 hierarchy, along with agent-bound state variables can be used as a bidding resource. Whichever
-agent can bid the highest value will get priority in conflict resolution (e.g. by being
+agent can bid the highest value gets priority in conflict resolution (e.g. by being
 able to act in its interests).
 
 To facilitate the communication related to conflict resolution \& bidding, the FIPA message
-standard will be used.  The FIPA standard offers pre-defined messages for such situations -
+standard is used.  The FIPA standard offers pre-defined messages for such situations -
 most importantly the \texttt{Call For Proposal (CFP)} and \texttt{Propose} messages. Although
-it was mentioned that agents are self-interested, in order to make things simpler, agents will
-assume that the counterparty in conflict is truthful and only bids resources that are
-available to them. Also, deciding which bid proposal has won will be handled by the agent that
-had called for the proposal, so the counterparty will assume that the deciding agent is
-truthful and decided correctly according to the bids. 
+it was mentioned that agents are self-interested, in order to make things simpler, agents 
+assume that the counterparties in conflict are truthful and only bid resources that are
+available to them. Also, deciding which bid proposal has won is handled by the agent that
+had called for the proposal, so the counterparties assume that the deciding agent is
+truthful and decides correctly according to the bids. 
 
 To better illustrate the negotiation process, an example scenario of the negotiation process is 
 described in the \emph{Example} part below.
@@ -411,20 +407,20 @@ basic \texttt{drive} skill to come after the current task completion.
 
 \subsection{Conclusion}
 
-In the preceding sections, the multi-agent system framework was proposed. This framework will be used to implement various 
+In the preceding sections, the multi-agent system framework was proposed. This framework is used to implement various 
 suitable ITSs into an interactive vehicle simulator. The system was described both on a micro and macro level. The micro level 
-mainly addressed the specification of the inner architecture of individual agents, and how they will achieve their goals using their 
+mainly addressed the specification of the inner architecture of individual agents, and how they achieve their goals using their 
 intelligence. For building independent agents that need to be flexible in terms of their capabilities, the \textsubscript{3}T
 architecture was chosen and the individual layers of the architecture were specified in detail, specifying their responsibilities
 and capabilities. 
 
-Afterward, the macro architecture was specified, addressing mainly the ways how agents will interact with each other. 
-Firstly, the communication interface was defined, including how agents will be able to use it on the micro-architecture level.
+Afterward, the macro architecture was specified, addressing mainly the ways how agents interact with each other. 
+Firstly, the communication interface was defined, including how agents are able to use it on the micro-architecture level.
 Building upon that, the ways how conflicts between agents are handled were proposed, utilizing communication to resolve 
 conflicts through resource bidding. 
 
-With the micro- and macro-architecture being specified, the final requirements for the system implementation were proposed, 
-which aim to help ensure that the software framework will be able to facilitate ITS implementation into IVS software in an 
+With the micro- and macro-architecture being specified, the final requirements for the system implementation are proposed, 
+which aim to help ensure that the software framework is facilitates ITS implementation into IVS software in an 
 organized way, with a high system resilience.
 
 \clearpage

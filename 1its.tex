@@ -4,50 +4,52 @@
 \begin{document}
 \section{Intelligent Transport Systems}\label{sec-its}
 
+This section focuses on examining various existing ITS solutions and attempting to recognize their
+agent-based characteristics and principles in order to determine the possible application of MAS for
+simulation of ITS systems.
+
 Intelligent transport systems describe an initiative to utilize modern technology 
 to optimize and increase the efficiency of processes common to the domain of transportation. 
 This usually involves enabling different actors in the transportation system to communicate 
 with each other and share available information (much like multi-agent systems). With the 
 availability of shared information, complex, data-driven systems can be built utilizing 
-state-of-the-art tech concepts like machine learning, computer vision and IoT. Integrating 
-such concepts with road users to improves street protection and increases traffic efficiency and stability.
+state-of-the-art technology like machine learning, computer vision and IoT. Integrating 
+such concepts with road users to improves traffic safety and increases traffic efficiency.
 It also addresses environmental issues by controlling traffic to prevent congestion or lessen
 their adverse effects. 
 
-When looked at these solutions from a systemic point of view, they can, more or less,
-resemble multi-agent systems. This section focuses more on the \emph{inductive} part of
-the research. This means examining various existing ITS solutions and attempting to recognize their
-agent-based characteristics and principles in order to determine the possible application of MAS for
-simulation of ITS systems. Such approach answers whether a suitable application for agent-based modeling of ITS is
-feasible. The insights gained by reviewing the current state of ITS will serve as a base for
-further sections, where considerations regarding model framework design and its validation are
-discussed. 
+Looking these solutions from a systemic point of view, they can, more or less, resemble
+multi-agent systems. Such approach answers whether a suitable application for agent-based
+modeling of ITS is feasible. The insights gained by reviewing the current state of ITS will
+serve as a base for further sections, where considerations regarding framework design and
+its validation are discussed. 
 
-ITS provides itself most useful in the following aspects of transportation: 
-\emph{Mobility}, \emph{Safety}, \emph{Environment} \cite{Lishchenko2021}. To provide an example, regarding mobility, 
-one of the most common systems is routing and navigation for road users. These systems can 
-factor in time, distance and even emissions when providing route guidance \cite{Firmin2006}. This leads to 
-increased performance of road networks. Regarding safety, one can mention emergency management
-systems like E-Call, which provides automated post-crash assistance by contacting emergency
-services as soon as an accident occurs. In terms of the environment, 
-ITS allows for demand management through \emph{electronic fee collection}, which makes flexible 
-charging for road usage possible, based on vehicle type and emissions category \cite{Commision2022}.
-Another, more general example of emissions reduction of ITS is through reducing congestion, as road vehicle 
-emissions are proven to be a significant environmental factor. Especially because they produce emissions 
-in highly human-populated areas, exposing a large population to serious health risks. In a study conducted by the Harvard
-School of Public Health, air pollution from traffic congestion in 83 of the USA's largest urban
-areas contribute to more than 2,200 premature deaths annually, costing the healthcare system at
-least \$18 billion \cite{Levy2011}.
+ITS provides itself most useful in the following aspects of transportation: \emph{Mobility},
+\emph{Safety}, \emph{Environment} \cite{Lishchenko2021}. To provide an example, regarding
+mobility, one of the most common systems is routing and navigation for road users. These
+systems can factor in time, distance and even emissions when providing route guidance
+\cite{Firmin2006}. This leads to increased performance of road networks. Regarding safety, one
+can mention emergency management systems like E-Call, which provides automated post-crash
+assistance by contacting emergency services as soon as an accident occurs. In terms of the
+environment protection, ITS allows for demand management through \emph{electronic fee
+collection}, which makes flexible charging for road usage possible, based on vehicle type and
+emissions category \cite{Commision2022}. Another, more general example of emissions reduction
+of ITS is through reducing congestion, as road vehicle emissions are proven to pose a significant
+negative factor for the environment. Especially because they produce emissions in
+densely-populated areas, exposing a large population to serious health risks. In a study
+conducted by the Harvard School of Public Health, air pollution from traffic congestion in 83
+of the USA's largest urban areas contribute to more than 2,200 premature deaths annually,
+costing the healthcare system at least \$18 billion \cite{Levy2011}.
 
 \subsection{Simulator-based research}
 
-Using virtual simulation tools to research and evaluate the impacts of new and existing ITS 
-greatly reduces the overall cost of system development. It also offers for faster 
+Using virtual simulation tools to research and evaluate the impacts of ITS solutions 
+greatly reduces the overall cost of product development. It also offers for fast-paced 
 and flexible testing in virtual space allowing for frequent, iterative evaluation of features.
 
 It is important to say that ITS solutions vary in terms of \emph{driver engagement}. Because
 the primary use case of an IVS is to research driver behavior, the scope of the current state
-of ITS is focused on ITS solutions that both integrate automotive transport and encompass some
+of ITS is focused on ITS solutions that both integrate automotive transport and offer some
 degree of driver engagement. 
 
 To give an example, some ITS use cases with high driver engagement are listed \cite{Lishchenko2021}:
@@ -62,30 +64,30 @@ To give an example, some ITS use cases with high driver engagement are listed \c
 \end{itemize}
 
 These use cases shall be considered when modeling the ITS simulation framework in the practical part of the 
-thesis to make these ITS use cases easy to deploy and simulate.
+thesis.
 
 \subsection{Intelligence distribution} \label{mas-compatibility}
 
 It is important to acknowledge whether the underlying system control is centrally governed 
 or whether the intelligence is distributed across multiple actors, where individual 
 components of the system can act semi- or fully independently.
-Such phenomena are important to consider because the way ITS solutions 
-with centralized or distributed intelligence are designed can be fundamentally different.
+Such phenomena are important to consider because ITS solutions 
+with centralized or distributed intelligence can be fundamentally different.
 This leads to different system models being optimal to use when simulating a particular ITS. 
 Intelligent transport systems are, by nature, systems combining several actors to
 achieve a common goal. This, however, doesn't mean that it is optimal to model \emph{every} ITS 
 as a multi-agent system. 
 
-Historically speaking, ITSs that proved helpful for optimizing traffic were
-\emph{centralized} \cite{Corman2010}, meaning there is a single, central component in charge of
-the decision-making logic. A centralized traffic system organizes other units/actors within the system while interacting
-with the drivers in the traffic as external actors. The main advantage of this approach is that
-is is less complex, therefore it is easier to develop a resilient and safe product. The main
-drawback of this method is that it is heavily affected by the size of instances, increasing
-the complexity and often resulting in exceedingly large computation time, making the solution
-sub-optimal \cite{Corman2010}. 
+Historically speaking, ITSs that proved helpful for optimizing traffic were \emph{centralized}
+\cite{Corman2010}, meaning there is a single, central component in charge of the
+decision-making logic. A centralized traffic system organizes other units/actors within the
+system, while interacting with the drivers in the traffic as external actors. The main
+advantage of this approach is that is is less complex, therefore it is easier to develop a
+resilient and safe product. The main drawback of this method is that it is heavily affected by
+the size of instances, increasing the complexity and often resulting in exceedingly large
+computation time, making the solution sub-optimal \cite{Corman2010}. 
 
-As with the \emph{distributed} systems, the main problem is systematically distributed to
+As with the \emph{distributed} systems, the logic how to solve the main problem is systematically distributed to
 individual agents solving a sub-problem and cooperating to achieve optimal and predictable
 results. Such distributed intelligence is often modeled using \emph{Multi-agent Systems}. This
 topic is further discussed in the section \ref{sec-mas}. Distributed systems can be used to
@@ -123,8 +125,8 @@ strategies as well as the current trends in automotive ITS are reviewed.
 
 In Europe, there are initiatives to centralize decision-making and ITS deployment on the scale of 
 the European continent. The reason behind this initiative is quite clear - to enable Europe-wide 
-interoperability between deployed ITS and ITS-enabled vehicles. It is without question that 
-such an organization would closely work with the industry, helping to create conditions for
+interoperability between deployed ITS and ITS-enabled vehicles. 
+Such organization would closely work with the industry, helping to create conditions for
 deployment of novel ITS technologies.
 
 \paragraph{ERTICO}
@@ -143,7 +145,7 @@ The computational power of newly-produced vehicles is increasing dramatically wi
 new generation, as well as the number of sensor data. ERTICO states that their focus is on utilizing 
 the large amounts of real-life data to deepen the machine learning models, as well as building 
 infrastructure that will allow handling this data. C-ITS (Cooperative Intelligent Transport
-Systems) is also mentioned, whose principles are being put into practice by several projects, 
+Systems) is also a topic that ERTICO is invested in. C-ITS is being put into practice by several projects, 
 namely European Truck Platooning (ETPC), Advanced map-enhanced driver assistance systems (ADASIS) and 
 more. ERTICO's main contribution is to facilitate the creation of the ITS ecosystem by following a
 multidisciplinary approach involving all relevant transport stakeholder sectors.
@@ -188,13 +190,13 @@ compared to the same ITS service provided by only one of the ITS sub-systems \ci
 
 The concept of C-ITS was developed by the European Commission, representatives of industry and 
 authorities in the European Union. In 2016, the bodies agreed on a coordinated establishment of intelligent
-transport systems in Europe. It is considered to be one of the various tools to facilitate achieving 
+transport systems in Europe. It is considered to be one of the tools to facilitate achieving 
 the \emph{vision zero}, which is a project that aims to mitigate all fatalities involving road 
 transport.
 
 The European Commission outlined its plan for the coordinated deployment of C-ITS in Europe in
 its communication "A European strategy on Cooperative Intelligent Transport Systems", in which
-it also states that the full-scale deployment of C-ITS services and C-ITS-enabled vehicles is
+it also states that the full-scale deployment of C-ITS services and C-ITS-enabled vehicles were
 expected to start in 2019.
 
 The main feature of C-ITS is its distributed intelligence across vehicles and the infrastructure, 
@@ -306,12 +308,11 @@ operational tasks they serve \cite{CRoads2021}:
 
 \subparagraph{Project C-Roads}\label{sec-croads}
 
-To study the effects and refine the future deployment process of C-ITS, a project 
-organized by the EU member states and road operators, called \emph{C-Roads} was established. 
-The project's main objective is to harmonize C-ITS deployment activities across Europe. 
-Within the C-Roads project, 6 work groups (WG) were established, each focusing on a 
-specific topic/scope regarding C-ITS objectives and priorities for research, testing and pre-
-deployment of C-ITS \cite{Commision2021}. 
+The C-Roads project was established by the EU member states and road operators to study the
+effects and refine the future deployment process of C-ITS.  The project's main objective is to
+harmonize C-ITS deployment activities across Europe.  Within the C-Roads project, 6 work groups
+(WG) were established, each focusing on a specific topic/scope regarding C-ITS objectives and
+priorities for research, testing and pre- deployment of C-ITS \cite{Commision2021}. 
 
 \begin{itemize}
     \itemspacing{0.7}
@@ -323,10 +324,10 @@ deployment of C-ITS \cite{Commision2021}.
     \item WG6: Connectivity and digital infrastructure
 \end{itemize}
 
-Regarding the scope of this thesis, \emph{WG3} is the most informative segment. The focus of
+Regarding the scope of this thesis, \emph{WG3} is the most informative segment because the focus of
 this group was, in the first place, regarding the infrastructure support for autonomous
 vehicles\footnote{Autonomous vehicles of Level 4 defined by the Society of Automotive
-Engineers}. One of the objectives was linking relevant physical and digital infrastructure,
+Engineers}. One of the objectives was combining relevant physical and digital infrastructure,
 assessing the relevance between them and automated vehicles, and mapping infrastructure
 elements to use-cases as \emph{Generic Driving Tasks} (GDTs):
 
@@ -353,7 +354,7 @@ elements to use-cases as \emph{Generic Driving Tasks} (GDTs):
     \end{itemize}
 \end{itemize}
 
-It is therefore advisable to keep these General Driving Tasks in mind when thinking about the proposed framework 
+It is therefore advisable to keep these GDTs Tasks in mind when thinking about the proposed framework 
 features. To maximize the number of potential use cases of the designed MAS simulation framework, 
 it shall offer basic components to simulate all aforementioned GDTs, as the tasks above will be
 a fundamental part of the future C-ITS deployment.
@@ -406,15 +407,15 @@ the particular mapped ITS.
 
 \subsection{Conclusion}
 
-In this section, Intelligent Transport Systems are introduced. This field is an
+In this section, Intelligent Transport Systems are introduced. ITS is an
 important part of traffic engineering, utilizing traffic data and mathematical modeling to
-reduce congestion, improve traffic safety and reduce emissions. The main point of this section
+reduce congestion, improve traffic safety and reduce emissions. The main focus of this section
 is to discuss important features of Intelligent Transport Systems that are related to 
 the topic of this thesis. The relationship between the driver and ITS system and intelligence 
 distribution across ITS actors is discussed. ITS projects relevant to the thesis topic
-are investigated, including the R\&I efforts on the EU level. The results suggested that
-C-ITS systems are a current trend in research. Furthermore, numerous projects (e.g. C-Roads) have been
-established, paving the way for the future of interconnected vehicle mobility. 
+are investigated, including the research and developments efforts on the EU level. The results suggested that
+C-ITS systems are a hot topic in current research. Furthermore, numerous projects (e.g. C-Roads) have been
+built and tested, paving the way for the future of interconnected vehicle mobility. 
 
 \clearpage
 
