@@ -334,16 +334,15 @@ preceding the branch-off into the two routes. For visual reference, see Figure
     \label{fig-routeMap}
 \end{figure}
 
-To verify and prove that the Smart Routing IVIS system works, simulations were run iteratively with 
-parametrized traffic light queue size threshold for identifying congestion. In other words, the 
-queue size threshold parameter expresses how many vehicles should be in the traffic light queue before the 
-it broadcasts 
-%TODO
-The number 
-of vehicles to drive through the road stretch is chosen to be $N_v = 20 $ and the queue size 
-threshold ranged from $0..N_v$. To gather more results 
-and avoid the risk of unknowingly analyzing an edge case parameter combination, the simulation batch 
-was run multiple times with modified traffic flow influencing parameters. The variable parameters are:
+To verify and prove that the Smart Routing IVIS system works, simulations were run iteratively
+with parametrized traffic light queue size threshold for identifying congestion. In other
+words, the queue size threshold parameter expresses how many vehicles should be in the traffic
+light queue before the value of sub-cause code withing the broadcasted DEMN message changes
+from "free traffic" to "congestion". The number of vehicles to drive through the road stretch
+is chosen to be $N_v = 20 $ and the queue size threshold ranged from $0..N_v$. To gather more
+results and avoid the risk of unknowingly analyzing an edge case parameter combination, the
+simulation batch was run multiple times with modified traffic flow influencing parameters. The
+variable parameters are:
 
 \begin{itemize}
     \itemspacing{.7}
@@ -358,11 +357,11 @@ Table \ref{tab-sims} shows the three variations of chosen simulation parameters.
     \caption{Parameter values for simulation batches}
     \centering\begin{tabular}{lccc}
         \toprule
-        \# & $V_{alt}$ & $T_{green}$ & $T_{yellow}$ \\ 
+        \# & $V_{alt}$ & $T_{g}$ & $T_{s}$ \\ 
          & $[kmh^{-1}]$ & $[s]$ & $[s]$ \\ \midrule
-        1 & 25  & 6 & 5 \\
-        2 & 25  & 7 & 6 \\
-        3 & 30  & 7 & 5 \\ \bottomrule
+        1 & 25  & 6 & 4 \\
+        2 & 25  & 7 & 5 \\
+        3 & 30  & 7 & 4 \\ \bottomrule
     \end{tabular}
     \label{tab-sims}
 \end{table}
