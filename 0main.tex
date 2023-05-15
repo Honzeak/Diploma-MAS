@@ -116,7 +116,7 @@ application(s) for Intelligent Transport Systems (ITS) modeling in an IVS. Simul
 behavior in a virtual environment, such as an Interactive Vehicle Simulator (IVS), is a complex
 problem, mainly because of its highly dynamic nature. Trying to accurately simulate traffic on
 a microscopic level, where individual road users (e.g. vehicles) are the elementary units in a
-system requires complex modelling. All vehicles need to interact with each other and act upon
+system, requires complex modelling. All vehicles need to interact with each other and act upon
 other drivers' actions. Because agent-based simulations have proven to model complex behavior
 well \cite{Shoham}, this modeling technique seems like a suitable solution for achieving a realistic traffic
 environment for IVS. 
@@ -137,7 +137,7 @@ IVS, using the proposed framework and assessing its performance and overall resu
 \subsection{Introduction to the problem}
 
 In a world where vehicle transport plays an inseparable role in the society, with an ever-increasing
-demand, it is important to analyze and study driver behavior and inherently interactions and
+traffic demand, it is important to analyze and study driver behavior and inherently interactions and
 relationships between drivers and their environment. Even though
 substantial advancements in autonomous driving are being made, for the near future, vehicles 
 will be controlled by humans. Consequentially, this makes them exposed to a substantial danger. 
@@ -247,12 +247,6 @@ using the framework offers seamless interaction with other system components.
 
 \section{Conclusion}
 
-ITS solutions are often systems integrating a large number of 
-actors in a highly dynamic environment. In recent times, modern engineering made it possible 
-to equip mobile devices, including road vehicles, with high-performance computers, making 
-distributed intelligence a promising field for research, including Intelligent Transport Systems 
-research.
-
 The goal of this thesis was to investigate Multi-Agent Systems, which is a sub-field of Artificial Intelligence 
 research, especially research related to the application of Multi-Agent Systems in Intelligent Transport Systems 
 simulation. 
@@ -261,13 +255,13 @@ First, the area of Intelligent Transport Systems was investigated, setting delim
 that were important to the topic of the thesis. The relationship between IVS and ITS systems was discussed, leading 
 to a discussion about intelligence distribution and current research in the ITS field. 
 
-The second part was dedicated to MAS literature review and the main principles of MAS were discussed. Furthermore, MAS 
+The second part was dedicated to MAS literature review and the main principles of MAS were discussed. Furthermore, 
 individual MAS architectures were described and reviewed. Finally, the concepts of communication between agents were investigated,
 defining requirements on how the agents should communicate. 
 
-In the practical part of the thesis, delimitations and system requirements were defined first in order to facilitate the 
-process of implementation and clearly define the system's capabilities. The development platform was briefly discussed, 
-going over the options for potential facilitation of the implementation of the proposed system. It was identified that 
+In the practical part of the thesis, system requirements were defined first, in order to facilitate the 
+process of implementation and clearly define the system's capabilities. The development platform was discussed, 
+and MAS modeling libraries that would help building the framework were discussed. It was identified that 
 there are no suitable modules for MAS implementation to an IVS, as the research modules were either outdated or focused on 
 different aspects of multi-agent systems. Therefore, it was decided that the framework would be built from the ground up.
 
@@ -281,17 +275,17 @@ specification, how agents will send and receive information.  Based on the prece
 on ITS and MAS, the ETSI messaging standards (CAM \& DENM) were decided to be implemented.
 
 After the system for MAS-based ITS systems implementation has been specified, the next part was
-devoted to the system implementation.  The outcome is a highly modular framework that is
+devoted to the system implementation. The outcome is a highly modular framework that is
 integrated with the chosen simulator software, with general behavior specific to MAS \& ABM 
 and the architecture pre-implemented. The framework was implemented using the C\# programming 
 language and the simulator engine (Unity) API. 
 
-The developed framework was then validated by choosing a case appropriate for demonstration of the 
-framework's utility. The case was chosen to be a dynamic routing system whose purpose was to 
-improve traffic conditions by harmonizing a road network's load by the use of cooperative 
-traffic lights and connected vehicles. The system was successfully implemented and the analysis of the 
-simulation showed that the system is behaving as expected, i.e. reducing the overall travel time when 
-calibrated.
+The developed framework was then validated by choosing a case appropriate for demonstration of
+the framework's utility. The selected system for the demonstration was a dynamic routing system
+whose purpose was to improve traffic conditions by harmonizing a road network's load by the use
+of cooperative traffic lights and connected vehicles. The system was successfully implemented
+and the analysis of the simulation showed that the system is behaving as expected, i.e.
+reducing the overall travel time when calibrated.
 
 Overall, the goals specified by the thesis guidelines have been fulfilled. The outcome of the thesis is a 
 modular C\# framework/module which facilitates implementation of various (Cooperative) 
@@ -299,7 +293,7 @@ Intelligent Transport Systems solutions implementation into a vehicle simulator 
 
 \clearpage
 
-\thispagestyle{empty}
+\section{Attachments}
 
 \clearpage
 

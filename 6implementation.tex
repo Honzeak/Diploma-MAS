@@ -57,7 +57,7 @@ properties (fig. \ref{mas-its-components}).
 The deliberation layer is the highest from a hierarchical point of view. Its responsibility is to 
 create a plan that satisfies a goal that the agent gets as input. Apart from the layer 
 being abstract (i.e. requiring further implementation details specified by inheriting from the 
-class), it is also generic, which means that it will defer the type specification of its state until 
+class), it is also generic. That means that it will defer the type specification of its state until 
 it is declared by the derived class. This leaves the state specification to be implemented 
 to the user's needs. For example, a vehicle agent can have its state as a three-dimensional
 vector, whereas a broadcasting station will have its state defined as one of its possible
@@ -154,13 +154,13 @@ seen in figure \ref{fig-activity-diagram}.
 
 \subsection{Communication module implementation}
 
-As has been started section \ref{sec-requirements}, where in the system requirements were
+As has been started section \ref{sec-requirements}, where the system requirements are
 defined, the framework will come with a pre-implemented communication interface which will 
 allow the agents to exchange pre-defined messages. There are two
 base object types handling communication between agents - an agent-bound
 \texttt{CommunicationSkill} class that serves as an agent's proxy to the communication space,
 and the \texttt{MessageBroker} class that handles message delivery to individual agents. In
-addition to that Message types created according to the C-ITS and ACL standards were created to
+addition to that, message types created according to the C-ITS and ACL standards are created to
 carry appropriate content. The class diagram of the communication interface can be seen in
 figure \ref{fig-classes-comm}.
 
@@ -185,7 +185,7 @@ being delivered.
 
 When sending/broadcasting a message, apart from providing the actual content (i.e. 
 the message object), the message must be "wrapped" in a \texttt{tuple} which must 
-contain the sender ID. When sending the message directly, obviously, the sender must 
+contain the sender ID. When sending the message directly, the sender must 
 provide the recipient agent ID. 
 
 \subsubsection{Communication Skill}
@@ -207,7 +207,7 @@ the message, deciding if they are interested in the contents and acting upon it 
 \subsubsection{Message implementation}
 
 %% TODO: image reference %%
-The ACL and C-ITS (i.e. DENM and CAM services) message contents were implemented according to 
+The ACL and C-ITS (i.e. DENM and CAM services) message contents are implemented according to 
 the official documentation. For reference, the ACL message contents can be seen in the figure
 \ref{message-structure} and table \ref{cas}, the C-ITS message contents can be seen 
 in figures \ref{cam-spec} and \ref{denm-spec}.
@@ -241,7 +241,7 @@ through the constructor and is called at the start of the script lifetime
 
 The idea behind the proposed MAS ITS framework integration with Unity is to assign the \texttt{Agent} 
 class to game objects as a component in order to use the game object as an agent. For instance, the game object can be 
-a vehicle model or even a non-physical game object invisible in the scene, for example, a traffic controller. When 
+a vehicle model or even a non-physical game object invisible in the scene, e.g. a traffic controller. When 
 the \texttt{Agent} class would get assigned to a game object, it would be able to interact with its other game
 components and object properties through pre-defined sensor or actuator skills. 
 
@@ -254,9 +254,9 @@ the user wants to induce agent behavior on. The class will initialize an agent b
 
 \subsection{Conclusion}
 
-In this section, the implementation details of the proposed framework were discussed. The C\# language has been 
+In this section, the implementation details of the proposed framework are discussed. The C\# language has been 
 used to write the framework's code, as per the discussion in the section \ref{sec-toolset}. The framework's core 
-components were defined as abstract classes, implementing general behavior and defining required behavior to 
+components are defined as abstract classes, implementing general behavior and defining required behavior to 
 be implemented by the user, which is use-case dependent. For instance, such behavior can be the \texttt{Act}
 method in the \texttt{Skill} layer, which serves as Skill's way of interacting with the environment, which is 
 different for every defined Skill. The relations between classes and inner processes have been described, serving 

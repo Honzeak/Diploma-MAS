@@ -3,57 +3,74 @@
 \begin{document}
 \section{Discussion}
 
-This section will go over the overall process the work that has been done regarding the thesis and evaluate the outcomes.
-Firstly, it should be assessed whether the thesis has fulfilled the given guidelines in the thesis assignment. The following 
-section will go over the guidelines and discuss whether the assignment outline has been fulfilled. 
+This section goes over the overall process the work that has been done regarding the thesis
+and evaluate the outcomes.  Firstly, it should be assessed whether the thesis has fulfilled the
+given guidelines in the thesis assignment. The following section goes over the guidelines
+and discuss whether the assignment outline has been fulfilled. 
 
-\ul{\textbf{Research question \#1:} Can agent-based modeling be applied to simulate ITS in vehicle simulators and are they a viable option?}
+\ul{\textbf{Research question \#1:} Can agent-based modeling be applied to simulate ITS in
+vehicle simulators and are they a viable option?}
 
-In section \ref{sec-mas}, the literature regarding Multi-agent Systems was reviewed. The review is focused mainly on the 
-primary characteristics of MAS and on various types and implementation methodologies of MAS. The outcome of the section 
-was identifying important implementation details of MAS which would aid in ITS implementation using agent-based modelling. 
+In section \ref{sec-mas}, the literature regarding Multi-agent Systems is reviewed. The review
+is focused mainly on the primary characteristics of MAS and on various types and implementation
+methodologies of MAS. The outcome of the section is identifying important implementation
+details of MAS which would aid in ITS implementation using agent-based modelling. 
 
-In section \ref{sec-its}, the current research regarding ITS systems was reviewed. The current trends in ITS suggest that 
-modern ITS systems will rely on maximizing interoperability between individual road users, utilizing direct, non-centralized wireless 
-communication. Such features are common in agent-based systems as well, therefore it has been concluded that MAS could represent 
-a convenient way how to simulate such systems. Cooperative ITS (C-ITS) systems and connected In-vehicle Information Systems were 
-identified as the most suitable systems for application using MAS.
+In section \ref{sec-its}, the current research regarding ITS systems is reviewed. The current
+trends in ITS suggest that modern ITS systems will rely on maximizing interoperability between
+individual road users, utilizing direct, non-centralized wireless communication. Such features
+are common in agent-based systems as well, therefore it has been concluded that MAS could
+represent a convenient way how to simulate such systems. Cooperative ITS (C-ITS) systems and
+connected In-vehicle Information Systems are identified as the most suitable systems for
+application using MAS.
 
-\ul{\textbf{Research question \#2:} How would an ITS simulation be implemented into an existing IVS using agent-based modelling?}
+\ul{\textbf{Research question \#2:} How would an ITS simulation be implemented into an existing
+IVS using agent-based modelling?}
 
-In section \ref{sec-system}, a system to integrate novel ITS solutions into a vehicle simulator was developed using the research findings in the 
-preceding parts of the thesis. The system implemented the \textsubscript{3}T architecture for individual agents that was supposed 
-to offer a sufficient balance between system complexity and modularity. The architecture of the macro-system, which defined mainly 
-how agents interact with each other, has been also developed in line with requirements based on MAS research as well. The 
-system was then implemented using the C\# programming language, because of its object-oriented properties and the fact that 
-the intended simulator software uses C\# scripting API as well, allowing for deep integration with the software. The implementation comprised partially functional classes that 
-defined the system's structure but were open to detailed logic implementation based on the specific use case. 
+In section \ref{sec-system}, a system to integrate novel ITS solutions into a vehicle simulator
+is developed using the research findings in the preceding parts of the thesis. The system
+implemented the \textsubscript{3}T architecture for individual agents that is supposed to
+offer a sufficient balance between system complexity and modularity. The architecture of the
+macro-system, which defined mainly how agents interact with each other, is also developed
+in line with requirements based on MAS research as well. The system is then implemented using
+the C\# programming language, because of its object-oriented properties and the fact that the
+intended simulator software uses C\# scripting API as well, allowing for deep integration with
+the software. The implementation comprises partially functional classes that define the
+system's structure but are open to detailed logic implementation based on a specific use
+case. 
 
-\ul{\textbf{Research question \#3:} What are the available modules and libraries for implementing MAS in different programming languages? }
+\ul{\textbf{Research question \#3:} What are the available modules and libraries for
+implementing MAS in different programming languages? }
 
-As a secondary objective to building an ITS simulation framework for an IVS, it was required to review available MAS implementation 
-modules that would facilitate building the desired framework. Multiple modules were reviewed, including their main use-cases 
-and implementation details. After discussing the main aspects of integration into the simulator
-software (section \ref{sec-toolset}), it was concluded that there are no suitable modules for MAS implementation to the
-specific IVS, as the researched modules were either outdated or focused on different aspects
-of multi-agent systems. Therefore, it was decided that the framework would be built from the
-ground up.
+As a secondary objective to building an ITS simulation framework for an IVS, it is required to
+review available MAS implementation modules that would facilitate building the desired
+framework. Multiple modules are reviewed, including their main use-cases and implementation
+details. After discussing the main aspects of integration into the simulator software (section
+\ref{sec-toolset}), it is concluded that there are no suitable modules for MAS implementation
+to the specific IVS, as the researched modules are either outdated or focused on different
+aspects of multi-agent systems. Therefore, it is decided that the framework would be built
+from the ground up.
 
-\ul{\textbf{Research question \#4:} Evaluate advantages and disadvantages of ABM in IVS for ITS simulation}
+\ul{\textbf{Research question \#4:} What are the advantages and challenges associated with
+using agent-based modeling to simulate Intelligent Transport Systems in vehicle simulators, and
+how can they be addressed?}
 
-The system evaluation was, in part, done by implementing a sample C-ITS system into the simulator software, with a cooperative 
-traffic light and connected vehicles. The implementation of the sample system has proved that it is possible to implement specific 
-ITS solutions using the developed framework, therefore simulating Intelligent Transport Systems using agent-based modeling is 
-possible.
+The system evaluation is, in part, done by implementing a sample C-ITS system into the
+simulator software, with a cooperative traffic light and connected vehicles. The implementation
+of the sample system proves that it is possible to implement specific ITS solutions using
+the developed framework, therefore simulating Intelligent Transport Systems using agent-based
+modeling is possible.
 
-The observed challenges were that implementing conflict resolution and cooperation between agents deemed to be a very complex topic 
-which would take a lot of additional research and effort to implement and therefore was decided that it will not be part of the 
-developed ITS implementation framework. This could result in a less stable agent behaviour during simulation. 
+The observed challenges are that implementing conflict resolution and cooperation between
+agents deems to be a very complex topic which would take a lot of additional research and
+effort to implement and therefore is decided that it will not be part of the developed ITS
+implementation framework. This could result in a less stable agent behaviour during simulation.
+This missing feature could be added in future improvements to the framework.
 
 \subsection{Results}
 
-Based on the designed system and its implementation, the implications of the research activity and its benefits, caveats and application 
-possibilities will be analyzed. 
+Based on the designed system and its implementation, the implications of the research activity
+and its benefits, caveats and application possibilities are analyzed. 
 
 \subsubsection{Benefits}
 
@@ -70,7 +87,7 @@ greater benefits is the fact that communication API  for the system developer ha
 implemented, according to the C-ITS ETSI standards. This makes it very easy for developers to
 implement C-ITS systems which rely heavily on distributed road user communication, which has
 been the case when developing a sample ITS simulation (dynamic vehicle navigation) in order to
-validate the framework's capabilities.  The development process of the communication interface
+validate the framework's capabilities. The development process of the communication interface
 was simply filling the pre-defined DENM and CAM message parameters with desired information.
 The inner architecture of agents defined by the framework allows to develop complex, dynamic
 behaviour.

@@ -4,31 +4,34 @@
 \begin{document}
 \section{System validation} \label{sec-validation}
 
-This section will be devoted to the evaluation and demonstration of the proposed MAS-based ITS
-implementation framework. An ITS solution will be chosen to demonstrate implementation using 
-the framework, serving as a validation of the system design. The chosen ITS solution will be simulated
-in the IVS software by using the proposed framework. The implementation process will be documented, 
-and the simulation results will be discussed.
+This section is devoted to the evaluation and demonstration of the proposed MAS-based ITS
+implementation framework. An ITS solution is chosen to demonstrate implementation using 
+the framework, serving as a validation of the system design. The chosen ITS solution is then simulated
+in the IVS software by using the proposed framework. The implementation process is documented, 
+and the simulation results are discussed.
 
 \subsection{Qualitative analysis}
 
-The following paragraphs will pick up on the findings in the section \ref{sec-croads}, where the
+The following paragraphs picks up on the findings in the section \ref{sec-croads}, where the
 table \ref{gdt-mapping} maps GDTs to state-of-the-art ITS solutions. Those
-ITS solutions will be analyzed in this section in an attempt to transparently select an optimal
+ITS solutions are analyzed in this section in an attempt to transparently select a 
 system to implement using the developed framework in order to validate and demonstrate its
 use-case. 
 
-In order to demonstrate the framework's capabilities, a suitable ITS will be chosen to
-implement using the framework.  The goal is to identify which ITS solutions are suitable to
-implement using the multi-agent simulation framework.  In order to achieve this, attributes
-reflecting the suitability to implement will be defined. For each system in a selection of
-relevant ITS solutions, a value will be assigned to each identified attribute, based on how
-strongly the feature is represented in the system. A sum of the scores for each ITS solution
-will make for a qualitative benchmark that will be used to select an ITS solution for
-demonstration of the proposed framework's capabilities.
+In order to demonstrate the framework's capabilities, a suitable ITS is chosen to implement
+using the framework.  The goal is to identify which ITS solutions are suitable to implement
+using the multi-agent simulation framework. In order to achieve this, attributes reflecting
+the suitability to implement are defined. For each system in a selection of relevant ITS
+solutions, a numerical value is assigned to each identified attribute, based on how strongly
+the feature is represented in the system. The decision of the value of feature representation
+rate is decided by the thesis' author \emph{subjectively}, based on his knowledge of the topic. This
+is considered as sufficient given the fact that the validation is done still in the development
+stage of the framework A sum of the scores for each ITS solution makes for a qualitative
+benchmark that is used to select an ITS solution for demonstration of the proposed framework's
+capabilities.
 
 The method to determine how well-suited the candidate system type is for the implementation to
-an IVS will be to evaluate it based on the \emph{three} features discussed in the preceding
+an IVS is to evaluate it based on the \emph{three} features discussed in the preceding
 section \ref{sec-its}: 
 
 \begin{itemize}
@@ -38,8 +41,8 @@ section \ref{sec-its}:
     \item Research relevance
 \end{itemize}
 
-A set of integer values will determine the rates how the selected features are represented in the 
-ITS solution in question. The representation level will be expressed in a fuzzy logic given in four levels:
+A set of integer values determine the rates how the selected features are represented in the 
+ITS solution in question. The representation level is expressed in a fuzzy logic given in four levels:
 
 \begin{itemize}
     \itemspacing{.5}
@@ -50,14 +53,14 @@ ITS solution in question. The representation level will be expressed in a fuzzy 
 \end{itemize}
 
 Because \emph{None} representation of the feature does not bear any significance to choosing an ITS 
-in question, it will be assigned zero. \emph{Low} representation should not have a significant impact on 
+in question, it is assigned zero. \emph{Low} representation should not have a significant impact on 
 the suitability of ITS, therefore its value is only incremented by two as opposed to \emph{None}. \emph{Moderate}
 and \emph{High} rates of feature representation should have a more significant influence on the final system 
 choice, therefore their values have been assigned as increments of three instead of two. 
 
-Each system reviewed in section \ref{sec-its} will be evaluated and the sum of individual feature evaluation 
-will determine its score, meaning the higher the score, the better the result for a particular ITS. The system 
-with the \emph{highest} score will be chosen to implement using the proposed framework. The results of the 
+Each system reviewed in section \ref{sec-its} is evaluated and the sum of individual feature evaluation 
+determines its score. The higher the score, the better the result for a particular ITS. The system 
+with the \emph{highest} score is chosen to implement using the proposed framework. The results of the 
 qualitative analysis can be seen in the table \ref{qa-table} below.
 
 \begin{table}[htbp]
@@ -83,14 +86,14 @@ qualitative analysis can be seen in the table \ref{qa-table} below.
 
 \subsubsection{Results discussion}
 
-The conducted analysis has determined two ITS solutions as suitable systems to demonstrate 
-implementation - In-vehicle Information System (IVIS) awareness and warning system and Green
-Light Optimal Speed Advisory (GLOSA). Both these come from the state-of-the-art C-ITS subfield. As 
-previously discussed, the GLOSA system is using dedicated message types in its implementation -
-the SPaT and MAP messages. On the other hand, the IVIS system can use the pre-implemented 
-CAM and DENM messages to share traffic-related information. For this reason, the 
-\emph{IVIS-based awareness and warning information system} will be chosen to implement 
-using the proposed framework. In the following section, the system will be described.
+The conducted analysis has determined two ITS solutions as suitable systems to demonstrate
+implementation - In-vehicle Information System (IVIS) awareness and warning system and
+Cooperative ACC. Both come from the state-of-the-art C-ITS subfield. As previously
+discussed, the Cooperative ACC system is using dedicated message types in its implementation - the SPaT
+and MAP messages. On the other hand, the IVIS system can use the pre-implemented CAM and DENM
+messages to share traffic-related information. For this reason, the \emph{IVIS-based awareness
+and warning information system} is chosen to implement using the proposed framework. In
+the following section, the system is described.
 
 The developed system should also be able to model state-of-the-art ITS systems that utilize communication between 
 road users, such as C-ITS systems. 
@@ -100,12 +103,12 @@ The In-Vehicle Information System, shortly IVIS, is a term that comprises a vast
 solutions that assist the driver either by providing information about the vehicle and the surrounding environment 
 or serving as an interface to control vehicle systems. 
 
-The integral part is the \emph{Infotainment system}, which is a
-video/audio interface, providing control through elements such as touch screen button panel or
-voice commands.  Moreover, it integrates other vehicle technology elements, such as the CAN
-interface, connectivity modules (e.g. Wi-Fi, GPS), sensors etc \cite{Saxena}. A screen panel is
-an excellent medium to provide additional safety information to the driver, especially when the
-gauge clusters have been replaced by an additional screen which improves the HMI aspect by
+The integral part is the \emph{Infotainment system}, which is, in most cases, a touch screen
+interface. It provides control through elements such as touch screen button panel or voice
+commands. Moreover, it integrates other vehicle technology elements, such as the CAN interface,
+connectivity modules (e.g. Wi-Fi, GPS), sensors etc \cite{Saxena}. A screen panel is an
+excellent medium to provide additional safety information to the driver, especially when the
+gauge clusters have been replaced by an additional screen. This improves the HMI aspect by
 reducing the disruptive effect of checking the screen and making the displayed information more
 noticeable. 
 
@@ -127,11 +130,11 @@ technical solutions to display the information on the infotainment screen.
 
 \subsection{In-Vehicle Information System implementation}
 
-With the particular ITS implementation decided, the whole process of implementation will be 
+With the particular ITS implementation decided, the whole process of implementation is 
 described. Before describing the implementation process itself, a description of the 
-implemented IVIS solution will be given, together with implementation requirements and expected
-results. Afterward, the custom testing environment setup (i.e. the system implementation) will % TODO reword
-be presented. Finally, the implementation test results will be presented and discussed.
+implemented IVIS solution is given, together with implementation requirements and expected
+results. Afterward, is custom testing environment setup (i.e. the system implementation) is % TODO reword
+be presented. Finally, the implementation test results are presented and discussed.
 
 \subsubsection{System description and requirements}
 
@@ -174,14 +177,14 @@ the following specification:
  \end{enumerate}
 
 If these conditions are met, the system should have a positive effect on traffic by decreasing the overall 
-travel time for vehicles. The implementation will be validated by collecting and analyzing traffic data from 
+travel time for vehicles. The implementation is validated by collecting and analyzing traffic data from 
 the simulation.
 
 \subsubsection{External dependencies}
 
 In order to facilitate the validation experiment setup and keep the experiment scope to C-ITS
 Smart Routing system implementation, additional packages available to use in the simulation
-software will be utilized to model the traffic. Below is a brief overview of the external packages.
+software are utilized to model the traffic. Below is a brief overview of the external packages.
 
 \textbf{EasyRoads3D by AndaSoft} \smallskip \\
 This package allows one to easily build roads directly in the Unity UI. The main advantage of
@@ -189,7 +192,7 @@ the package is usage simplicity and friendly UI - the user can create road stret
 simple mouse-based UI with the possibility to connect road segments to create intersections and
 build a road network.
 
-With this tool, a testing road network will be built that the vehicle agents will drive through.
+With this tool, a testing road network is built that the vehicle agents will drive through.
 
 \begin{figure}[htbp]
     \centering
@@ -201,10 +204,10 @@ With this tool, a testing road network will be built that the vehicle agents wil
 \textbf{Simple Traffic System by TurnTheGameOn} \smallskip \\
 This package can be used to easily generate vehicle traffic. The traffic is set up by creating
 waypoint-based routes that can be interconnected in a modular way to populate road networks
-with traffic. Vehicles can be spawned to follow the route waypoints without crashing into each
+with traffic. Vehicles are spawned to follow the route waypoints without crashing into each
 other.
 
-This tool will be used to create vehicles that will follow a pre-defined path of points. 
+This tool is used to create vehicles that follow a pre-defined path of points. 
 The package also features a traffic light interaction functionality where a route can manage
 yielding vehicles based on the traffic light signal. 
 
@@ -217,16 +220,16 @@ yielding vehicles based on the traffic light signal.
 
 \subsubsection{Agent implementation}\label{sec-implementation}
 
-This section will cover the implementation of the chosen C-ITS solution using the proposed 
-MAS framework. Based on the specification, two agents will be created. The agents will be 
+This section covers the implementation of the chosen C-ITS solution using the proposed 
+MAS framework. Based on the specification, two agents are created. The agents are 
 created by inheriting classes from the MAS framework components and implementing custom behavior, as 
 well as using its pre-defined C-ITS communication modules to simulate V2X communication. 
 
 \textbf{Connected Traffic Light} \smallskip \\
 The Connected Traffic Light agent is the first actor in the Smart Routing implementation.
-There will be only one instance of this agent in the simulation which will manage a single
-traffic light. This agent will monitor the number of vehicles in the queue at a designated
-intersection and process the data to evaluate if congestion is forming. It informs about its
+There is only one instance of this agent in the simulation which manages a single
+traffic light. This agent monitors the number of vehicles in the queue at a designated
+intersection and processes the data to evaluate if congestion is forming. It informs about its
 local traffic state via localized (meaning that message includes the traffic light's location)
 DENM messages broadcasted to all connected road users.
 
@@ -266,15 +269,15 @@ four Skills:
 \begin{itemize}
     \item \texttt{ITSCommunicationSkill} - C-ITS messaging interface, as has been described before.
     \item \texttt{VehicleInfoSkill} - A Skill for retrieving information about the vehicle, namely 
-    its current position, and additional navigation properties, which will be discussed separately.
+    its current position, and additional navigation properties, which is discussed separately.
     \item \texttt{CAMPositionUpdateSkill} - As the name suggests, this is a trivial "plumbing" Skill 
     that takes vehicle position from the foregoing Skill and updates the broadcasted CAM message of 
     the message service Skill accordingly.
     \item \texttt{CongestionMonitorSkill} - This Skill takes input from \texttt{VehicleInfoSkill} and 
     processes received DENM messages if there are updates about traffic conditions on the network. 
     Initially, it checks whether the DENM event location is along the planned route and throws the 
-    message away if not. If there is congestion on the planned route, the Skill will find out and 
-    trigger a Skill Interrupted event, which will signal to the Deliberation layer to re-plan the route. 
+    message away if not. If there is congestion on the planned route, the Skill then finds out and 
+    triggers a Skill Interrupted event, which signals to the Deliberation layer to re-plan the route. 
     Here, the parametrized initialization of the agent's task is utilized by providing a flag/switch to 
     plan the default or an alternative route. 
 \end{itemize}
@@ -299,8 +302,8 @@ on figure \ref{ad-smartRoutingVehicle}.
 \textbf{Other modifications} \smallskip \newline
 Since the information about vehicle navigation and route information is managed by the
 \emph{Simple Traffic System} (STS) package scripts, modifications needed to be added to the
-vehicle management and route management scripts. This mainly involved exposing private fields
-to be publicly accessed or adding other ways how to modify inner properties from the outside,
+vehicle management and route management scripts. This mainly involved exposing private class fields
+to be accessible to other classes or adding other ways how to modify inner properties from the outside,
 so that the external MAS framework scripts can interact with them. The
 \texttt{VehicleInfoSkill} provided an interface to manipulate required properties.
 Additionally, the route-switching algorithm has been modified. In the original (STS) code,
@@ -313,7 +316,8 @@ the time taken by each vehicle to reach its destination can be measured and furt
 
 \subsubsection{Simulation set-up}
 
-After describing the IVIS system implementation details, the simulation set-up and evaluation methodology will be described. 
+After describing the IVIS system implementation details, the simulation set-up and evaluation
+methodology is described. 
 
 Using the third-party packages, a road stretch has been created to test the implementation.
 The road stretch features a primary route that has got a traffic light along the way, imitating 
@@ -331,8 +335,12 @@ preceding the branch-off into the two routes. For visual reference, see Figure
 \end{figure}
 
 To verify and prove that the Smart Routing IVIS system works, simulations were run iteratively with 
-parametrized traffic light queue size threshold for identifying congestion. The number 
-of vehicles to drive through the road stretch was chosen to be $N_v = 20 $ and the queue size 
+parametrized traffic light queue size threshold for identifying congestion. In other words, the 
+queue size threshold parameter expresses how many vehicles should be in the traffic light queue before the 
+it broadcasts 
+%TODO
+The number 
+of vehicles to drive through the road stretch is chosen to be $N_v = 20 $ and the queue size 
 threshold ranged from $0..N_v$. To gather more results 
 and avoid the risk of unknowingly analyzing an edge case parameter combination, the simulation batch 
 was run multiple times with modified traffic flow influencing parameters. The variable parameters are:
@@ -340,8 +348,8 @@ was run multiple times with modified traffic flow influencing parameters. The va
 \begin{itemize}
     \itemspacing{.7}
     \item Alternative route speed limit ($V_{alt}$)
-    \item Green phase length ($T_{green}$)
-    \item Yellow phase length ($T_{yellow}$)
+    \item Green phase length ($T_{g}$)
+    \item Stop phase length ($T_{s}$)
 \end{itemize}
 
 Table \ref{tab-sims} shows the three variations of chosen simulation parameters.
@@ -352,19 +360,21 @@ Table \ref{tab-sims} shows the three variations of chosen simulation parameters.
         \toprule
         \# & $V_{alt}$ & $T_{green}$ & $T_{yellow}$ \\ 
          & $[kmh^{-1}]$ & $[s]$ & $[s]$ \\ \midrule
-        1 & 25  & 6 & 1 \\
-        2 & 25  & 7 & 2 \\
-        3 & 30  & 7 & 1 \\ \bottomrule
+        1 & 25  & 6 & 5 \\
+        2 & 25  & 7 & 6 \\
+        3 & 30  & 7 & 5 \\ \bottomrule
     \end{tabular}
     \label{tab-sims}
 \end{table}
 
 \subsubsection{Simulation results}
 
-The simulations were successfully run and the logs containing travel time for each vehicle were processed 
-and evaluated. The observed variables were \emph{Total travel time} (TTT), \emph{Maximum travel time}
-and \emph{Minimum travel time}. The plotted simulation results are in Figures \ref{fig-sim-ttt} and \ref{fig-sim-minmax}.
-Note that the plot legend conveys information about simulation parameters in format [ $V_{alt}$ - $T_{green}$ - $T_{yellow}$ ].
+The simulations were successfully run and the logs containing travel time for each vehicle were
+processed and evaluated. The observed variables were \emph{Total travel time}, \emph{Maximum
+travel time} ($TT_{max}$) and \emph{Minimum travel time} ($TT_{min}$), which were recorded for
+simulation runs with a variable queue size threshold. The plotted simulation results are in
+Figures \ref{fig-sim-ttt} and \ref{fig-sim-minmax}. Note that the plot legend conveys
+information about simulation parameters in format [ $V_{alt}$ - $T_{g}$ - $T_{s}$ ].
 
 \begin{figure}[htbp]
     \centering
@@ -396,17 +406,17 @@ variations.
 
 \subsection{Conclusion}
 
-In this section, an ITS solution for the framework validation has been chosen to implement
+In this section, an ITS solution for the framework validation is chosen to implement
 using the proposed framework, based on a qualitative analysis considering criteria determined
-from preceding discussion and research. The system to implement was the Smart Routing C-ITS
+from preceding discussion and research. The system to implement is the Smart Routing C-ITS
 utilizing V2I communication, dynamically re-planning optimal route to the destination. Requirements
-for system implementation were defined to better evaluate the implementation results.
-Afterward, third-party packages that facilitate validation scenario development were briefly
+for system implementation are defined to better evaluate the implementation results.
+Afterward, third-party packages that facilitate validation scenario development are briefly
 introduced, leading to agent type specification and their components, as well as
 action diagrams outlining their behavior, while also addressing the required IVS package code
-changes to ensure successful integration with the agent framework. Simulation methodology was
-introduced and simulations were successfully run, after which the results were analyzed. From the 
-simulation results, it was identified that the chosen system behaved as one would expect and it
-was concluded that the implementation of the C-ITS system was successful. 
+changes to ensure successful integration with the agent framework. Simulation methodology is
+introduced and simulations are successfully run, after which the results are analyzed. From the 
+simulation results, it is identified that the chosen system behaved as one would expect and it
+is concluded that the implementation of the C-ITS system is successful. 
 
 \end{document}
